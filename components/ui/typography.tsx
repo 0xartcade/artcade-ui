@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import NextLink, { LinkProps } from "next/link";
 import { cn } from "@/lib/utils";
 
 export const Title = ({
