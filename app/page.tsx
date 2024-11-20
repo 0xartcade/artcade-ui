@@ -29,7 +29,7 @@ export default function Home() {
       <section className="grid grid-cols-2 sm:grid-cols-3 gap-y-8 gap-x-8 items-center">
         <div className="flex gap-x-2">
           <ShapeCircleIcon className="w-12 md:w-14" />
-          <ShapeWordmarkIcon className="w-24` md:w-28" />
+          <ShapeWordmarkIcon className="w-24 md:w-28" />
         </div>
         <Image
           src="/logo.png"
@@ -50,13 +50,13 @@ export default function Home() {
         <SubHeading2>Follow along on X</SubHeading2>
         <div className="flex gap-x-8 mt-4">
           <Link
-            href="https://x.com/mattscobel"
+            href="https://x.com/scobelverse"
             target="_blank"
             rel="noopener noreferrer"
             className="duration-150 ease-in hover:scale-105"
           >
             <Paragraph className="bg-gradient-to-r from-neon-blue via-neon-purple to-neon-pink bg-clip-text text-transparent">
-              @mattscobel
+              @scobelverse
             </Paragraph>
           </Link>
           <Link
