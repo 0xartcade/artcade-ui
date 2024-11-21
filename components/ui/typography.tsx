@@ -11,7 +11,7 @@ export const Title = ({
   return (
     <h1
       className={cn(
-        "text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-title uppercase bg-gradient-to-b from-neon-blue via-neon-purple to-neon-pink bg-clip-text text-transparent",
+        "text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-title bg-gradient-to-b from-neon-blue via-neon-purple to-neon-pink bg-clip-text text-transparent",
         className
       )}
     >
@@ -65,7 +65,11 @@ export const Paragraph = ({
   children: ReactNode;
   className?: string;
 }) => {
-  return <p className={cn("leading-7", className)}>{children}</p>;
+  return (
+    <p className={cn("leading-7 [&:not(:first-child)]:mt-6", className)}>
+      {children}
+    </p>
+  );
 };
 
 export const Caption = ({

@@ -1,14 +1,5 @@
 export const logs = [
   {
-    date: "2024-11-19",
-    title: "Init Commit",
-    author: "mpeyfuss",
-    content: `
-# Init Commit
-    
-We've now scaffolded this app! Woo hoo!`
-  },
-  {
     date: "2024-11-20",
     title: "start at the beginning",
     author: "scobel",
@@ -31,5 +22,15 @@ but then, as quickly as it happened it crashed. prices dropped, sales ended, and
 this project is about reversing this course. fixing history. getting us back onto the path we were on. a path that focused on art. a path that uplifted artists. a path breathed real color, real life, real vibrance into world changing but ultimately boring technology.
 
 time to get to work.`
-  }
+  },
+  {
+    date: "2024-11-19",
+    title: "init commit",
+    author: "mpeyfuss",
+    content: `hello world...
+    
+welcome to 0xArtcade...
+
+more to come...`
+  },
 ];

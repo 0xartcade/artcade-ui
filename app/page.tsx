@@ -15,7 +15,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div className="flex flex-col items-center gap-y-4 text-center">
-      <Title>Artcade</Title>
+      <Title>0xARTCADE</Title>
       <SubHeading className="max-w-lg">gameified art discovery</SubHeading>
 
       <Image

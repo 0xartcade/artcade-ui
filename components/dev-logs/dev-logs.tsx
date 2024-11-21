@@ -17,7 +17,7 @@ export const DevLogs = () => (
       >
         <div className="w-full flex justify-between border-b-2 border-border p-4 items-end">
           <div>
-            <Paragraph>{title}</Paragraph>
+            <SubHeading2>{title}</SubHeading2>
             <Caption>{author}</Caption>
           </div>
           <Caption>{date}</Caption>
@@ -28,7 +28,7 @@ export const DevLogs = () => (
               h1: (props) => <Heading>{props.children}</Heading>,
               h2: (props) => <SubHeading>{props.children}</SubHeading>,
               h3: (props) => <SubHeading2>{props.children}</SubHeading2>,
-              p: (props) => <Paragraph className="mb-6">{props.children}</Paragraph>,
+              p: (props) => <Paragraph>{props.children}</Paragraph>,
             }}
           >
             {content}
