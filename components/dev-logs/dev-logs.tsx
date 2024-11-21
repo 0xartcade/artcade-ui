@@ -28,7 +28,7 @@ export const DevLogs = () => (
               h1: (props) => <Heading>{props.children}</Heading>,
               h2: (props) => <SubHeading>{props.children}</SubHeading>,
               h3: (props) => <SubHeading2>{props.children}</SubHeading2>,
-              p: (props) => <Paragraph>{props.children}</Paragraph>,
+              p: (props) => <Paragraph className="mb-6">{props.children}</Paragraph>,
             }}
           >
             {content}
