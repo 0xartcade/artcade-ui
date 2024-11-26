@@ -1,5 +1,19 @@
 export const logs = [
   {
+    date: "2024-11-25",
+    title: "weekend warrior",
+    author: "mpeyfuss",
+    content: `gm
+
+I've scaffolded the API and smart contracts repo over the weekend. I decided to do that instead of paying attention to the pump dot fun live stream fiasco. This was a better use of my time.
+
+We've also sorted out a lot of the architecture from a high level on the contract structure and how the API will be built.
+
+I like python and I like boring API frameworks, as they enable me to code faster. So I chose Django REST Framework to build our API. If you don't like it, too bad :)
+
+It's time to build now.`
+  },
+  {
     date: "2024-11-20",
     title: "start at the beginning",
     author: "scobel",
