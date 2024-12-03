@@ -1,5 +1,21 @@
 export const logs = [
+  {
+    date: "2024-12-02",
+    title: "system architecture",
+    author: "mpeyfuss",
+    content: `gm
 
+I think we have a good system architecture planned. To start, we'll target crypto-native users but put all gameplay into a PWA so your phone is your companion in a way, even if you access the main site from your phone.
+
+DRF is already proving to be a great choice. We are forgoing Privy or Dynamic as they complicate things imo, and cost a lot. Syncing users to our db just is something that take a lot of effort and I'm not convinced these solutions are "it". Much more interested in Coinbase Smart Wallet type solutions.
+
+I'm excited to build my first PWA.
+
+Still architecting exact contract structure, but have a good headstart on it.
+
+Onwards and upwards.
+
+  `},
   {
     date: "2024-12-01",
     title: "rapid prototyping",
@@ -18,14 +34,12 @@ i think this is how we'll do it for production. no desktop version. play in the 
 
 can't have advantages of playing with a full screen on a desktop.
 
-    `},
-
-
-    {
-      date: "2024-12-01",
-      title: "unicorn mode",
-      author: "scobel",
-      content: `
+  `},
+  {
+    date: "2024-12-01",
+    title: "unicorn mode",
+    author: "scobel",
+    content: `
     
 i'm really blown away by what things like cursorai is capable of
 
@@ -45,9 +59,7 @@ guess 4 out of 4 and things get weird
 
 this is going in the game as an easter egg. shhhhh
   
-      `},
-
-
+  `},
   {
     date: "2024-11-30",
     title: "game designs",
@@ -68,8 +80,7 @@ i wonder what marco will think when i hand him poorly written react components i
 
 we're going to find out soon i suppose
 
-    `},
-
+  `},
   {
     date: "2024-11-30",
     title: "real game data",
@@ -86,8 +97,7 @@ right now we're just storing it as a json file but he'll have it in a database s
 in the meantime, i can use it to test some ui/ux for the games
 
 going to try to use 6529 collections "the memes" for the prototype
-`},
-
+  `},
   {
     date: "2024-11-30",
     title: "ui sandbox",
@@ -106,9 +116,7 @@ been testing a few interfaces and components we talked about
 
 something about the little tags that twitter/x uses for "subjects" when you join...
 
-    `},
-
-
+  `},
   {
     date: "2024-11-29",
     title: "logo design",
@@ -129,13 +137,12 @@ makes for a nice little svg logo to use together
 
 you can see it in the background of this page now
 
-    `},
-
-    {
-      date: "2024-11-28",
-      title: "project tracking",
-      author: "scobel",
-      content: `
+  `},
+  {
+    date: "2024-11-28",
+    title: "project tracking",
+    author: "scobel",
+    content: `
     
 i spent a few years (ok a decade) as a product manager for startups in tech
 
@@ -147,8 +154,7 @@ i setup a little github project to track [shapecraft hackathon 2024](https://git
 
 check out our [website](https://0xartcade.xyz) or follow us on [twitter](https://twitter.com/0xartcade)
   
-      `},
-
+  `},
   {
     date: "2024-11-27",
     title: "brand inspiration",
@@ -170,13 +176,12 @@ at the same time i love the modern design of Apples glassui and spatial interfac
 the idea of depth with a touch of color and a hint of neon just speaks to me. 
 
 you can check out some of the inspiration [here](https://www.figma.com/design/Vwq3VcuZgdpqECNxdNbr47/0xArtcade---Designs?node-id=61-105&t=MdNWNcn35FmvEv8l-1) (password is foreverworlds)
-    `},
-
-{
-  date: "2024-11-26",
-  title: "what's in a name?",
-  author: "scobel",
-  content: `
+  `},
+  {
+    date: "2024-11-26",
+    title: "what's in a name?",
+    author: "scobel",
+    content: `
   
 i honestly can't remember how we came to this 0xArtcade brand. i think it went something like "Marco - we should make a framework and platform for any art based game to exist onchain. what should we call it"
 
@@ -189,10 +194,7 @@ i honestly can't remember how we came to this 0xArtcade brand. i think it went s
 and here we are. 0xArcade is born. a place to play art based games onchain. a place to earn awards. a place to support artists.
 
 now we just need a slogan. "gamified art exploration" isn't going to cut it
-  `
-},
-
-
+  `},
   {
     date: "2024-11-25",
     title: "weekend warrior",
