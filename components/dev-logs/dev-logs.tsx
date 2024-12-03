@@ -29,6 +29,12 @@ export const DevLogs = () => (
               h2: (props) => <SubHeading>{props.children}</SubHeading>,
               h3: (props) => <SubHeading2>{props.children}</SubHeading2>,
               p: (props) => <Paragraph>{props.children}</Paragraph>,
+              a: (props) => (
+                <a
+                  {...props}
+                  className="text-neon-blue hover:text-neon-purple transition-colors duration-200"
+                />
+              ),
             }}
           >
             {content}
