@@ -10,7 +10,6 @@ export default function LeaderboardLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const isGameRoute = pathname.startsWith('/leaderboard/game');
 
   const tabs = [
     { name: 'Global', href: '/leaderboard' },

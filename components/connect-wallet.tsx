@@ -11,7 +11,7 @@ import { useWalletStore } from "@/lib/store/wallet-store"
 import { WalletIcon } from "lucide-react"
 
 export function ConnectWalletButton() {
-  const { connect, isConnected, address } = useWalletStore()
+  const { connect, isConnected } = useWalletStore()
 
   if (isConnected) {
     return null
