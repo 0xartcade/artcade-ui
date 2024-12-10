@@ -23,7 +23,7 @@ export function Header() {
     >
       <div className="container mx-auto py-4">
         <nav className="flex items-center justify-between">
-          <Link href="/" className="text-xl font-bold text-zinc-100">
+          <Link href="/dashboard" className="text-xl font-bold text-zinc-100">
             0xArtcade
           </Link>
           
@@ -36,7 +36,7 @@ export function Header() {
             </Button>
             <Button 
               variant="ghost" 
-              onClick={(e) => handleNavigation(e, "/leaderboards")}
+              onClick={(e) => handleNavigation(e, "/leaderboard")}
             >
               Leaderboard
             </Button>
