@@ -81,8 +81,7 @@ export function ThreePanel({
             transition={transition}
             className="bg-zinc-900/30 rounded-lg p-4 relative"
           >
-            <div className={`absolute inset-0 bg-zinc-900/30 rounded-lg transition-opacity duration-300 ${activePanel === "left" ? "opacity-100" : "opacity-0"}`} />
-            <div className={`transition-opacity duration-300 ${activePanel === "left" ? "opacity-0" : "opacity-100"}`}>
+            <div className={`transition-opacity duration-300 ${activePanel === "left" ? "opacity-0 pointer-events-none" : "opacity-100"}`}>
               {children}
             </div>
           </motion.div>
