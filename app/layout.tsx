@@ -3,6 +3,7 @@ import { Monoton, Lato, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { ThreePanel } from "@/components/layout/three-panel";
+import { AuthProvider } from '@/lib/auth-context';
 
 const titleFont = Monoton({
   weight: "400",
@@ -40,9 +41,11 @@ export default function RootLayout({
           defaultTheme="dark"
           enableSystem={false}
         >
-          <div className="flex flex-col min-h-screen">
-            <ThreePanel>{children}</ThreePanel>
-          </div>
+          <AuthProvider>
+            <div className="flex flex-col min-h-screen">
+              <ThreePanel>{children}</ThreePanel>
+            </div>
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>

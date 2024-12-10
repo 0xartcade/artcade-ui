@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -9,12 +11,26 @@ import {
 } from "@/components/ui/dialog"
 import { useWalletStore } from "@/lib/store/wallet-store"
 import { WalletIcon } from "lucide-react"
+import { useAuth } from "@/lib/auth-context"
 
 export function ConnectWalletButton() {
-  const { connect, isConnected } = useWalletStore()
+  const { address, connect } = useWalletStore()
+  const { login } = useAuth()
 
-  if (isConnected) {
-    return null
+  const handleConnect = async () => {
+    await connect()
+    login()
+  }
+
+  if (address) {
+    return (
+      <Button
+        variant="outline"
+        className="bg-zinc-900 hover:bg-zinc-800"
+      >
+        {`${address.slice(0, 6)}...${address.slice(-4)}`}
+      </Button>
+    )
   }
 
   return (
@@ -33,7 +49,7 @@ export function ConnectWalletButton() {
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <Button
-            onClick={connect}
+            onClick={handleConnect}
             className="w-full justify-start gap-4"
             variant="outline"
           >
@@ -41,7 +57,7 @@ export function ConnectWalletButton() {
             MetaMask
           </Button>
           <Button
-            onClick={connect}
+            onClick={handleConnect}
             className="w-full justify-start gap-4"
             variant="outline"
           >

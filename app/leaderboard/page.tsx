@@ -1,6 +1,6 @@
 'use client';
 
-import { InfoPanel } from "@/components/info-panel";
+import { InfoPanel } from "@/components/ui/info-panel";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";

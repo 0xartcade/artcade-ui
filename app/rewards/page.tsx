@@ -1,25 +1,59 @@
-import { InfoPanel } from "@/components/info-panel";
+'use client';
 
-export default function RewardsPage() {
+import { withAuth } from '@/lib/auth-context';
+import { InfoPanel } from "@/components/ui/info-panel";
+import { Ticket, Package, Vault, ScrollText } from "lucide-react";
+import Link from "next/link";
+
+function RewardsPage() {
   return (
     <InfoPanel>
-      <div className="flex flex-col">
-        <h2 className="text-xl font-semibold mb-4 text-center">Rewards</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
-          <div className="p-8 bg-zinc-900/50 rounded-lg flex flex-col items-center justify-center gap-2">
-            <h3 className="font-semibold">Tickets</h3>
-            <p className="text-zinc-400">Earn tickets by playing games</p>
-          </div>
-          <div className="p-8 bg-zinc-900/50 rounded-lg flex flex-col items-center justify-center gap-2">
-            <h3 className="font-semibold">Crates</h3>
-            <p className="text-zinc-400">Open crates to get rewards</p>
-          </div>
-          <div className="p-8 bg-zinc-900/50 rounded-lg flex flex-col items-center justify-center gap-2">
-            <h3 className="font-semibold">Inventory</h3>
-            <p className="text-zinc-400">View your collected items</p>
-          </div>
+      <div className="p-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Link 
+            href="/rewards/scores"
+            className="group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 rounded-xl"
+          >
+            <div className="px-12 py-16 bg-zinc-900/50 rounded-xl flex flex-col items-center justify-center gap-4 group-hover:bg-zinc-900/60 transition-colors">
+              <ScrollText className="w-12 h-12 text-zinc-400" />
+              <h3 className="font-semibold text-lg">Scores</h3>
+              <p className="text-zinc-400 text-center">See your previous games and submit your scores on-chain to receive tickets</p>
+            </div>
+          </Link>
+          <Link 
+            href="/rewards/tickets"
+            className="group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 rounded-xl"
+          >
+            <div className="px-12 py-16 bg-zinc-900/50 rounded-xl flex flex-col items-center justify-center gap-4 group-hover:bg-zinc-900/60 transition-colors">
+              <Ticket className="w-12 h-12 text-zinc-400" />
+              <h3 className="font-semibold text-lg">Tickets</h3>
+              <p className="text-zinc-400 text-center">Accumulate tickets and climb our global leaderboard</p>
+            </div>
+          </Link>
+          <Link 
+            href="/rewards/crates"
+            className="group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 rounded-xl"
+          >
+            <div className="px-12 py-16 bg-zinc-900/50 rounded-xl flex flex-col items-center justify-center gap-4 group-hover:bg-zinc-900/60 transition-colors">
+              <Package className="w-12 h-12 text-zinc-400" />
+              <h3 className="font-semibold text-lg">Crates</h3>
+              <p className="text-zinc-400 text-center">Redeem your tickets for crates filled with NFTs from your favourite artist</p>
+            </div>
+          </Link>
+          <Link 
+            href="/rewards/vault"
+            className="group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 rounded-xl"
+          >
+            <div className="px-12 py-16 bg-zinc-900/50 rounded-xl flex flex-col items-center justify-center gap-4 group-hover:bg-zinc-900/60 transition-colors">
+              <Vault className="w-12 h-12 text-zinc-400" />
+              <h3 className="font-semibold text-lg">Vault</h3>
+              <p className="text-zinc-400 text-center">View your collected items including your tickets, crates, and revealed art</p>
+            </div>
+          </Link>
         </div>
       </div>
     </InfoPanel>
   );
 }
+
+export default withAuth(RewardsPage);
