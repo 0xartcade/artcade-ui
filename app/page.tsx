@@ -1,52 +1,54 @@
+"use client";
+
 import { DevLogs } from "@/components/dev-logs/dev-logs";
 import { ShapeCircleIcon } from "@/components/icons/shape-circle";
 import { ShapeWordmarkIcon } from "@/components/icons/shape-wordmark";
 import {
   Heading,
-  Paragraph,
   SubHeading,
   SubHeading2,
   Title,
 } from "@/components/ui/typography";
-import { ChevronDownSquareIcon } from "lucide-react";
+import { ChevronDownIcon } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
+import { useRef } from "react";
 
 export default function Home() {
+  const devLogsRef = useRef<HTMLButtonElement>(null);
   return (
     <div className="flex flex-col items-center gap-y-4 text-center">
-      <Title>0xARTCADE</Title>
-      <SubHeading className="max-w-lg">gameified art discovery</SubHeading>
-
-      <Image
-        src="/logo.png"
-        alt="logo"
-        width="1241"
-        height="1261"
-        className="sm:hidden w-48"
-      />
-      <SubHeading2 className="mt-8">Coming soon</SubHeading2>
-      <section className="grid grid-cols-2 sm:grid-cols-3 gap-y-8 gap-x-8 items-center">
-        <div className="flex gap-x-2">
-          <ShapeCircleIcon className="w-12 md:w-14" />
-          <ShapeWordmarkIcon className="w-24 md:w-28" />
+      <div className="pt-48 flex flex-col items-center gap-y-4 min-h-[90vh]">
+        <Title>0xARTCADE</Title>
+        <SubHeading className="max-w-lg">gameified art discovery</SubHeading>
+        <SubHeading2 className="mt-8">Coming soon</SubHeading2>
+        <div className="flex gap-x-8 justify-center">
+          <div className="flex gap-x-2">
+            <ShapeCircleIcon className="w-6" />
+            <ShapeWordmarkIcon className="w-12" />
+          </div>
+          <Image
+            src="/shapecraftlogo_white.png"
+            alt="Shapecraft Logo"
+            width="1000"
+            height="291"
+            className="w-20 h-6"
+          />
         </div>
-        <Image
-          src="/logo.png"
-          alt="logo"
-          width="1241"
-          height="1261"
-          className="hidden sm:block w-48"
-        />
-        <Image
-          src="/shapecraftlogo_white.png"
-          alt="Shapecraft Logo"
-          width="1000"
-          height="291"
-          className="w-48"
-        />
-      </section>
-      <section className="mt-8">
+        <button
+          className="flex flex-col gap-y-1 items-center mt-auto scroll-mt-2"
+          ref={devLogsRef}
+          onClick={() => {
+            devLogsRef.current?.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }}
+        >
+          <Heading>Dev Logs</Heading>
+          <ChevronDownIcon className="w-6 h-6 stroke-foreground stroke-1" />
+        </button>
+      </div>
+      {/* <div className="mt-8">
         <SubHeading2>Follow along on X</SubHeading2>
         <div className="flex gap-x-8 mt-4">
           <Link
@@ -70,14 +72,17 @@ export default function Home() {
             </Paragraph>
           </Link>
         </div>
-      </section>
-      <section className="mt-8 flex flex-col gap-y-10 w-full items-center">
-        <div className="flex gap-x-4 items-center">
-          <Heading>Dev Logs</Heading>
-          <ChevronDownSquareIcon className="w-6 h-6 stroke-foreground stroke-1" />
-        </div>
+      </div> */}
+      <div className="flex flex-col gap-y-10 w-full items-center justify-center">
         <DevLogs />
-      </section>
+      </div>
+      <Image
+        src="/logo.png"
+        alt="logo"
+        width="1241"
+        height="1261"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-full sm:max-w-xl opacity-5"
+      />
     </div>
   );
 }
