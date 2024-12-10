@@ -1,5 +1,8 @@
+'use client';
+
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 
 const navItems = [
@@ -9,6 +12,13 @@ const navItems = [
 ];
 
 export function Header() {
+  const router = useRouter();
+
+  const handleNavigation = (e: React.MouseEvent, href: string) => {
+    e.preventDefault();
+    router.push(href);
+  };
+
   return (
     <motion.header
       initial={{ y: -20, opacity: 0 }}
@@ -23,8 +33,12 @@ export function Header() {
           
           <div className="hidden md:flex items-center space-x-1">
             {navItems.map((item) => (
-              <Button key={item.href} variant="ghost" asChild>
-                <Link href={item.href}>{item.label}</Link>
+              <Button 
+                key={item.href} 
+                variant="ghost" 
+                onClick={(e) => handleNavigation(e, item.href)}
+              >
+                {item.label}
               </Button>
             ))}
           </div>
