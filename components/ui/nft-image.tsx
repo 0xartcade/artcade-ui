@@ -1,5 +1,9 @@
+import Image from "next/image";
+
 export function NFTImage() {
   return (
-    <div>NFT Image Placeholder</div>
+    <div className="w-full h-full bg-zinc-800/50 flex items-center justify-center text-zinc-600 text-lg">
+      Art Placeholder
+    </div>
   );
 }

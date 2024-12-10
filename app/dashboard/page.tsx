@@ -1,4 +1,4 @@
-import { InfoPanel } from "@/components/info-panel";
+import { InfoPanel } from "@/components/ui/info-panel";
 
 export default function DashboardPage() {
   return (

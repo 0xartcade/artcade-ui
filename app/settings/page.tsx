@@ -1,9 +1,10 @@
 'use client';
 
-import { InfoPanel } from "@/components/info-panel"
+import { withAuth } from '@/lib/auth-context';
+import { InfoPanel } from "@/components/ui/info-panel"
 import { useWalletStore } from "@/lib/store/wallet-store"
 
-export default function SettingsPage() {
+function SettingsPage() {
   const { address } = useWalletStore()
 
   return (
@@ -36,4 +37,6 @@ export default function SettingsPage() {
       </div>
     </InfoPanel>
   )
-} 
+}
+
+export default withAuth(SettingsPage); 

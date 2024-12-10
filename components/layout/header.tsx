@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { ConnectWalletButton } from "@/components/connect-wallet";
-import { UserMenu } from "@/components/user-menu";
+import { ConnectWalletButton } from "@/components/ui/connect-wallet";
+import { UserMenu } from "@/components/ui/user-menu";
 
 export function Header() {
   const router = useRouter();

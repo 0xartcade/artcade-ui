@@ -7,9 +7,10 @@ export default function RewardsLayout({ children }: { children: React.ReactNode 
   const pathname = usePathname();
 
   const tabs = [
+    { name: 'Scores', href: '/rewards/scores' },
     { name: 'Tickets', href: '/rewards/tickets' },
     { name: 'Crates', href: '/rewards/crates' },
-    { name: 'Inventory', href: '/rewards/inventory' },
+    { name: 'Vault', href: '/rewards/vault' },
   ];
 
   return (
