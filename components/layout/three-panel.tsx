@@ -8,7 +8,7 @@ import MobilePanel from '@/app/mobile-panel/page';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
-export function ConditionalLayout({
+export function ThreePanel({
   children,
 }: {
   children: React.ReactNode;

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Monoton, Lato, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
-import { ConditionalLayout } from "@/components/layout/conditional-layout";
+import { ThreePanel } from "@/components/layout/three-panel";
 
 const titleFont = Monoton({
   weight: "400",
@@ -41,7 +41,7 @@ export default function RootLayout({
           enableSystem={false}
         >
           <div className="flex flex-col min-h-screen">
-            <ConditionalLayout>{children}</ConditionalLayout>
+            <ThreePanel>{children}</ThreePanel>
           </div>
         </ThemeProvider>
       </body>
