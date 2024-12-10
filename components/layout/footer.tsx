@@ -2,14 +2,13 @@
 
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { TwitterIcon, GithubIcon, MessageSquareIcon } from "lucide-react";
+import { TwitterIcon, GithubIcon } from "lucide-react";
 import Link from "next/link";
 
 export function Footer() {
   const socialIcons = [
-    { icon: TwitterIcon, href: "#", label: "Twitter" },
-    { icon: GithubIcon, href: "#", label: "Github" },
-    { icon: MessageSquareIcon, href: "#", label: "Discord" }
+    { icon: TwitterIcon, href: "https://x.com/0xArtcade", label: "Twitter", target: "_blank", rel: "noopener noreferrer" },
+    { icon: GithubIcon, href: "https://github.com/0xArtcade", label: "Github", target: "_blank", rel: "noopener noreferrer" },
   ];
 
   return (
