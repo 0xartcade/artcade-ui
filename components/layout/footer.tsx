@@ -1,14 +1,11 @@
 'use client';
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { TwitterIcon, GithubIcon, MessageSquareIcon } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
 
 export function Footer() {
-  const [showSocials, setShowSocials] = useState(false);
-
   const socialIcons = [
     { icon: TwitterIcon, href: "#", label: "Twitter" },
     { icon: GithubIcon, href: "#", label: "Github" },
