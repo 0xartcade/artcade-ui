@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Monoton, Lato, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
-import { PageWrapper } from "@/components/page-wrapper";
 import { ConditionalLayout } from "@/components/layout/conditional-layout";
 
 const titleFont = Monoton({
@@ -41,11 +40,9 @@ export default function RootLayout({
           defaultTheme="dark"
           enableSystem={false}
         >
-          <PageWrapper>
-            <div className="flex flex-col min-h-screen">
-              <ConditionalLayout>{children}</ConditionalLayout>
-            </div>
-          </PageWrapper>
+          <div className="flex flex-col min-h-screen">
+            <ConditionalLayout>{children}</ConditionalLayout>
+          </div>
         </ThemeProvider>
       </body>
     </html>

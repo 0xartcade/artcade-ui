@@ -22,7 +22,7 @@ export function Header() {
           </Link>
           
           <div className="hidden md:flex items-center space-x-1">
-            {navItems.map((item, i) => (
+            {navItems.map((item) => (
               <Button key={item.href} variant="ghost" asChild>
                 <Link href={item.href}>{item.label}</Link>
               </Button>

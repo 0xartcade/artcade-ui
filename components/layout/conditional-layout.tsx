@@ -12,10 +12,14 @@ export function ConditionalLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const isRootPage = pathname === '/';
+  const isRootPage = pathname === '/' || pathname === '/dev-logs';
 
   if (isRootPage) {
-    return <>{children}</>;
+    return (
+      <div className="flex flex-col min-h-screen">
+        {children}
+      </div>
+    );
   }
 
   return (
