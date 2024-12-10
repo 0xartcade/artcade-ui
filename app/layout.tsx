@@ -3,6 +3,7 @@ import { Monoton, Lato, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { PageWrapper } from "@/components/page-wrapper";
+import { ConditionalLayout } from "@/components/layout/conditional-layout";
 
 const titleFont = Monoton({
   weight: "400",
@@ -29,21 +30,22 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${titleFont.variable} ${sansFont.variable} ${monoFont} font-sans antialiased`}
-      >
+      <body className={`${titleFont.variable} ${sansFont.variable} ${monoFont.variable} font-sans min-h-screen flex flex-col bg-zinc-950 text-zinc-50`}>
         <ThemeProvider
           attribute="class"
-          themes={["dark"]}
           defaultTheme="dark"
           enableSystem={false}
         >
-          <PageWrapper>{children}</PageWrapper>
+          <PageWrapper>
+            <div className="flex flex-col min-h-screen">
+              <ConditionalLayout>{children}</ConditionalLayout>
+            </div>
+          </PageWrapper>
         </ThemeProvider>
       </body>
     </html>

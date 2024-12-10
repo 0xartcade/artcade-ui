@@ -5,7 +5,7 @@ interface Props {
 }
 
 export const PageWrapper: FC<Props> = ({ children }) => (
-  <div className="w-full flex justify-center mt-20 px-4 pb-10">
-    <div className="w-full max-w-6xl">{children}</div>
+  <div className="w-full flex justify-center">
+    <div className="w-full">{children}</div>
   </div>
 );
