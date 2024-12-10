@@ -1,3 +1,5 @@
+import React from 'react';
+
 export default function RewardsPage() {
   return (
     <div className="container mx-auto py-8">
