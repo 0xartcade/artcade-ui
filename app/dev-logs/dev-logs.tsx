@@ -6,7 +6,7 @@ import {
   Paragraph,
   SubHeading,
   SubHeading2,
-} from "../ui/typography";
+} from "@/components/ui/typography";
 
 export const DevLogs = () => (
   <div className="w-full flex flex-col items-center gap-y-10">
@@ -43,4 +43,4 @@ export const DevLogs = () => (
       </div>
     ))}
   </div>
-);
+); 
