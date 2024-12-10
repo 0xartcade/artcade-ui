@@ -10,6 +10,6 @@ type WalletState = {
 export const useWalletStore = create<WalletState>((set) => ({
   isConnected: false,
   address: null,
-  connect: () => set({ isConnected: true, address: '0x1234...5678' }),
+  connect: () => set({ isConnected: true, address: '0x2fe4689436941b9fa078b50d1f88e556738b723e' }),
   disconnect: () => set({ isConnected: false, address: null }),
 })) 

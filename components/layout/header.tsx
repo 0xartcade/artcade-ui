@@ -26,20 +26,22 @@ export function Header() {
           <Link href="/dashboard" className="text-xl font-bold text-zinc-100">
             0xArtcade
           </Link>
-          
-          <div className="flex items-center gap-2">
-            <Button 
-              variant="ghost" 
-              onClick={(e) => handleNavigation(e, "/games")}
-            >
-              Play Now
-            </Button>
-            <Button 
-              variant="ghost" 
-              onClick={(e) => handleNavigation(e, "/leaderboard")}
-            >
+            <div className="flex items-center gap-2">
+              <Button variant="ghost"onClick={(e) => handleNavigation(e, "/leaderboard")}>
               Leaderboard
-            </Button>
+              </Button>
+
+            <div className="flex items-center gap-2">
+              <Button variant="ghost" onClick={(e) => handleNavigation(e, "/rewards")}>
+                Rewards
+              </Button>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <Button variant="ghost" onClick={(e) => handleNavigation(e, "/games")}>
+                Play Now
+              </Button>
+            </div>
             <div className="ml-2">
               <ConnectWalletButton />
               <UserMenu />
