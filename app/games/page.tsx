@@ -4,7 +4,6 @@ import { Suspense } from 'react';
 import { GameCard } from "@/components/ui/game-card";
 import { Button } from "@/components/ui/button";
 import { InfoPanel } from "@/components/ui/info-panel";
-import { Skeleton } from "@/components/ui/skeleton";
 import { withAuth } from '@/lib/auth-context';
 
 const EXAMPLE_GAMES = [

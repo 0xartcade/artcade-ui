@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { InfoPanel } from "@/components/ui/info-panel";
 import { cn } from '@/lib/utils';
-import { ArrowRight, Flame } from 'lucide-react';
+import { Flame } from 'lucide-react';
 import { NFTImage } from '@/components/ui/nft-image';
 import { usePathname } from 'next/navigation';
 
