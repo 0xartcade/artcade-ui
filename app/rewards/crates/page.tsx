@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { InfoPanel } from "@/components/ui/info-panel";
 import { cn } from '@/lib/utils';
 import { Flame } from 'lucide-react';
 import { NFTImage } from '@/components/ui/nft-image';

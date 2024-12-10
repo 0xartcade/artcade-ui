@@ -1,7 +1,6 @@
 'use client';
 
 import { NFTImage } from "@/components/ui/nft-image";
-import { TicketStatus } from "@/components/ui/ticket-status";
 import Link from "next/link";
 
 export default function TicketsPage() {
