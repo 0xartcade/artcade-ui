@@ -23,14 +23,7 @@ export function ConnectWalletButton() {
   }
 
   if (address) {
-    return (
-      <Button
-        variant="outline"
-        className="bg-zinc-900 hover:bg-zinc-800"
-      >
-        {`${address.slice(0, 6)}...${address.slice(-4)}`}
-      </Button>
-    )
+    return null;
   }
 
   return (
