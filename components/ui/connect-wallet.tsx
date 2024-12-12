@@ -12,6 +12,7 @@ import {
 import { useWalletStore } from "@/lib/store/wallet-store"
 import { WalletIcon } from "lucide-react"
 import { useAuth } from "@/lib/auth-context"
+import { Wallet } from "lucide-react"
 
 export function ConnectWalletButton() {
   const { address, connect } = useWalletStore()
@@ -61,4 +62,17 @@ export function ConnectWalletButton() {
       </DialogContent>
     </Dialog>
   )
+}
+
+export function ConnectWalletPrompt() {
+  return (
+    <div className="flex flex-col items-center justify-center gap-4 h-[calc(100vh-12rem)]">
+      <Wallet className="w-12 h-12 text-zinc-400" />
+      <h2 className="text-xl font-semibold">Connect Your Wallet</h2>
+      <p className="text-zinc-400 text-center max-w-md">
+        Please connect your wallet to access this section
+      </p>
+      <ConnectWalletButton />
+    </div>
+  );
 } 

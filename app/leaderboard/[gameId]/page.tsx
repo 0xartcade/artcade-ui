@@ -5,17 +5,10 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import { getMockLeaderboardData } from "../utils";
-import Link from "next/link";
 import { useParams } from "next/navigation";
 import React from "react";
 
-const ITEMS_PER_PAGE = 7;
-
-// Mock games data
-const GAMES = Array.from({ length: 8 }, (_, i) => ({
-  id: `game-${String(i + 1).padStart(2, '0')}`,
-  name: `Game ${String(i + 1).padStart(2, '0')}`
-}));
+const ITEMS_PER_PAGE = 8;
 
 export default function GameLeaderboardPage() {
   const params = useParams();
@@ -29,24 +22,6 @@ export default function GameLeaderboardPage() {
   return (
     <InfoPanel>
       <div className="px-32 py-6 space-y-4">
-        <div className="flex justify-center border-b border-zinc-800 pb-4">
-          <div className="flex gap-2">
-            {GAMES.map((game) => (
-              <Link
-                key={game.id}
-                href={`/leaderboard/${game.id}`}
-                className={`px-4 py-2 rounded-lg transition-colors ${
-                  currentGameId === game.id
-                    ? 'bg-zinc-800 text-white'
-                    : 'text-zinc-400 hover:text-white'
-                }`}
-              >
-                {game.name}
-              </Link>
-            ))}
-          </div>
-        </div>
-
         <div className="grid gap-3">
           {currentData.map((player, index) => (
             <div
