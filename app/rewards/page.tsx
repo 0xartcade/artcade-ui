@@ -1,7 +1,7 @@
 'use client';
 
 import { withAuth } from '@/lib/auth-context';
-import { InfoPanel } from "@/components/ui/info-panel";
+import { InfoPanel } from "@/components/layout/info-panel";
 import { Ticket, Package, Vault, ScrollText } from "lucide-react";
 import Link from "next/link";
 

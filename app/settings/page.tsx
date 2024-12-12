@@ -1,8 +1,8 @@
 'use client';
 
 import { withAuth } from '@/lib/auth-context';
-import { InfoPanel } from "@/components/ui/info-panel"
-import { useWalletStore } from "@/lib/store/wallet-store"
+import { InfoPanel } from "@/components/layout/info-panel"
+import { useWalletStore } from "@/lib/wallet-store"
 
 function SettingsPage() {
   const { address } = useWalletStore()

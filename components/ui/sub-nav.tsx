@@ -2,7 +2,11 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 
-interface Tab {
+//////////////////////////////////////////////////////
+/// TYPES
+//////////////////////////////////////////////////////
+
+export interface Tab {
   name: string;
   href: string;
   disabled?: boolean;
@@ -12,6 +16,10 @@ interface SubNavProps {
   tabs: Tab[];
   className?: string;
 }
+
+//////////////////////////////////////////////////////
+/// SUB NAVIGATION COMPONENT
+//////////////////////////////////////////////////////
 
 export function SubNav({ tabs, className }: SubNavProps) {
   const pathname = usePathname();

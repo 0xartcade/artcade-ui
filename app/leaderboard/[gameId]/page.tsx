@@ -1,14 +1,22 @@
 'use client';
 
-import { InfoPanel } from "@/components/ui/info-panel";
+import { InfoPanel } from "@/components/layout/info-panel";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
-import { getMockLeaderboardData } from "../utils";
 import { useParams } from "next/navigation";
 import React from "react";
+import { getMockLeaderboardData } from "../mock-data";
+
+//////////////////////////////////////////////////////
+/// CONSTANTS
+//////////////////////////////////////////////////////
 
 const ITEMS_PER_PAGE = 8;
+
+//////////////////////////////////////////////////////
+/// GAME LEADERBOARD PAGE
+//////////////////////////////////////////////////////
 
 export default function GameLeaderboardPage() {
   const params = useParams();

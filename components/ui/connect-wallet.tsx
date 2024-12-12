@@ -9,7 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { useWalletStore } from "@/lib/store/wallet-store"
+import { useWalletStore } from "@/lib/wallet-store"
 import { WalletIcon } from "lucide-react"
 import { useAuth } from "@/lib/auth-context"
 import { Wallet } from "lucide-react"

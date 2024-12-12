@@ -2,7 +2,11 @@
 
 import { useAuth } from '@/lib/auth-context';
 import { ConnectWalletPrompt } from '@/components/ui/connect-wallet';
-// ... other imports
+import { ReactNode } from 'react';
+
+//////////////////////////////////////////////////////
+/// LAYOUT COMPONENT
+//////////////////////////////////////////////////////
 
 export default function PlayLayout({
   children,

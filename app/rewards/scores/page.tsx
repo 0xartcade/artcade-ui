@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from "@/components/ui/button";
-import { GameScore } from "../components/game-score";
+import { GameScore } from "../../../components/ui/game-score";
 import { useState } from "react";
 
 // Mock data for example scores

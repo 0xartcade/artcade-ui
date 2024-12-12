@@ -2,8 +2,8 @@
 
 import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { ConnectWalletButton } from '@/components/ui/connect-wallet';
-import { InfoPanel } from '@/components/ui/info-panel';
-import { useWalletStore } from '@/lib/store/wallet-store';
+import { InfoPanel } from '@/components/layout/info-panel';
+import { useWalletStore } from '@/lib/wallet-store';
 
 interface AuthContextType {
   isAuthenticated: boolean;

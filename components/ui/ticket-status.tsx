@@ -1,4 +1,4 @@
-import { useWalletStore } from "@/lib/store/wallet-store";
+import { useWalletStore } from "@/lib/wallet-store";
 import { ConnectWalletButton } from "@/components/ui/connect-wallet";
 
 function TicketIcon() {
