@@ -3,11 +3,14 @@
 import { GlbIcon } from "@/components/icons/glb-icon";
 import { useEffect, useState } from 'react';
 
+//////////////////////////////////////////////////////
+/// PANEL STATE MANAGEMENT
+//////////////////////////////////////////////////////
+
 export default function ThreeDPanel() {
   const [isMinimized, setIsMinimized] = useState(true);
 
   useEffect(() => {
-    // Check panel width to determine if minimized
     const checkSize = () => {
       const panel = document.getElementById('3d-panel');
       if (panel) {
@@ -22,6 +25,10 @@ export default function ThreeDPanel() {
 
     return () => observer.disconnect();
   }, []);
+
+//////////////////////////////////////////////////////
+/// PANEL RENDER
+//////////////////////////////////////////////////////
 
   return (
     <div id="3d-panel" className="h-full flex items-center justify-center bg-zinc-800/50 rounded-lg p-6">

@@ -12,6 +12,11 @@ interface CrateOption {
   status?: string;
 }
 
+//////////////////////////////////////////////////////
+/// MOCK Crates DATA (Replace)
+//////////////////////////////////////////////////////
+
+
 const CRATE_OPTIONS: CrateOption[] = [
   { name: 'Crate_Bronze.GLB', ticketCost: 1000 },
   { name: 'Crate_Silver.GLB', ticketCost: 2000, status: 'Coming Soon' },

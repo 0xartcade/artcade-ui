@@ -1,10 +1,13 @@
 'use client';
 
 import { Button } from "@/components/ui/button";
-import { GameScore } from "../components/game-score";
+import { GameScore } from "../../../components/ui/game-score";
 import { useState } from "react";
 
-// Mock data for example scores
+//////////////////////////////////////////////////////
+/// MOCK Scores DATA (Replace)
+//////////////////////////////////////////////////////
+
 const EXAMPLE_SCORES = [
   { id: 'Game Art 01', date: '2024-03-10', score: 15000, ticketsEarned: 150 },
   { id: 'Game Art 02', date: '2024-03-09', score: 12500, ticketsEarned: 125 },
@@ -27,7 +30,6 @@ export default function ScoresPage() {
   };
 
   const handleSignScores = () => {
-    // TODO: Implement signing logic
     console.log('Signing scores:', Array.from(selectedScores));
   };
 

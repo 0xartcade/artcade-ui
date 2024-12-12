@@ -10,7 +10,10 @@ interface NFTMetadata {
   tokenStandard: string;
 }
 
-// Example data - replace with real data later
+//////////////////////////////////////////////////////
+/// MOCK Vault DATA (Replace)
+//////////////////////////////////////////////////////
+
 const EXAMPLE_NFTS: NFTMetadata[] = [
   {
     id: '1',

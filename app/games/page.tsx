@@ -1,10 +1,15 @@
 'use client';
 
-import { Suspense } from 'react';
-import { GameCard } from "@/components/ui/game-card";
-import { Button } from "@/components/ui/button";
-import { InfoPanel } from "@/components/ui/info-panel";
-import { withAuth } from '@/lib/auth-context';
+// UI Component imports
+import { Suspense } from 'react'; // React suspense for loading states
+import { GameCard } from "@/components/ui/game-card"; // Card component for displaying game information
+import { Button } from "@/components/ui/button"; // Reusable button component
+import { InfoPanel } from "@/components/layout/info-panel"; // Main layout wrapper component
+import { withAuth } from '@/lib/auth-context'; // Authentication HOC wrapper
+
+//////////////////////////////////////////////////////
+/// MOCK GAMES DATA (Replace)
+//////////////////////////////////////////////////////
 
 const EXAMPLE_GAMES = [
   {
@@ -30,31 +35,41 @@ const EXAMPLE_GAMES = [
   }
 ];
 
-// Loading components
+//////////////////////////////////////////////////////
+/// LOADING COMPONENTS
+//////////////////////////////////////////////////////
+
+// Loading skeleton for the introduction section
 const IntroductionSkeleton = () => (
   <div className="w-full h-20 animate-pulse bg-zinc-800 rounded-md" />
 );
 
+// Loading skeleton for game cards
 const GameCardSkeleton = () => (
   <div className="w-full h-32 animate-pulse bg-zinc-800 rounded-md" />
 );
 
+// Loading skeleton for buttons
 const ButtonSkeleton = () => (
   <div className="w-32 h-10 animate-pulse bg-zinc-800 rounded-md mx-auto" />
 );
+
+//////////////////////////////////////////////////////
+/// GAMES PAGE
+//////////////////////////////////////////////////////
 
 function GamesPage() {
   return (
     <InfoPanel>
       <div className="p-8 max-w-4xl mx-auto space-y-8">
-        {/* Introduction with Suspense */}
+        {/* Introduction Section */}
         <Suspense fallback={<IntroductionSkeleton />}>
           <p className="text-zinc-400 text-lg text-center">
             ArtGuessr is a 5 round trivia game that challenges you to guess key metadata from a random piece of art. Each game below is based on different set of NFTs with different guessing criteria.
           </p>
         </Suspense>
 
-        {/* Games Stack with Suspense */}
+        {/* Games List Section */}
         <div className="space-y-3">
           <Suspense fallback={
             <>
@@ -75,7 +90,7 @@ function GamesPage() {
           </Suspense>
         </div>
 
-        {/* Submit Game Button with Suspense */}
+        {/* Submit Game Section */}
         <Suspense fallback={<ButtonSkeleton />}>
           <div className="flex justify-center">
             <Button

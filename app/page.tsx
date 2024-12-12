@@ -1,21 +1,21 @@
 'use client';
 
-import { ShapeCircleIcon } from "@/components/icons/shape-circle";
-import { ShapeWordmarkIcon } from "@/components/icons/shape-wordmark";
-import { Button } from "@/components/ui/button";
-import {
-  Heading,
-  SubHeading,
-  Title,
-} from "@/components/ui/typography";
-import { ChevronDownIcon, ArrowRight } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import { useRef } from "react";
-import { DevLogs } from "./dev-logs/dev-logs";
+import { useRef } from "react"; // Enables DOM element references for scrolling behavior
+import Link from "next/link"; // Next.js component for client-side navigation
+import Image from "next/image"; // Next.js optimized image component
+import { ArrowRight, ChevronDownIcon } from "lucide-react"; // UI icons for navigation and buttons
+import { ShapeCircleIcon } from "@/components/icons/shape-circle"; // Brand identity component
+import { ShapeWordmarkIcon } from "@/components/icons/shape-wordmark"; // Brand identity component
+import { Button } from "@/components/ui/button"; // Shared UI button component
+import { Heading, SubHeading, Title } from "@/components/ui/typography"; // Text styling components
+import { DevLogs } from "./dev-logs/dev-logs"; // Development changelog component
+
+//////////////////////////////////////////////////////
+/// HOME PAGE COMPONENT
+//////////////////////////////////////////////////////
 
 export default function Home() {
-  const devLogsRef = useRef<HTMLDivElement>(null);
+  const devLogsRef = useRef<HTMLDivElement>(null); // Reference for dev logs scroll target
 
   const scrollToDevLogs = () => {
     devLogsRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -25,7 +25,8 @@ export default function Home() {
     <div className="flex flex-col items-center gap-y-4 text-center">
       <div className="pt-48 flex flex-col items-center gap-y-4 min-h-[90vh] relative z-10">
         <Title>0xARTCADE</Title>
-        <SubHeading className="max-w-lg">gameified art discovery</SubHeading>
+        <SubHeading className="max-w-lg">gamified art discovery</SubHeading>
+        
         <div className="flex gap-x-8 justify-center">
           <div className="flex gap-x-2">
             <ShapeCircleIcon className="w-6" />
@@ -34,8 +35,8 @@ export default function Home() {
           <Image
             src="/shapecraftlogo_white.png"
             alt="Shapecraft Logo"
-            width="1000"
-            height="291"
+            width={120}
+            height={35}
             className="w-20 h-6"
           />
         </div>
@@ -55,18 +56,16 @@ export default function Home() {
           <ChevronDownIcon className="w-6 h-6 stroke-foreground stroke-1" />
         </button>
       </div>
-
       <div ref={devLogsRef} className="w-full relative z-10">
         <div className="container mx-auto py-16">
           <DevLogs />
         </div>
       </div>
-
       <Image
         src="/logo.png"
         alt="logo"
-        width="1241"
-        height="1261"
+        width={600}
+        height={600}
         className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-full sm:max-w-xl opacity-5 -z-10"
       />
     </div>

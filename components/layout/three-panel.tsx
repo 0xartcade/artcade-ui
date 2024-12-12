@@ -6,8 +6,8 @@ import { Footer } from './footer';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
-import ThreeDPanel from '@/app/3d-panel/page';
-import MobilePanel from '@/app/mobile-panel/page';
+import ThreeDPanel from '@/components/layout/3D-panel';
+import MobilePanel from '@/components/layout/mobile-panel';
 
 export function ThreePanel({
   children,

@@ -1,3 +1,7 @@
+//////////////////////////////////////////////////////
+/// MOCK DATA (Replace)
+//////////////////////////////////////////////////////
+
 // Base addresses for consistent hydration per game
 const BASE_ADDRESSES = [
   "0x2fe4689436941b9fa078b50d1f88e556738b723e",
@@ -27,6 +31,7 @@ const BASE_ADDRESSES = [
   "0x012345678901234567890123456789abcdef1234"
 ];
 
+// Helper function to shuffle array with seed for consistent results
 function shuffleArray<T>(array: T[], seed: number): T[] {
   const shuffled = [...array];
   for (let i = shuffled.length - 1; i > 0; i--) {
@@ -36,14 +41,32 @@ function shuffleArray<T>(array: T[], seed: number): T[] {
   return shuffled;
 }
 
+// Seeded random number generator for consistent results
+function seededRandom(seed: number, index: number): number {
+  const x = Math.sin(seed + index) * 10000;
+  return x - Math.floor(x);
+}
+
+// Generate mock leaderboard data with consistent results per game
 export function getMockLeaderboardData(gameId?: string) {
-  const seed = gameId ? parseInt(gameId.split('-')[1]) : 1;
+  // Generate a unique seed for each game or global leaderboard
+  const seed = gameId 
+    ? parseInt(gameId.split('-')[1]) * 13 // Multiply by prime for more variation
+    : 1;
+
   const shuffledAddresses = shuffleArray(BASE_ADDRESSES, seed);
   
-  return shuffledAddresses.map((address, index) => ({
-    rank: index + 1,
-    name: `0xArcade User ${index + 1}`,
-    address,
-    tickets: Math.max(25000 - (index * 850), 1000),
-  }));
+  return shuffledAddresses.map((address, index) => {
+    // Generate random but consistent points for each player
+    const basePoints = Math.floor(seededRandom(seed, index) * 15000) + 10000; // 10k-25k range
+    const variance = Math.floor(seededRandom(seed + 1, index) * 2000) - 1000; // ±1000 variance
+    
+    return {
+      rank: index + 1,
+      name: `Player ${Math.floor(seededRandom(seed + 2, index) * 1000)}`, // Random user numbers
+      address,
+      tickets: Math.max(basePoints + variance, 1000), // Ensure minimum 1000 tickets
+    };
+  }).sort((a, b) => b.tickets - a.tickets) // Sort by tickets
+    .map((player, index) => ({ ...player, rank: index + 1 })); // Reassign ranks
 } 
