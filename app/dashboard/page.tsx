@@ -9,7 +9,7 @@ import Link from "next/link"; // Next.js link component for client-side navigati
 import { useAuth } from "@/lib/auth-context"; // Authentication context hook
 import { useState } from "react"; // React state management
 import { cn } from "@/lib/utils"; // Utility for conditional class names
-import { StatCard, STATS } from "./components/stat-card"; // Stats display component and data
+import { StatCard, STATS } from "../../components/ui/stat-card"; // Stats display component and data
 
 //////////////////////////////////////////////////////
 /// DASHBOARD PAGE
