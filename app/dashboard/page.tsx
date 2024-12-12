@@ -4,7 +4,7 @@
 import { InfoPanel } from "@/components/layout/info-panel"; // Main layout wrapper component
 import { GameCard } from "@/components/ui/game-card"; // Card component for displaying game information
 import { Button } from "@/components/ui/button"; // Reusable button component
-import { Gamepad2, Trophy, Ticket, Gift, ArrowRight } from "lucide-react"; // Icon imports from Lucide
+import { Gamepad2, Trophy, Gift, ArrowRight } from "lucide-react"; // Icon imports from Lucide
 import Link from "next/link"; // Next.js link component for client-side navigation
 import { useAuth } from "@/lib/auth-context"; // Authentication context hook
 import { useState } from "react"; // React state management
