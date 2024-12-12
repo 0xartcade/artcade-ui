@@ -7,7 +7,7 @@ import { useState } from "react";
 import { getMockLeaderboardData } from "./utils";
 import React from "react";
 
-const ITEMS_PER_PAGE = 7;
+const ITEMS_PER_PAGE = 8;
 const leaderboardData = getMockLeaderboardData();
 
 export default function LeaderboardPage() {
@@ -19,12 +19,6 @@ export default function LeaderboardPage() {
   return (
     <InfoPanel>
       <div className="px-32 py-6 space-y-4">
-        <div className="flex justify-center border-b border-zinc-800 pb-4">
-          <div className="px-4 py-2 rounded-lg bg-zinc-800 text-white">
-            Global Leaderboard
-          </div>
-        </div>
-
         <div className="grid gap-3">
           {currentData.map((player, index) => (
             <div
