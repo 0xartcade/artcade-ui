@@ -1,6 +1,3 @@
-import { useWalletStore } from "@/lib/wallet-store";
-import { ConnectWalletButton } from "@/components/ui/connect-wallet";
-
 function TicketIcon() {
   return (
     <svg
@@ -28,11 +25,6 @@ function TicketIcon() {
 }
 
 export function TicketStatus() {
-  const { address } = useWalletStore();
-  
-  // Generate a random number between 100 and 1000 when logged in
-  const ticketCount = address ? Math.floor(Math.random() * 900) + 100 : 0;
-
   return (
     <div className="inline-flex items-center h-10 bg-zinc-900/80 rounded-lg border border-zinc-800 hover:bg-zinc-900 transition-colors">
       <div className="pl-2.5">
@@ -41,17 +33,6 @@ export function TicketStatus() {
       <div className="px-2">
         <span className="text-sm font-medium text-zinc-400">×</span>
       </div>
-      {address ? (
-        <div className="pr-2.5">
-          <span className="text-sm font-medium text-zinc-100">
-            {ticketCount}
-          </span>
-        </div>
-      ) : (
-        <div className="scale-75 origin-left -mr-3.5">
-          <ConnectWalletButton />
-        </div>
-      )}
     </div>
   );
 }

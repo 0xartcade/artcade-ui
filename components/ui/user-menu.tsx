@@ -1,9 +1,8 @@
-'use client';
+"use client";
 
 import * as React from "react";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { useWalletStore } from "@/lib/wallet-store";
 import { Settings, LogOut } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
@@ -65,15 +64,9 @@ DropdownMenuSeparator.displayName = DropdownMenuPrimitive.Separator.displayName;
 //////////////////////////////////////////////////////
 
 // Example address from utils for development
-const EXAMPLE_ADDRESS = "0x2fe4689436941b9fa078b50d1f88e556738b723e";
+// const EXAMPLE_ADDRESS = "0x2fe4689436941b9fa078b50d1f88e556738b723e";
 
 export function UserMenu() {
-  const { disconnect, isConnected, address = EXAMPLE_ADDRESS } = useWalletStore();
-
-  if (!isConnected) {
-    return null;
-  }
-
   return (
     <DropdownMenuPrimitive.Root>
       <DropdownMenuPrimitive.Trigger asChild>
@@ -82,9 +75,6 @@ export function UserMenu() {
         </Button>
       </DropdownMenuPrimitive.Trigger>
       <DropdownMenuContent align="end" className="w-[340px] p-2">
-        <div className="px-2 py-2.5 text-xs font-mono text-zinc-400 break-all">
-          {address}
-        </div>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild className="py-2.5">
           <Link href="/settings" className="flex items-center">
@@ -93,11 +83,11 @@ export function UserMenu() {
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={disconnect} className="text-red-500 py-2.5">
+        <DropdownMenuItem className="text-red-500 py-2.5">
           <LogOut className="mr-2.5 h-4 w-4" />
           <span>Disconnect</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenuPrimitive.Root>
   );
-} 
+}

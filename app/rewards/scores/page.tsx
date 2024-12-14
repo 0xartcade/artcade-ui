@@ -1,25 +1,52 @@
-'use client';
+"use client";
 
 import { Button } from "@/components/ui/button";
 import { GameScore } from "../../../components/ui/game-score";
-import { useState } from "react";
-
-//////////////////////////////////////////////////////
-/// MOCK Scores DATA (Replace)
-//////////////////////////////////////////////////////
-
-const EXAMPLE_SCORES = [
-  { id: 'Game Art 01', date: '2024-03-10', score: 15000, ticketsEarned: 150 },
-  { id: 'Game Art 02', date: '2024-03-09', score: 12500, ticketsEarned: 125 },
-  { id: 'Game Art 03', date: '2024-03-08', score: 18000, ticketsEarned: 180 },
-  { id: 'Game Art 04', date: '2024-03-07', score: 21000, ticketsEarned: 210 },
-  { id: 'Game Art 05', date: '2024-03-06', score: 16500, ticketsEarned: 165 },
-];
+import { useCallback, useMemo, useState } from "react";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { api } from "@/lib/api";
+import { toast } from "sonner";
+import { useAuth } from "@/lib/auth-context";
+import Link from "next/link";
+import { Paragraph } from "@/components/ui/typography";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { PacmanLoader } from "react-spinners";
 
 export default function ScoresPage() {
-  const [selectedScores, setSelectedScores] = useState<Set<string>>(new Set());
+  const [selectedScores, setSelectedScores] = useState<Set<number>>(new Set());
+  const [submissionState, setSubmissionState] = useState("Preparing data...");
+  const { user } = useAuth();
 
-  const toggleScore = (id: string, checked: boolean) => {
+  const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
+    queryKey: ["scores", user?.username],
+    queryFn: async ({ pageParam }) => {
+      const response = await api.getScores({ offset: pageParam });
+      if (!response.success) {
+        toast.error(response.error);
+        throw new Error(response.error);
+      }
+      return response.data;
+    },
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, pages) =>
+      lastPage?.next ? pages.length : undefined,
+  });
+
+  const onLoadMoreClick = useCallback(() => {
+    fetchNextPage();
+  }, [fetchNextPage]);
+
+  const scores = useMemo(() => {
+    return data?.pages?.map((d) => (d ? d.results : [])).flat() || [];
+  }, [data]);
+
+  const toggleScore = (id: number, checked: boolean) => {
     const newSelected = new Set(selectedScores);
     if (checked) {
       newSelected.add(id);
@@ -29,36 +56,67 @@ export default function ScoresPage() {
     setSelectedScores(newSelected);
   };
 
-  const handleSignScores = () => {
-    console.log('Signing scores:', Array.from(selectedScores));
-  };
+  async function submitScore() {
+    // get score signatures
+    // submit via multi-call
+    setSubmissionState("su");
+    // success
+  }
 
   return (
-    <div className="p-8 max-w-4xl mx-auto space-y-8">
-      <div className="space-y-4">
-        {EXAMPLE_SCORES.map((score) => (
-          <GameScore
-            key={score.id}
-            gameId={score.id}
-            date={score.date}
-            score={score.score}
-            ticketsEarned={score.ticketsEarned}
-            isSelected={selectedScores.has(score.id)}
-            onSelect={(checked) => toggleScore(score.id, checked)}
-          />
-        ))}
-      </div>
-      
-      <div className="flex justify-center">
-        <Button
-          size="lg"
-          onClick={handleSignScores}
-          disabled={selectedScores.size === 0}
-          className="bg-zinc-800 hover:bg-zinc-700 text-white px-8"
-        >
-          Sign Scorecards
-        </Button>
-      </div>
-    </div>
+    <>
+      {scores.length > 0 ? (
+        <>
+          <div className="space-y-4">
+            {scores.map((score) => (
+              <GameScore
+                key={score.id}
+                gameName={score.game.name}
+                date={score.created_at}
+                score={score.score}
+                isSelected={selectedScores.has(score.id)}
+                onSelect={(checked) => toggleScore(score.id, checked)}
+              />
+            ))}
+            {hasNextPage && (
+              <Button variant="secondary" onClick={onLoadMoreClick}>
+                Load More
+              </Button>
+            )}
+          </div>
+
+          <div className="flex justify-center mt-4">
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button
+                  size="lg"
+                  disabled={selectedScores.size === 0}
+                  className="bg-zinc-800 hover:bg-zinc-700 text-white px-8"
+                  onClick={submitScore}
+                >
+                  Submit Scores Onchain
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Submit Scores Onchain</DialogTitle>
+                </DialogHeader>
+                <div className="flex flex-col items-center py-10">
+                  <PacmanLoader size={64} color="#cccccc" />
+                  <Paragraph>{submissionState}</Paragraph>
+                </div>
+              </DialogContent>
+            </Dialog>
+          </div>
+        </>
+      ) : (
+        <div>
+          <Paragraph>Looks like you haven&apos;t played any games!</Paragraph>
+          <Link href="/games">
+            <Button>Discover Games</Button>
+          </Link>
+        </div>
+      )}
+    </>
   );
-} 
+}

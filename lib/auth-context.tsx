@@ -1,31 +1,144 @@
-'use client';
+"use client";
 
-import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
-import { ConnectWalletButton } from '@/components/ui/connect-wallet';
-import { InfoPanel } from '@/components/layout/info-panel';
-import { useWalletStore } from '@/lib/wallet-store';
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
+import { User } from "./types";
+import { useAccount } from "wagmi";
+import { api } from "./api";
+import { createSiweMessage } from "viem/siwe";
+import { signMessage } from "wagmi/actions";
+import { web3Config } from "./web3config";
+import { toast } from "sonner";
+import { ConnectWalletPrompt } from "@/components/ui/connect-wallet";
 
 interface AuthContextType {
   isAuthenticated: boolean;
-  login: () => void;
-  logout: () => void;
+  user: User | null;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const { address } = useWalletStore();
+  const [user, setUser] = useState<User | null>(null);
+  const [initialized, setInitialized] = useState(false);
+  const { address, chainId } = useAccount();
+
+  async function login() {
+    if (user) return;
+
+    if (!address) {
+      return;
+    }
+
+    if (!chainId) {
+      toast.error("ChainId not specified");
+      return;
+    }
+
+    try {
+      // get nonce
+      const nonceResponse = await api.getNonce();
+      if (!nonceResponse.success) {
+        toast.error(nonceResponse.error);
+        return;
+      }
+
+      // sign message
+      const msg = createSiweMessage({
+        address,
+        chainId: chainId,
+        domain: window.location.host,
+        nonce: nonceResponse.data!,
+        uri: window.location.origin,
+        version: "1",
+        statement:
+          "0xArtcade is asking for your signature to verify your ownership of your digital wallet.",
+      });
+
+      const signature = await signMessage(web3Config, {
+        message: msg,
+        account: address,
+      });
+
+      // login
+      const loginResponse = await api.login(msg, signature);
+      if (!loginResponse.success) {
+        toast.error(loginResponse.error);
+        return;
+      }
+      setUser(loginResponse.data?.user as User);
+      setIsAuthenticated(true);
+    } catch (e) {
+      setIsAuthenticated(false);
+      setUser(null);
+      const knownPhrases = [
+        {
+          phrase: "User rejected the request",
+          message: "",
+        },
+        {
+          phrase:
+            "The total cost (gas * gas fee + value) of executing this transaction exceeds the balance of the account",
+          message: "Insufficient funds, please bridge some ETH!",
+        },
+      ];
+      // @ts-expect-error it just fails okay?
+      if (!knownPhrases.some((phrase) => e.message.includes(phrase.phrase))) {
+        // @ts-expect-error it just fails okay?
+        toast.error(e.message);
+      } else {
+        knownPhrases.forEach((phrase) => {
+          // @ts-expect-error it just fails okay?
+          if (e.message.includes(phrase.phrase) && phrase.message) {
+            toast.error(phrase.message);
+          }
+        });
+      }
+    }
+  }
+
+  async function logout() {
+    if (user) {
+      const r = await api.logout();
+      if (!r.success) {
+        toast.error(r.error);
+      }
+    }
+    setIsAuthenticated(false);
+    setUser(null);
+  }
 
   useEffect(() => {
-    setIsAuthenticated(!!address);
-  }, [address]);
+    // initialize
+    api.getUserInfo().then((res) => {
+      if (res.success) {
+        setUser(res.data);
+        setIsAuthenticated(true);
+      }
+      setInitialized(true);
+    });
+  }, []);
 
-  const login = () => setIsAuthenticated(true);
-  const logout = () => setIsAuthenticated(false);
+  useEffect(() => {
+    if (!initialized) return;
+
+    if (address) {
+      // login
+      login();
+    } else {
+      // logout
+      logout();
+    }
+  }, [address, initialized]);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, user }}>
       {children}
     </AuthContext.Provider>
   );
@@ -34,7 +147,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 export function useAuth() {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 }
@@ -42,23 +155,11 @@ export function useAuth() {
 export function withAuth<T extends object>(Component: React.ComponentType<T>) {
   return function AuthenticatedRoute(props: T) {
     const { isAuthenticated } = useAuth();
-    const { address } = useWalletStore();
 
-    if (!isAuthenticated || !address) {
-      return (
-        <InfoPanel>
-          <div className="h-full flex flex-col">
-            <div className="flex-1 flex items-center justify-center min-h-[400px]">
-              <div className="text-center space-y-4">
-                <h2 className="text-xl text-zinc-400 mb-4">Connect your wallet to continue</h2>
-                <ConnectWalletButton />
-              </div>
-            </div>
-          </div>
-        </InfoPanel>
-      );
+    if (!isAuthenticated) {
+      return <ConnectWalletPrompt />;
     }
 
     return <Component {...props} />;
   };
-} 
+}

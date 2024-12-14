@@ -1,22 +1,17 @@
-'use client';
+"use client";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { ConnectWalletButton } from "@/components/ui/connect-wallet";
-import { UserMenu } from "@/components/ui/user-menu";
-import { TicketStatus } from "@/components/ui/ticket-status";
+// import { ConnectWalletButton } from "@/components/ui/connect-wallet";
+// import { UserMenu } from "@/components/ui/user-menu";
+// import { TicketStatus } from "@/components/ui/ticket-status";
 import { cn } from "@/lib/utils";
+import { ConnectWalletButton } from "../ui/connect-button";
 
 export function Header() {
-  const router = useRouter();
   const pathname = usePathname();
-
-  const handleNavigation = (e: React.MouseEvent, href: string) => {
-    e.preventDefault();
-    router.push(href);
-  };
 
   const navItems = [
     { href: "/leaderboard", label: "Leaderboard" },
@@ -37,38 +32,41 @@ export function Header() {
     >
       <div className="container mx-auto py-4">
         <nav className="grid grid-cols-3 items-center">
-          <Link href="/dashboard" className="text-xl font-bold text-zinc-100">
+          <Link
+            href="/dashboard"
+            className="text-xl uppercase font-bold bg-gradient-to-b from-neon-blue via-neon-purple to-neon-pink bg-clip-text text-transparent"
+          >
             0xArtcade
           </Link>
 
           <div className="flex items-center justify-center gap-4">
             {navItems.map((item) => (
-              <Button
-                key={item.href}
-                variant="ghost"
-                onClick={(e) => handleNavigation(e, item.href)}
-                className={cn(
-                  "text-base font-medium transition-colors",
-                  isActive(item.href)
-                    ? "text-zinc-100 bg-zinc-800"
-                    : "text-zinc-400 hover:text-zinc-100"
-                )}
-              >
-                {item.label}
-              </Button>
+              <Link href={item.href} key={item.href}>
+                <Button
+                  variant="ghost"
+                  className={cn(
+                    "text-base font-medium transition-colors",
+                    isActive(item.href)
+                      ? "text-zinc-100 bg-zinc-800"
+                      : "text-zinc-400 hover:text-zinc-100"
+                  )}
+                >
+                  {item.label}
+                </Button>
+              </Link>
             ))}
           </div>
 
           <div className="flex items-center justify-end gap-2 shrink-0">
-            <div className="shrink-0">
+            {/* <div className="shrink-0">
               <TicketStatus />
-            </div>
+            </div> */}
             <div className="shrink-0">
               <ConnectWalletButton />
             </div>
-            <div className="shrink-0">
+            {/* <div className="shrink-0">
               <UserMenu />
-            </div>
+            </div> */}
           </div>
         </nav>
       </div>

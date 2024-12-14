@@ -1,10 +1,11 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { cn } from '@/lib/utils';
-import { Flame } from 'lucide-react';
-import { NFTImage } from '@/components/ui/nft-image';
-import { usePathname } from 'next/navigation';
+import React, { useState, useEffect } from "react";
+import { cn } from "@/lib/utils";
+import { Flame } from "lucide-react";
+import { NFTImage } from "@/components/ui/nft-image";
+import { usePathname } from "next/navigation";
+import { Paragraph } from "@/components/ui/typography";
 
 interface CrateOption {
   name: string;
@@ -16,33 +17,43 @@ interface CrateOption {
 /// MOCK Crates DATA (Replace)
 //////////////////////////////////////////////////////
 
-
 const CRATE_OPTIONS: CrateOption[] = [
-  { name: 'Crate_Bronze.GLB', ticketCost: 1000 },
-  { name: 'Crate_Silver.GLB', ticketCost: 2000, status: 'Coming Soon' },
-  { name: 'Crate_Gold.GLB', ticketCost: 3500, status: 'Coming Soon' },
-  { name: 'Crate_Platinum.GLB', ticketCost: 5000, status: 'Coming Soon' },
-  { name: 'Crate_Diamond.GLB', ticketCost: 10000, status: 'Coming Soon' },
+  { name: "Crate_Bronze.GLB", ticketCost: 1000 },
+  { name: "Crate_Silver.GLB", ticketCost: 2000, status: "Coming Soon" },
+  { name: "Crate_Gold.GLB", ticketCost: 3500, status: "Coming Soon" },
+  { name: "Crate_Platinum.GLB", ticketCost: 5000, status: "Coming Soon" },
+  { name: "Crate_Diamond.GLB", ticketCost: 10000, status: "Coming Soon" },
 ];
 
-type FlowStep = 'select' | 'confirm' | 'success' | 'reveal';
+type FlowStep = "select" | "confirm" | "success" | "reveal";
 
 const STEPS = {
-  select: { number: 1, title: 'Choose Your Crate' },
-  confirm: { number: 2, title: 'Exchange Tickets' },
-  success: { number: 3, title: 'Congrats' },
-  reveal: { number: 4, title: 'Enjoy your Art!' }
+  select: { number: 1, title: "Choose Your Crate" },
+  confirm: { number: 2, title: "Exchange Tickets" },
+  success: { number: 3, title: "Congrats" },
+  reveal: { number: 4, title: "Enjoy your Art!" },
 };
 
 export default function CratesPage() {
   const [selectedCrate, setSelectedCrate] = useState<CrateOption | null>(null);
-  const [currentStep, setCurrentStep] = useState<FlowStep>('select');
+  const [currentStep, setCurrentStep] = useState<FlowStep>("select");
   const pathname = usePathname();
+
+  return (
+    <div className="text-center">
+      <Paragraph>
+        In the future, we plan to allow you to burn tickets in exchange for real
+        NFTs in &quot;loot boxes&quot;. This is an important aspect of art
+        discovery.
+      </Paragraph>
+      <Paragraph>Check back later!</Paragraph>
+    </div>
+  );
 
   // Reset on navigation
   useEffect(() => {
-    if (pathname === '/rewards' || pathname === '/rewards/crates') {
-      setCurrentStep('select');
+    if (pathname === "/rewards" || pathname === "/rewards/crates") {
+      setCurrentStep("select");
       setSelectedCrate(null);
     }
   }, [pathname]);
@@ -53,16 +64,14 @@ export default function CratesPage() {
     }
   };
 
-  const handleConfirm = () => setCurrentStep('confirm');
-  const handleRedeem = () => setCurrentStep('success');
-  const handleOpen = () => setCurrentStep('reveal');
+  const handleConfirm = () => setCurrentStep("confirm");
+  const handleRedeem = () => setCurrentStep("success");
+  const handleOpen = () => setCurrentStep("reveal");
 
   // Common layout wrapper
   const PageWrapper = ({ children }: { children: React.ReactNode }) => (
     <div className="min-h-[calc(100vh-16rem)] p-8 max-w-7xl mx-auto">
-      <div className="flex flex-col h-full gap-8">
-        {children}
-      </div>
+      <div className="flex flex-col h-full gap-8">{children}</div>
     </div>
   );
 
@@ -84,21 +93,22 @@ export default function CratesPage() {
   );
 
   // Selection View
-  if (currentStep === 'select') {
+  if (currentStep === "select") {
     return (
       <PageWrapper>
         <HeaderWrapper>Choose Your Crate</HeaderWrapper>
-        
+
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 w-full">
           {CRATE_OPTIONS.map((crate) => (
-            <div 
+            <div
               key={crate.name}
               onClick={() => handleCrateSelect(crate)}
               className={cn(
                 "flex flex-col rounded-xl overflow-hidden cursor-pointer w-48",
                 "bg-zinc-900/50 border border-zinc-800/50 transition-colors",
                 crate.status && "opacity-50",
-                selectedCrate?.name === crate.name && "border-zinc-600 bg-zinc-800/50"
+                selectedCrate?.name === crate.name &&
+                  "border-zinc-600 bg-zinc-800/50"
               )}
             >
               <div className="aspect-[4/5] bg-zinc-800/50 flex items-center justify-center text-zinc-600">
@@ -109,7 +119,9 @@ export default function CratesPage() {
                 {crate.status ? (
                   <div className="text-sm text-zinc-400">{crate.status}</div>
                 ) : (
-                  <div className="text-sm text-zinc-400">{crate.ticketCost.toLocaleString()} tickets</div>
+                  <div className="text-sm text-zinc-400">
+                    {crate.ticketCost.toLocaleString()} tickets
+                  </div>
                 )}
               </div>
             </div>
@@ -134,18 +146,20 @@ export default function CratesPage() {
   }
 
   // Confirmation View
-  if (currentStep === 'confirm') {
+  if (currentStep === "confirm") {
     return (
       <PageWrapper>
         <HeaderWrapper>Exchange Tickets</HeaderWrapper>
-        
+
         <div className="flex items-center justify-center gap-12 w-full">
           {/* Tickets */}
           <div className="w-64 space-y-2">
             <div className="aspect-[4/5] rounded-xl bg-zinc-900/50 border border-zinc-800/50 overflow-hidden">
               <NFTImage />
             </div>
-            <div className="text-center text-sm text-zinc-400"># of Tickets (1,000)</div>
+            <div className="text-center text-sm text-zinc-400">
+              # of Tickets (1,000)
+            </div>
           </div>
 
           {/* Arrow */}
@@ -158,7 +172,9 @@ export default function CratesPage() {
             <div className="aspect-[4/5] rounded-xl bg-zinc-900/50 border border-zinc-800/50 overflow-hidden flex items-center justify-center text-zinc-600">
               Art Placeholder
             </div>
-            <div className="text-center text-sm text-zinc-400">Number of Crates (x1)</div>
+            <div className="text-center text-sm text-zinc-400">
+              Number of Crates (x1)
+            </div>
           </div>
         </div>
 
@@ -175,12 +191,10 @@ export default function CratesPage() {
   }
 
   // Success View
-  if (currentStep === 'success') {
+  if (currentStep === "success") {
     return (
       <PageWrapper>
-        <HeaderWrapper>
-          Congrats on {selectedCrate?.name}
-        </HeaderWrapper>
+        <HeaderWrapper>Congrats on {selectedCrate?.name}</HeaderWrapper>
 
         <div className="flex justify-center">
           <div className="w-80">
@@ -203,7 +217,7 @@ export default function CratesPage() {
   }
 
   // Reveal View
-  if (currentStep === 'reveal') {
+  if (currentStep === "reveal") {
     return (
       <PageWrapper>
         <HeaderWrapper>Enjoy your Art!</HeaderWrapper>
@@ -221,13 +235,11 @@ export default function CratesPage() {
         </div>
 
         <div className="mt-auto pt-4 border-t border-zinc-800/50 flex justify-center">
-          <button
-            className="px-8 py-2 rounded-full bg-zinc-900/50 border border-zinc-800/50 text-sm text-zinc-400 hover:bg-zinc-900 transition-colors"
-          >
+          <button className="px-8 py-2 rounded-full bg-zinc-900/50 border border-zinc-800/50 text-sm text-zinc-400 hover:bg-zinc-900 transition-colors">
             Share on Social
           </button>
         </div>
       </PageWrapper>
     );
   }
-} 
+}

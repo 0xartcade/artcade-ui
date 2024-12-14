@@ -1,86 +1,73 @@
-'use client';
+"use client";
 
 import { InfoPanel } from "@/components/layout/info-panel";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { GameCard } from "@/components/ui/game-card";
+import { api } from "@/lib/api";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { useCallback, useMemo } from "react";
 import React from "react";
-import { getMockLeaderboardData } from "./mock-data";
-
-//////////////////////////////////////////////////////
-/// CONSTANTS
-//////////////////////////////////////////////////////
-
-const ITEMS_PER_PAGE = 8;
-const leaderboardData = getMockLeaderboardData();
+import { toast } from "sonner";
 
 //////////////////////////////////////////////////////
 /// LEADERBOARD PAGE
 //////////////////////////////////////////////////////
 
 export default function LeaderboardPage() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = Math.ceil(leaderboardData.length / ITEMS_PER_PAGE);
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const currentData = leaderboardData.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
+    queryKey: ["games"],
+    queryFn: async ({ pageParam }) => {
+      const response = await api.getGames({ offset: pageParam });
+      if (!response.success) {
+        toast.error(response.error);
+        throw new Error(response.error);
+      }
+      return response.data;
+    },
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, pages) =>
+      lastPage?.next ? pages.length : undefined,
+  });
+
+  const onLoadMoreClick = useCallback(() => {
+    fetchNextPage();
+  }, [fetchNextPage]);
+
+  const games = useMemo(() => {
+    return data?.pages?.map((d) => (d ? d.results : [])).flat() || [];
+  }, [data]);
 
   return (
     <InfoPanel>
-      <div className="px-32 py-6 space-y-4">
-        <div className="grid gap-3">
-          {currentData.map((player, index) => (
-            <div
-              key={player.address}
-              className={`p-3 rounded-lg border border-zinc-800 bg-zinc-900/50 backdrop-blur-sm
-                ${(startIndex + index) < 3 ? "ring-1 ring-zinc-700" : ""}`}
-            >
-              <div className="flex items-center gap-6">
-                <div className="flex-shrink-0">
-                  <span
-                    className={`flex h-10 w-10 text-lg items-center justify-center rounded-full font-bold
-                      ${(startIndex + index) === 0 ? "bg-yellow-500/20 text-yellow-500 ring-1 ring-yellow-500/50" : ""}
-                      ${(startIndex + index) === 1 ? "bg-zinc-400/20 text-zinc-400 ring-1 ring-zinc-400/50" : ""}
-                      ${(startIndex + index) === 2 ? "bg-amber-700/20 text-amber-700 ring-1 ring-amber-700/50" : ""}
-                      ${(startIndex + index) > 2 ? "bg-zinc-800/50 text-zinc-500" : ""}`}
-                  >
-                    {player.rank}
-                  </span>
-                </div>
-                
-                <div className="flex-grow flex items-center gap-6">
-                  <div className="text-lg font-semibold">{player.name}</div>
-                  <div className="font-mono text-sm text-zinc-400">{player.address}</div>
-                </div>
-                
-                <div className="flex-shrink-0 text-right">
-                  <div className="text-lg font-bold">{player.tickets.toLocaleString()}</div>
-                  <div className="text-xs text-zinc-400">tickets</div>
-                </div>
-              </div>
-            </div>
+      <div className="w-full px-6 py-6 flex justify-center">
+        <div className="w-full flex flex-wrap gap-4">
+          {games.map((game) => (
+            <GameCard
+              key={game.id}
+              name={game.name}
+              description={game.description}
+              gameType="Art & Knowledge"
+              url={`/games/${game.id}/leaderboard`}
+              ctaName="View Leaderboard"
+            />
           ))}
+          {games.length < 10 && (
+            <GameCard
+              name="Coming soon"
+              description="We're working on bringing you more games!"
+              gameType="?"
+            />
+          )}
         </div>
-        
-        <div className="flex justify-center items-center gap-4">
-          <Button
-            variant="ghost"
-            onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-            disabled={currentPage === 1}
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </Button>
-          <span className="text-sm text-zinc-400">
-            Page {currentPage} of {totalPages}
-          </span>
-          <Button
-            variant="ghost"
-            onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-            disabled={currentPage === totalPages}
-          >
-            <ChevronRight className="h-4 w-4" />
-          </Button>
-        </div>
+
+        {hasNextPage && (
+          <div className="flex justify-center items-center gap-4">
+            <Button variant="secondary" onClick={onLoadMoreClick}>
+              Load More
+            </Button>
+          </div>
+        )}
       </div>
     </InfoPanel>
   );
-} 
+}

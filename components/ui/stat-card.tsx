@@ -1,5 +1,5 @@
 // UI Component imports
-import { ConnectWalletButton } from "@/components/ui/connect-wallet"; // Wallet connection component
+import { ConnectWalletButton } from "@/components/ui/connect-button"; // Wallet connection component
 import { LucideIcon } from "lucide-react"; // Type for Lucide icons
 import { Gamepad2, Trophy, Ticket, Gift } from "lucide-react"; // Icon imports for stats
 

@@ -3,7 +3,9 @@ import { Monoton, Lato, IBM_Plex_Mono } from "next/font/google"; // Google fonts
 import "./globals.css"; // Global styles
 import { ThemeProvider } from "next-themes"; // Theme management
 import { ThreePanel } from "@/components/layout/three-panel"; // 3D panel component
-import { AuthProvider } from '@/lib/auth-context'; // Authentication context
+import { AuthProvider } from "@/lib/auth-context"; // Authentication context
+import { Web3Provider } from "@/components/layout/web3-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 //////////////////////////////////////////////////////
 /// FONT CONFIGURATIONS
@@ -47,18 +49,23 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${titleFont.variable} ${sansFont.variable} ${monoFont.variable} font-sans min-h-screen flex flex-col bg-zinc-950 text-zinc-50`}>
+      <body
+        className={`${titleFont.variable} ${sansFont.variable} ${monoFont.variable} font-sans min-h-screen flex flex-col bg-zinc-950 text-zinc-50`}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
           enableSystem={false} // Disable system theme detection
         >
-          <AuthProvider>
-            <div className="flex flex-col min-h-screen">
-              <ThreePanel>{children}</ThreePanel>
-            </div>
-          </AuthProvider>
+          <Web3Provider>
+            <AuthProvider>
+              <div className="flex flex-col min-h-screen">
+                <ThreePanel>{children}</ThreePanel>
+              </div>
+            </AuthProvider>
+          </Web3Provider>
         </ThemeProvider>
+        <Toaster position="bottom-center" duration={5_000} closeButton={true} />
       </body>
     </html>
   );

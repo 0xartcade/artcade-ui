@@ -1,6 +1,6 @@
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { cn } from '@/lib/utils';
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 //////////////////////////////////////////////////////
 /// TYPES
@@ -25,7 +25,9 @@ export function SubNav({ tabs, className }: SubNavProps) {
   const pathname = usePathname();
 
   return (
-    <div className={cn("flex justify-center gap-4 p-4 border-b border-zinc-800", className)}>
+    <div
+      className={cn("flex justify-center gap-4 p-4 border-zinc-800", className)}
+    >
       {tabs.map((tab) => {
         if (tab.disabled) {
           return (
@@ -55,4 +57,4 @@ export function SubNav({ tabs, className }: SubNavProps) {
       })}
     </div>
   );
-} 
+}
