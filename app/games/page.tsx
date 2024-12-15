@@ -74,6 +74,16 @@ function GamesPage() {
                 url={`/games/${game.id}/play`}
               />
             ))}
+            <GameCard
+              name="Click to Create"
+              description="Test your knowledge of Click Create's curated collection. Identify artists, curators, mint dates, and themes from their unique digital art pieces."
+              gameType="Art"
+            />
+            <GameCard
+              name="SuperSales"
+              description="SuperRare is one of the oldest and most prestigious curators of digital art. Test your knowledge of the biggest sales on the platform."
+              gameType="Art"
+            />
             {hasNextPage && (
               <Button variant="secondary" onClick={onLoadMoreClick}>
                 Load More

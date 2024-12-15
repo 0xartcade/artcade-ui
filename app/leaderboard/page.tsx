@@ -51,13 +51,6 @@ export default function LeaderboardPage() {
               ctaName="View Leaderboard"
             />
           ))}
-          {games.length < 10 && (
-            <GameCard
-              name="Coming soon"
-              description="We're working on bringing you more games!"
-              gameType="?"
-            />
-          )}
         </div>
 
         {hasNextPage && (

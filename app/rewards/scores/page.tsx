@@ -58,6 +58,7 @@ export default function ScoresPage() {
 
   async function submitScore() {
     // get score signatures
+    // check if player needs to register
     // submit via multi-call
     setSubmissionState("su");
     // success
