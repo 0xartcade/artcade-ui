@@ -2,7 +2,7 @@
 
 import { web3Config } from "@/lib/web3config";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ConnectKitProvider, type Mode } from "connectkit";
+import { ConnectKitProvider } from "connectkit";
 import { FC, ReactNode } from "react";
 import { WagmiProvider } from "wagmi";
 
@@ -164,7 +164,7 @@ const connectKitTheme = {
 
 const connectKitProps = {
   theme: "custom",
-  mode: "dark" as Mode,
+  mode: "dark",
   customTheme: connectKitTheme,
   options: {
     hideBalance: false,
