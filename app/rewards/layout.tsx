@@ -3,7 +3,6 @@
 import { useAuth } from "@/lib/auth-context";
 import { ConnectWalletPrompt } from "@/components/ui/connect-wallet";
 import { SubNav } from "@/components/ui/sub-nav";
-import { InfoPanel } from "@/components/layout/info-panel";
 
 export default function RewardsLayout({
   children,
@@ -13,6 +12,7 @@ export default function RewardsLayout({
   const { isAuthenticated } = useAuth();
 
   const tabs = [
+    { name: "Reward Center", href: "/rewards" },
     { name: "Scores", href: "/rewards/scores" },
     { name: "Tickets", href: "/rewards/tickets" },
     { name: "Crates", href: "/rewards/crates" },
@@ -20,11 +20,13 @@ export default function RewardsLayout({
   ];
 
   return (
-    <div className="flex flex-col min-h-[calc(100vh-10rem)]">
-      <SubNav tabs={tabs} />
-      <InfoPanel className="p-6 h-[calc(100vh-14.5rem)]">
-        {isAuthenticated ? children : <ConnectWalletPrompt />}
-      </InfoPanel>
-    </div>
+    <>
+      <SubNav tabs={tabs} className="shadow-[0_0_25px_-5px] shadow-zinc-950 mb-4" />
+      <div className="page-layout">
+        <div className="page-layout-inner">
+          {isAuthenticated ? children : <ConnectWalletPrompt />}
+        </div>
+      </div>
+    </>
   );
 }

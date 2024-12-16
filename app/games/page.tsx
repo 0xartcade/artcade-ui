@@ -1,23 +1,21 @@
 "use client";
 
-// UI Component imports
-import { Suspense, useCallback, useMemo } from "react"; // React suspense for loading states
-import { GameCard } from "@/components/ui/game-card"; // Card component for displaying game information
-import { InfoPanel } from "@/components/layout/info-panel"; // Main layout wrapper component
-import { withAuth } from "@/lib/auth-context"; // Authentication HOC wrapper
+import { Suspense, useCallback, useMemo } from "react";
+import { GameCard } from "@/components/ui/game-card";
+import { withAuth } from "@/lib/auth-context";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
-import { SubHeading } from "@/components/ui/typography";
-import Button from "@/components/ui/button";
+import { SubHeading, Paragraph } from "@/components/ui/typography";
+import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
 
 //////////////////////////////////////////////////////
 /// LOADING COMPONENTS
 //////////////////////////////////////////////////////
 
-// Loading skeleton for game cards
 const GameCardSkeleton = () => (
-  <div className="w-full h-32 animate-pulse bg-zinc-800 rounded-md" />
+  <div className="w-full h-32 animate-pulse bg-black/40 backdrop-blur-sm rounded-2xl border border-white/5" />
 );
 
 //////////////////////////////////////////////////////
@@ -49,62 +47,76 @@ function GamesPage() {
   }, [data]);
 
   return (
-    <InfoPanel>
-      <div className="p-8 max-w-4xl mx-auto space-y-8">
-        {/* Introduction Section */}
-        <SubHeading>Select a game to play!</SubHeading>
-
-        {/* Games List Section */}
-        <div className="space-y-3">
-          <Suspense
-            fallback={
-              <>
-                <GameCardSkeleton />
-                <GameCardSkeleton />
-                <GameCardSkeleton />
-              </>
-            }
-          >
-            {games.map((game) => (
-              <GameCard
-                key={game.id}
-                name={game.name}
-                description={game.description}
-                gameType="Art"
-                url={`/games/${game.id}/play`}
-              />
-            ))}
-            <GameCard
-              name="Click to Create"
-              description="Test your knowledge of Click Create's curated collection. Identify artists, curators, mint dates, and themes from their unique digital art pieces."
-              gameType="Art"
+    <div className="page-layout">
+      <div className="page-layout-inner">
+        {/* Page Header */}
+        <div className="flex flex-col items-center text-center space-y-4 mb-12">
+          <div className="relative">
+            <SubHeading className="font-orbitron text-xl text-white uppercase tracking-widest">
+              Select a game to play!
+            </SubHeading>
+            <motion.div 
+              layoutId="sectionUnderline"
+              className="absolute -bottom-2 left-0 right-0 h-px bg-gradient-to-r from-artcade-aqua to-artcade-purple"
             />
-            <GameCard
-              name="SuperSales"
-              description="SuperRare is one of the oldest and most prestigious curators of digital art. Test your knowledge of the biggest sales on the platform."
-              gameType="Art"
-            />
-            {hasNextPage && (
-              <Button variant="secondary" onClick={onLoadMoreClick}>
-                Load More
-              </Button>
-            )}
-          </Suspense>
+          </div>
+          <div className="max-w-2xl">
+            <Paragraph className="artcade-text">
+              Choose from our collection of blockchain-powered games and start earning rewards.
+            </Paragraph>
+          </div>
         </div>
 
-        {/* Submit Game Section */}
-        {/* <Suspense fallback={<ButtonSkeleton />}>
-          <div className="flex justify-center">
-            <Button
-              size="lg"
-              className="bg-zinc-800 hover:bg-zinc-700 text-white px-8"
+        {/* Page Content */}
+        <div className="flex flex-col space-y-12 max-w-4xl mx-auto">
+          {/* Games List Section */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="w-full space-y-8"
+          >
+            <Suspense
+              fallback={
+                <>
+                  <GameCardSkeleton />
+                  <GameCardSkeleton />
+                  <GameCardSkeleton />
+                </>
+              }
             >
-              Submit Game Idea
-            </Button>
-          </div>
-        </Suspense> */}
+              {games.map((game) => (
+                <GameCard
+                  key={game.id}
+                  name={game.name}
+                  description={game.description}
+                  gameType="Art"
+                  url={`/games/${game.id}/play`}
+                  thumbnail={game.id === 1 ? "/games/thumbnail_game01.jpg" : undefined}
+                />
+              ))}
+              <GameCard
+                name="Click to Create"
+                description="Test your knowledge of Click Create's curated collection. Identify artists, curators, mint dates, and themes from their unique digital art pieces."
+                gameType="Art"
+              />
+              <GameCard
+                name="SuperSales"
+                description="SuperRare is one of the oldest and most prestigious curators of digital art. Test your knowledge of the biggest sales on the platform."
+                gameType="Art"
+              />
+              {hasNextPage && (
+                <div className="flex justify-center mt-6">
+                  <Button variant="retro" onClick={onLoadMoreClick}>
+                    Load More
+                  </Button>
+                </div>
+              )}
+            </Suspense>
+          </motion.div>
+        </div>
       </div>
-    </InfoPanel>
+    </div>
   );
 }
 

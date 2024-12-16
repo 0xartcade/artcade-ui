@@ -1,16 +1,16 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { cn } from "@/lib/utils";
-import { Flame } from "lucide-react";
-import { NFTImage } from "@/components/ui/nft-image";
-import { usePathname } from "next/navigation";
-import { Paragraph } from "@/components/ui/typography";
+import { SubHeading, Paragraph } from "@/components/ui/typography";
+import { motion } from "framer-motion";
+import Image from "next/image";
 
 interface CrateOption {
   name: string;
   ticketCost: number;
   status?: string;
+  image: string;
 }
 
 //////////////////////////////////////////////////////
@@ -18,228 +18,109 @@ interface CrateOption {
 //////////////////////////////////////////////////////
 
 const CRATE_OPTIONS: CrateOption[] = [
-  { name: "Crate_Bronze.GLB", ticketCost: 1000 },
-  { name: "Crate_Silver.GLB", ticketCost: 2000, status: "Coming Soon" },
-  { name: "Crate_Gold.GLB", ticketCost: 3500, status: "Coming Soon" },
-  { name: "Crate_Platinum.GLB", ticketCost: 5000, status: "Coming Soon" },
-  { name: "Crate_Diamond.GLB", ticketCost: 10000, status: "Coming Soon" },
+  { name: "Bronze", ticketCost: 1000, status: "Coming Soon", image: "/crates/0xArtcade_Crate_Bronze.png" },
+  { name: "Silver", ticketCost: 2000, status: "Coming Soon", image: "/crates/0xArtcade_Crate_Silver.png" },
+  { name: "Gold", ticketCost: 3500, status: "Coming Soon", image: "/crates/0xArtcade_Crate_Gold.png" },
+  { name: "Platinum", ticketCost: 5000, status: "Coming Soon", image: "/crates/0xArtcade_Crate_Platinum.png" },
+  { name: "Diamond", ticketCost: 10000, status: "Coming Soon", image: "/crates/0xArtcade_Crate_Diamond.png" },
 ];
 
-type FlowStep = "select" | "confirm" | "success" | "reveal";
-
-const STEPS = {
-  select: { number: 1, title: "Choose Your Crate" },
-  confirm: { number: 2, title: "Exchange Tickets" },
-  success: { number: 3, title: "Congrats" },
-  reveal: { number: 4, title: "Enjoy your Art!" },
-};
-
 export default function CratesPage() {
-  const [selectedCrate, setSelectedCrate] = useState<CrateOption | null>(null);
-  const [currentStep, setCurrentStep] = useState<FlowStep>("select");
-  const pathname = usePathname();
-
   return (
-    <div className="text-center">
-      <Paragraph>
-        In the future, we plan to allow you to burn tickets in exchange for real
-        NFTs in &quot;loot boxes&quot;. This is an important aspect of art
-        discovery.
-      </Paragraph>
-      <Paragraph>Check back later!</Paragraph>
-    </div>
-  );
-
-  // Reset on navigation
-  useEffect(() => {
-    if (pathname === "/rewards" || pathname === "/rewards/crates") {
-      setCurrentStep("select");
-      setSelectedCrate(null);
-    }
-  }, [pathname]);
-
-  const handleCrateSelect = (crate: CrateOption) => {
-    if (!crate.status) {
-      setSelectedCrate(crate);
-    }
-  };
-
-  const handleConfirm = () => setCurrentStep("confirm");
-  const handleRedeem = () => setCurrentStep("success");
-  const handleOpen = () => setCurrentStep("reveal");
-
-  // Common layout wrapper
-  const PageWrapper = ({ children }: { children: React.ReactNode }) => (
-    <div className="min-h-[calc(100vh-16rem)] p-8 max-w-7xl mx-auto">
-      <div className="flex flex-col h-full gap-8">{children}</div>
-    </div>
-  );
-
-  // Step indicator
-  const StepIndicator = ({ step }: { step: FlowStep }) => (
-    <div className="flex items-center justify-center mb-1">
-      <div className="text-sm text-zinc-500">
-        Step {STEPS[step].number} of 4
-      </div>
-    </div>
-  );
-
-  // Common header wrapper
-  const HeaderWrapper = ({ children }: { children: React.ReactNode }) => (
-    <div className="mb-8">
-      <StepIndicator step={currentStep} />
-      <h2 className="text-2xl font-medium text-center">{children}</h2>
-    </div>
-  );
-
-  // Selection View
-  if (currentStep === "select") {
-    return (
-      <PageWrapper>
-        <HeaderWrapper>Choose Your Crate</HeaderWrapper>
-
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 w-full">
-          {CRATE_OPTIONS.map((crate) => (
-            <div
-              key={crate.name}
-              onClick={() => handleCrateSelect(crate)}
-              className={cn(
-                "flex flex-col rounded-xl overflow-hidden cursor-pointer w-48",
-                "bg-zinc-900/50 border border-zinc-800/50 transition-colors",
-                crate.status && "opacity-50",
-                selectedCrate?.name === crate.name &&
-                  "border-zinc-600 bg-zinc-800/50"
-              )}
-            >
-              <div className="aspect-[4/5] bg-zinc-800/50 flex items-center justify-center text-zinc-600">
-                Art Placeholder
-              </div>
-              <div className="p-3 space-y-1">
-                <div className="text-sm font-medium truncate">{crate.name}</div>
-                {crate.status ? (
-                  <div className="text-sm text-zinc-400">{crate.status}</div>
-                ) : (
-                  <div className="text-sm text-zinc-400">
-                    {crate.ticketCost.toLocaleString()} tickets
-                  </div>
-                )}
-              </div>
-            </div>
-          ))}
+    <div className="flex flex-col space-y-8">
+      {/* Introduction Section */}
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="flex flex-col items-center text-center space-y-6"
+      >
+        <div className="relative">
+          <SubHeading className="font-orbitron text-xl text-white uppercase tracking-wider">
+            NFT Crates
+          </SubHeading>
+          <motion.div 
+            layoutId="sectionUnderline"
+            className="absolute -bottom-2 left-0 right-0 h-px bg-gradient-to-r from-artcade-aqua to-artcade-purple"
+          />
         </div>
+        <div className="max-w-2xl">
+          <Paragraph className="artcade-text">
+            Burn tickets in exchange for NFT crates filled with real art. 
+          </Paragraph>
+        </div>
+      </motion.div>
 
-        <div className="mt-auto pt-4 border-t border-zinc-800/50 flex justify-center">
-          <button
-            onClick={handleConfirm}
-            disabled={!selectedCrate}
+      {/* Crates Grid */}
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1 }}
+        className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6"
+      >
+        {CRATE_OPTIONS.map((crate, index) => (
+          <motion.div
+            key={crate.name}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: index * 0.1 }}
             className={cn(
-              "px-8 py-2 rounded-full text-sm transition-colors",
-              "bg-zinc-900/50 border border-zinc-800/50 text-zinc-400",
-              "hover:bg-zinc-900 disabled:opacity-50 disabled:cursor-not-allowed"
+              "flex flex-col gap-3",
+              crate.status && "opacity-50"
             )}
           >
-            Select Crate
-          </button>
-        </div>
-      </PageWrapper>
-    );
-  }
-
-  // Confirmation View
-  if (currentStep === "confirm") {
-    return (
-      <PageWrapper>
-        <HeaderWrapper>Exchange Tickets</HeaderWrapper>
-
-        <div className="flex items-center justify-center gap-12 w-full">
-          {/* Tickets */}
-          <div className="w-64 space-y-2">
-            <div className="aspect-[4/5] rounded-xl bg-zinc-900/50 border border-zinc-800/50 overflow-hidden">
-              <NFTImage />
-            </div>
-            <div className="text-center text-sm text-zinc-400">
-              # of Tickets (1,000)
-            </div>
-          </div>
-
-          {/* Arrow */}
-          <div className="flex-none">
-            <Flame className="w-12 h-12 text-zinc-600" />
-          </div>
-
-          {/* Crate */}
-          <div className="w-64 space-y-2">
-            <div className="aspect-[4/5] rounded-xl bg-zinc-900/50 border border-zinc-800/50 overflow-hidden flex items-center justify-center text-zinc-600">
-              Art Placeholder
-            </div>
-            <div className="text-center text-sm text-zinc-400">
-              Number of Crates (x1)
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-auto pt-4 border-t border-zinc-800/50 flex justify-center">
-          <button
-            onClick={handleRedeem}
-            className="px-8 py-2 rounded-full bg-zinc-900/50 border border-zinc-800/50 text-sm text-zinc-400 hover:bg-zinc-900 transition-colors"
-          >
-            Redeem for Crate
-          </button>
-        </div>
-      </PageWrapper>
-    );
-  }
-
-  // Success View
-  if (currentStep === "success") {
-    return (
-      <PageWrapper>
-        <HeaderWrapper>Congrats on {selectedCrate?.name}</HeaderWrapper>
-
-        <div className="flex justify-center">
-          <div className="w-80">
-            <div className="aspect-[4/5] rounded-xl bg-zinc-900/50 border border-zinc-800/50 overflow-hidden flex items-center justify-center text-zinc-600">
-              Art Placeholder
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-auto pt-4 border-t border-zinc-800/50 flex justify-center">
-          <button
-            onClick={handleOpen}
-            className="px-8 py-2 rounded-full bg-zinc-900/50 border border-zinc-800/50 text-sm text-zinc-400 hover:bg-zinc-900 transition-colors"
-          >
-            Open Crate
-          </button>
-        </div>
-      </PageWrapper>
-    );
-  }
-
-  // Reveal View
-  if (currentStep === "reveal") {
-    return (
-      <PageWrapper>
-        <HeaderWrapper>Enjoy your Art!</HeaderWrapper>
-
-        <div className="flex justify-center">
-          <div className="flex gap-8">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="w-64">
-                <div className="aspect-[4/5] rounded-xl bg-zinc-900/50 border border-zinc-800/50 overflow-hidden">
-                  <NFTImage />
+            {/* Image Container */}
+            <div className="artcade-container-vertical group relative aspect-square">
+              <div className="artcade-hover-gradient" />
+              <div className="artcade-hover-sweep" />
+              <div className="absolute inset-3 bg-zinc-900 rounded-2xl shadow-[0_0_15px_rgba(0,0,0,0.3)] ring-1 ring-white/10 overflow-hidden">
+                {/* Base image with constant dark effect */}
+                <Image
+                  src={crate.image}
+                  alt={crate.name}
+                  width={400}
+                  height={400}
+                  className="w-full h-full object-cover opacity-60 scale-110 transform brightness-50 contrast-125 saturate-50"
+                  priority
+                />
+                
+                {/* Coming Soon Overlay - appears on hover */}
+                <div className="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-center">
+                  <div className="relative">
+                    {/* Glow effect behind text */}
+                    <div className="absolute inset-0 blur-xl bg-gradient-to-r from-artcade-aqua to-artcade-purple opacity-50" />
+                    
+                    {/* Coming Soon Text */}
+                    <div className="relative">
+                      <div className="font-monoton text-3xl text-white tracking-wider mb-3 text-center bg-clip-text text-transparent bg-gradient-to-r from-artcade-aqua to-artcade-purple uppercase">
+                        Coming Soon
+                      </div>
+                      <div className="h-px w-full bg-gradient-to-r from-artcade-aqua to-artcade-purple" />
+                    </div>
+                  </div>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
+            </div>
 
-        <div className="mt-auto pt-4 border-t border-zinc-800/50 flex justify-center">
-          <button className="px-8 py-2 rounded-full bg-zinc-900/50 border border-zinc-800/50 text-sm text-zinc-400 hover:bg-zinc-900 transition-colors">
-            Share on Social
-          </button>
-        </div>
-      </PageWrapper>
-    );
-  }
+            {/* Info Container */}
+            <div className="artcade-container-vertical group relative h-[120px]">
+              <div className="artcade-hover-gradient" />
+              <div className="artcade-hover-sweep" />
+              <div className="absolute inset-3 bg-zinc-900 rounded-2xl shadow-[0_0_15px_rgba(0,0,0,0.3)] ring-1 ring-white/10">
+                <div className="flex flex-col items-center justify-center h-full w-full p-6">
+                  <div className="flex flex-col items-center gap-3">
+                    <div className="font-orbitron text-lg text-white uppercase tracking-wider">
+                      {crate.name}
+                    </div>
+                    <div className="font-orbitron text-sm text-zinc-400 uppercase tracking-wider">
+                      Coming Soon
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </motion.div>
+    </div>
+  );
 }

@@ -18,6 +18,7 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80 hover:text-foreground",
         ghost: "hover:bg-accent text-accent-foreground hover:text-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        retro: "bg-gradient-to-r from-artcade-purple to-artcade-pink hover:from-artcade-purple/80 hover:to-artcade-pink/80 text-white border-2 border-white/20 shadow-lg font-['Orbitron'] font-bold uppercase retro-button",
       },
       size: {
         default: "h-10 px-4 py-2",

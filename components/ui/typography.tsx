@@ -28,7 +28,7 @@ export const Heading = ({
   className?: string;
 }) => {
   return (
-    <h2 className={cn("text-3xl uppercase font-thin", className)}>
+    <h2 className={cn("text-3xl uppercase font-system", className)}>
       {children}
     </h2>
   );
@@ -42,7 +42,7 @@ export const SubHeading = ({
   className?: string;
 }) => {
   return (
-    <h3 className={cn("text-2xl uppercase font-thin", className)}>
+    <h3 className={cn("text-2xl uppercase font-system", className)}>
       {children}
     </h3>
   );
@@ -55,18 +55,25 @@ export const SubHeading2 = ({
   children: ReactNode;
   className?: string;
 }) => {
-  return <h4 className={cn("text-xl", className)}>{children}</h4>;
+  return <h4 className={cn("text-xl font-system", className)}>{children}</h4>;
 };
 
 export const Paragraph = ({
   children,
   className,
+  noMargin,
 }: {
   children: ReactNode;
   className?: string;
+  noMargin?: boolean;
 }) => {
   return (
-    <p className={cn("leading-7 [&:not(:first-child)]:mt-6 text-foreground", className)}>
+    <p className={cn(
+      "leading-7 font-system",
+      !noMargin && "[&:not(:first-child)]:mt-6",
+      "text-foreground",
+      className
+    )}>
       {children}
     </p>
   );

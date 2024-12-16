@@ -1,11 +1,11 @@
 import type { Metadata } from "next"; // Next.js metadata types
-import { Monoton, Lato, IBM_Plex_Mono } from "next/font/google"; // Google fonts
+import { Monoton, Lato, IBM_Plex_Mono, Orbitron } from "next/font/google"; // Google fonts
 import "./globals.css"; // Global styles
 import { ThemeProvider } from "next-themes"; // Theme management
-import { ThreePanel } from "@/components/layout/three-panel"; // 3D panel component
 import { AuthProvider } from "@/lib/auth-context"; // Authentication context
 import { Web3Provider } from "@/components/layout/web3-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { RootLayoutContent } from "@/components/layout/root-layout-content";
 
 //////////////////////////////////////////////////////
 /// FONT CONFIGURATIONS
@@ -29,6 +29,12 @@ const monoFont = IBM_Plex_Mono({
   variable: "--mono-font", // CSS variable for monospace font
 });
 
+const orbitronFont = Orbitron({
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+  variable: "--orbitron-font", // CSS variable for Orbitron font
+});
+
 //////////////////////////////////////////////////////
 /// METADATA
 //////////////////////////////////////////////////////
@@ -50,18 +56,18 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${titleFont.variable} ${sansFont.variable} ${monoFont.variable} font-sans min-h-screen flex flex-col bg-zinc-950 text-zinc-50`}
+        className={`${titleFont.variable} ${sansFont.variable} ${monoFont.variable} ${orbitronFont.variable} bg-black text-zinc-50`}
       >
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
-          enableSystem={false} // Disable system theme detection
+          enableSystem={false}
         >
           <Web3Provider>
             <AuthProvider>
-              <div className="flex flex-col min-h-screen">
-                <ThreePanel>{children}</ThreePanel>
-              </div>
+              <RootLayoutContent>
+                {children}
+              </RootLayoutContent>
             </AuthProvider>
           </Web3Provider>
         </ThemeProvider>

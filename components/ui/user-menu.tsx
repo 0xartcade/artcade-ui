@@ -70,7 +70,7 @@ export function UserMenu() {
   return (
     <DropdownMenuPrimitive.Root>
       <DropdownMenuPrimitive.Trigger asChild>
-        <Button variant="outline" className="border-zinc-800">
+        <Button variant="retro" className="border-zinc-800">
           0xArtcade User 1
         </Button>
       </DropdownMenuPrimitive.Trigger>
