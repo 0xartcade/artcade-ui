@@ -11,12 +11,16 @@ export default {
 		extend: {
 			fontFamily: {
 				title: ["var(--title-font)"],
-				sans: ["var(--sans-font)"],
-				mono: ["var(--mono-font)"]
+				sans: ["var(--font-geist-sans)", "system-ui"],
+				mono: ["var(--font-geist-mono)", "monospace"],
+				monoton: ["Monoton", "cursive"],
+				orbitron: ["Orbitron", "sans-serif"],
+				system: ["system-ui", "sans-serif"],
 			},
 			colors: {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
+				
 				card: {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
@@ -57,7 +61,14 @@ export default {
 				},
 				"neon-blue": "hsl(var(--neon-blue))",
 				"neon-purple": "hsl(var(--neon-purple))",
-				"neon-pink": "hsl(var(--neon-pink))"
+				"neon-pink": "hsl(var(--neon-pink))",
+				artcade: {
+					aqua: '#52DBFF',
+					purple: '#7637FE',
+					pink: '#FF3DDC',
+					tangerine: '#FF3D5D',
+					yellow: '#FDECCF',
+				},
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 //////////////////////////////////////////////////////
 /// TYPES
@@ -25,36 +26,58 @@ export function SubNav({ tabs, className }: SubNavProps) {
   const pathname = usePathname();
 
   return (
-    <div
-      className={cn("flex justify-center gap-4 p-4 border-zinc-800", className)}
-    >
-      {tabs.map((tab) => {
-        if (tab.disabled) {
-          return (
-            <div
-              key={tab.href}
-              className="px-4 py-2 rounded-lg text-zinc-600 cursor-not-allowed"
-            >
-              {tab.name}
-            </div>
-          );
-        }
+    <div className="flex justify-center w-full">
+      <div
+        className={cn(
+          "inline-flex justify-center gap-4 px-12 py-4 rounded-2xl",
+          "bg-black/40 backdrop-blur-sm",
+          className
+        )}
+      >
+        {tabs.map((tab, index) => {
+          if (tab.disabled) {
+            return (
+              <div
+                key={tab.href}
+                className="px-4 py-2 font-system text-sm uppercase tracking-wider text-zinc-600 cursor-not-allowed"
+              >
+                {tab.name}
+              </div>
+            );
+          }
 
-        return (
-          <Link
-            key={tab.href}
-            href={tab.href}
-            className={cn(
-              "px-4 py-2 rounded-lg transition-colors",
-              pathname === tab.href
-                ? "bg-zinc-800 text-white"
-                : "text-zinc-400 hover:text-white"
-            )}
-          >
-            {tab.name}
-          </Link>
-        );
-      })}
+          const isActive = pathname === tab.href;
+
+          return (
+            <Link
+              key={tab.href}
+              href={tab.href}
+              className={cn(
+                "group relative px-4 py-2 font-system text-sm uppercase tracking-wider transition-colors",
+                isActive ? "text-white" : "text-zinc-400 hover:text-white"
+              )}
+            >
+              <motion.span
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.2,
+                  delay: index * 0.1,
+                  ease: [0, 0.2, 0.4, 1],
+                }}
+              >
+                {tab.name}
+              </motion.span>
+              {isActive && (
+                <motion.div
+                  layoutId="activeTabUnderline"
+                  className="absolute -bottom-1 left-0 right-0 h-px bg-gradient-to-r from-artcade-aqua to-artcade-purple"
+                />
+              )}
+            </Link>
+          );
+        })}
+      </div>
     </div>
   );
 }

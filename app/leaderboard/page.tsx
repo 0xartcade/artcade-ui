@@ -1,12 +1,12 @@
 "use client";
 
-import { InfoPanel } from "@/components/layout/info-panel";
 import { Button } from "@/components/ui/button";
 import { GameCard } from "@/components/ui/game-card";
+import { SubHeading, Paragraph } from "@/components/ui/typography";
 import { api } from "@/lib/api";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useCallback, useMemo } from "react";
-import React from "react";
+import { motion } from "framer-motion";
 import { toast } from "sonner";
 
 //////////////////////////////////////////////////////
@@ -38,29 +38,57 @@ export default function LeaderboardPage() {
   }, [data]);
 
   return (
-    <InfoPanel>
-      <div className="w-full px-6 py-6 flex justify-center">
-        <div className="w-full flex flex-wrap gap-4">
-          {games.map((game) => (
-            <GameCard
-              key={game.id}
-              name={game.name}
-              description={game.description}
-              gameType="Art & Knowledge"
-              url={`/games/${game.id}/leaderboard`}
-              ctaName="View Leaderboard"
+    <div className="page-layout">
+      <div className="page-layout-inner">
+        {/* Page Header */}
+        <div className="flex flex-col items-center text-center space-y-4 mb-12">
+          <div className="relative">
+            <SubHeading className="font-orbitron text-xl text-white uppercase tracking-widest">
+              Game Leaderboards
+            </SubHeading>
+            <motion.div 
+              layoutId="sectionUnderline"
+              className="absolute -bottom-2 left-0 right-0 h-px bg-gradient-to-r from-artcade-aqua to-artcade-purple"
             />
-          ))}
+          </div>
+          <div className="max-w-2xl">
+            <Paragraph className="artcade-text">
+              Check your ranking and compete with other players across all our games.
+            </Paragraph>
+          </div>
         </div>
 
-        {hasNextPage && (
-          <div className="flex justify-center items-center gap-4">
-            <Button variant="secondary" onClick={onLoadMoreClick}>
-              Load More
-            </Button>
-          </div>
-        )}
+        {/* Page Content */}
+        <div className="flex flex-col space-y-12 max-w-4xl mx-auto">
+          {/* Games List Section */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="w-full space-y-6"
+          >
+            {games.map((game) => (
+              <GameCard
+                key={game.id}
+                name={game.name}
+                description={game.description}
+                gameType="Art"
+                url={`/games/${game.id}/leaderboard`}
+                ctaName="View"
+                thumbnail={game.id === 1 ? "/games/thumbnail_game01.jpg" : undefined}
+              />
+            ))}
+
+            {hasNextPage && (
+              <div className="flex justify-center mt-6">
+                <Button variant="retro" onClick={onLoadMoreClick}>
+                  Load More
+                </Button>
+              </div>
+            )}
+          </motion.div>
+        </div>
       </div>
-    </InfoPanel>
+    </div>
   );
 }

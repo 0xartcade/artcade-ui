@@ -1,11 +1,15 @@
 "use client";
 
-import { InfoPanel } from "@/components/layout/info-panel";
+import { withAuth } from "@/lib/auth-context";
 
-//////////////////////////////////////////////////////
-/// GAME LEADERBOARD PAGE
-//////////////////////////////////////////////////////
-
-export default function GameInfoPage() {
-  return <InfoPanel>Nothing to show here!</InfoPanel>;
+function GamePage() {
+  return (
+    <div className="page-layout">
+      <div className="page-layout-inner">
+        Nothing to show here!
+      </div>
+    </div>
+  );
 }
+
+export default withAuth(GamePage);

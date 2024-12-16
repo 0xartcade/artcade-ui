@@ -1,12 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { TwitterIcon, GithubIcon } from "lucide-react";
 import Link from "next/link";
-import { Caption } from "../ui/typography";
 
-export function Footer() {
+interface FooterProps {
+  className?: string;
+}
+
+export function Footer({ className }: FooterProps) {
   const socialIcons = [
     {
       icon: TwitterIcon,
@@ -24,35 +27,62 @@ export function Footer() {
     },
   ];
 
+  const footerLinks = [
+    { href: "/dev-logs", label: "Dev Logs" },
+    // { href: "/submit-game", label: "Submit a Game" },
+  ];
+
   return (
     <motion.footer
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="border-t border-zinc-800 bg-zinc-950/50 backdrop-blur-sm mt-auto"
+      className={cn("glass-panel border-t border-zinc-800/50 mt-auto", className)}
     >
       <div className="container mx-auto py-2">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <Caption>© 2024 0xArtcade. All rights reserved.</Caption>
+          <span className="artcade-text">
+            © 2024 0xArtcade. All rights reserved.
+          </span>
 
-          <div className="flex flex-row items-center gap-4">
+          <div className="flex flex-row items-center gap-6">
             <div className="flex items-center gap-6">
-              <Link href="/dev-logs">
-                <Caption className="hover:text-foreground transition-colors">
-                  Dev Logs
-                </Caption>
-              </Link>
-              {/* <span className="text-sm text-zinc-400 hover:text-zinc-100 cursor-not-allowed">
-                Submit a Game
-              </span> */}
+              {footerLinks.map((item) => (
+                <Link 
+                  key={item.href}
+                  href={item.href}
+                  className={cn(
+                    "group relative font-orbitron text-sm uppercase tracking-wider",
+                    "transition-all duration-300",
+                    "text-white hover:text-white"
+                  )}
+                >
+                  <span className="relative">
+                    {item.label}
+                    <span className="absolute inset-0 flex items-center justify-center bg-gradient-to-r from-artcade-aqua to-artcade-purple bg-clip-text text-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                      {item.label}
+                    </span>
+                  </span>
+                </Link>
+              ))}
             </div>
 
-            <div className="flex items-center">
+            <div className="flex items-center gap-2">
               {socialIcons.map(({ icon: Icon, href, label }) => (
-                <Button key={label} variant="ghost" size="icon" asChild>
-                  <Link href={href}>
-                    <Icon className="w-5 h-5 hover:stroke-foreground transition-colors" />
-                  </Link>
-                </Button>
+                <Link 
+                  key={label} 
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={cn(
+                    "group relative p-2 transition-all duration-300",
+                    "text-white hover:text-white"
+                  )}
+                >
+                  <Icon className="w-4 h-4" />
+                  <span className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    <Icon className="w-4 h-4 bg-gradient-to-r from-artcade-aqua to-artcade-purple bg-clip-text text-transparent" />
+                  </span>
+                </Link>
               ))}
             </div>
           </div>
