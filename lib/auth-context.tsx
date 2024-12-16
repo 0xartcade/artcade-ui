@@ -31,10 +31,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const { address, chainId } = useAccount();
 
   const login = useCallback(async () => {
-    if (user) return;
-
     if (!address) {
       return;
+    }
+
+    console.log(user);
+    console.log(address);
+    if (user) {
+      if (user.eth_address.toLowerCase() !== address?.toLowerCase()) {
+        logout();
+      } else {
+        return;
+      }
     }
 
     if (!chainId) {
@@ -136,7 +144,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       // logout
       logout();
     }
-  }, [address, initialized, login, logout]);
+  }, [address, initialized]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, user }}>

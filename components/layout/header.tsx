@@ -26,28 +26,25 @@ export function Header() {
     <motion.header
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      className="sticky top-0 z-40 glass-panel border-b border-zinc-800/50"
+      className="sticky top-0 z-40 bg-background/80 glass-panel border-b border-zinc-800/50"
     >
       <div className="container mx-auto py-4">
-        <nav className="grid grid-cols-3 items-center">
-          <Link
-            href="/"
-            className="flex items-center"
-          >
+        <nav className="grid grid-cols-2 lg:grid-cols-3 items-center">
+          <Link href="/" className="flex items-center">
             <Image
               src="/0xArtcade_Logo.png"
               alt="0xArtcade Logo"
               width={225}
               height={50}
-              className="h-auto w-auto"
+              className="w-48 h-auto"
               priority
             />
           </Link>
 
-          <div className="flex items-center justify-center gap-6">
+          <div className="hidden lg:flex items-center justify-center gap-6">
             {navItems.map((item) => (
               <Link
-                href={item.href} 
+                href={item.href}
                 key={item.href}
                 className={cn(
                   "group relative font-orbitron text-base uppercase tracking-wider whitespace-nowrap",
@@ -82,7 +79,7 @@ export function Header() {
             ))}
           </div>
 
-          <div className="flex items-center justify-end shrink-0">
+          <div className="hidden lg:flex items-center justify-end shrink-0">
             <div className="shrink-0">
               <ConnectWalletButton />
             </div>

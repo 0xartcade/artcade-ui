@@ -39,7 +39,7 @@ export function SubNav({ tabs, className }: SubNavProps) {
             return (
               <div
                 key={tab.href}
-                className="px-4 py-2 font-system text-sm uppercase tracking-wider text-zinc-600 cursor-not-allowed"
+                className="px-4 py-2  text-sm uppercase tracking-wider text-zinc-600 cursor-not-allowed"
               >
                 {tab.name}
               </div>
@@ -53,7 +53,7 @@ export function SubNav({ tabs, className }: SubNavProps) {
               key={tab.href}
               href={tab.href}
               className={cn(
-                "group relative px-4 py-2 font-system text-sm uppercase tracking-wider transition-colors",
+                "group relative px-4 py-2  text-sm uppercase tracking-wider transition-colors",
                 isActive ? "text-white" : "text-zinc-400 hover:text-white"
               )}
             >

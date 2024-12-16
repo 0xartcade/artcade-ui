@@ -57,30 +57,46 @@ export function GameCard({
           <div className="relative flex-1 flex flex-col justify-center min-w-0 py-2 px-8">
             <div className="flex items-center gap-4">
               <div>
-                <SubHeading2 className="font-orbitron text-white tracking-wide uppercase leading-none">{name}</SubHeading2>
+                <SubHeading2 className="font-orbitron text-white tracking-wide uppercase leading-none">
+                  {name}
+                </SubHeading2>
               </div>
               {collaborator && (
-                <span className="font-system text-xs uppercase tracking-wider px-2 py-1 rounded-full bg-artcade-aqua text-white flex-none">
+                <span className=" text-xs uppercase tracking-wider px-2 py-1 rounded-full bg-artcade-aqua text-white flex-none">
                   {collaborator}
                 </span>
               )}
-              <span className="font-system text-xs uppercase tracking-wider px-2 py-1 rounded-full bg-artcade-purple text-white flex-none">
+              <span className=" text-xs uppercase tracking-wider px-2 py-1 rounded-full bg-artcade-purple text-white flex-none">
                 {gameType}
               </span>
             </div>
-            <Paragraph noMargin className="font-system text-zinc-400 text-base leading-tight mt-2">{description}</Paragraph>
+            <Paragraph
+              noMargin
+              className=" text-zinc-400 text-base leading-tight mt-2"
+            >
+              {description}
+            </Paragraph>
           </div>
 
           {/* Play Button */}
           <div className="relative h-full flex items-center justify-center px-8">
             {url ? (
               <Link href={url}>
-                <Button variant="retro" size="lg" className="font-orbitron w-36">
+                <Button
+                  variant="retro"
+                  size="lg"
+                  className="font-orbitron w-36"
+                >
                   {ctaName}
                 </Button>
               </Link>
             ) : (
-              <Button variant="retro" size="lg" className="font-orbitron w-36 opacity-50" disabled>
+              <Button
+                variant="retro"
+                size="lg"
+                className="font-orbitron w-36 opacity-50"
+                disabled
+              >
                 COMING SOON
               </Button>
             )}

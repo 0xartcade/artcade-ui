@@ -8,18 +8,19 @@ export default function GamesLayout({
   children: React.ReactNode;
 }) {
   const tabs = [
-    { name: "ArtGuessr", href: "/games" },
+    { name: "All Games", href: "/games" },
     { name: "Coming Soon", href: "#", disabled: true },
   ];
 
   return (
     <>
-      <SubNav tabs={tabs} className="shadow-[0_0_25px_-5px] shadow-zinc-950 mb-4" />
+      <SubNav
+        tabs={tabs}
+        className="shadow-[0_0_25px_-5px] shadow-zinc-950 mb-4"
+      />
       <div className="page-layout">
-        <div className="page-layout-inner">
-          {children}
-        </div>
+        <div className="page-layout-inner">{children}</div>
       </div>
     </>
   );
-} 
+}

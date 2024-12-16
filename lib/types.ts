@@ -30,6 +30,14 @@ export interface Score {
   updated_at: string;
 }
 
+export interface SignedScore {
+  player: `0x${string}`;
+  score: number;
+  nonce: `0x${string}`;
+  signature: `0x${string}`;
+  game_address: `0x${string}`;
+}
+
 export interface LeaderboardEntry {
   username: string;
   eth_address: `0x${string}`;

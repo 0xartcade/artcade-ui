@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import Link from "next/link";
 import Image from "next/image";
@@ -13,13 +13,13 @@ import { motion } from "framer-motion";
 export default function Home() {
   return (
     <div className="flex flex-col items-center gap-y-4 text-center min-h-screen">
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="pt-48 flex flex-col items-center gap-y-12 relative z-10"
       >
         {/* Logo Section */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
@@ -30,7 +30,7 @@ export default function Home() {
             <ShapeCircleIcon className="w-9 h-9" />
             <ShapeWordmarkIcon className="w-28 h-9" />
           </div>
-          
+
           {/* Shapecraft Logo */}
           <div className="h-9">
             <Image
@@ -44,7 +44,7 @@ export default function Home() {
         </motion.div>
 
         {/* Welcome Section */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
@@ -63,9 +63,9 @@ export default function Home() {
             <div className="font-orbitron text-xl text-white uppercase tracking-wider">
               Your gateway to blockchain-powered gaming
             </div>
-            <div className="font-system text-zinc-400 text-base uppercase tracking-wider">
-              Play games, earn tickets, climb our on-chain leaderboard, and unlock
-              rewards from real artists.
+            <div className=" text-zinc-400 text-base uppercase tracking-wider">
+              Play games, earn tickets, climb our on-chain leaderboard, and
+              unlock rewards from real artists.
             </div>
           </div>
         </motion.div>
@@ -78,12 +78,14 @@ export default function Home() {
           className="mt-8"
         >
           <Link href="/dashboard">
-            <div className="group relative font-system text-xl uppercase tracking-wider overflow-hidden transition-all duration-300 px-8 py-4 rounded-xl border-2 border-artcade-purple/30 bg-zinc-900/40 text-zinc-200 shadow-[0_0_25px_-5px] shadow-artcade-aqua/10">
+            <div className="group relative  text-xl uppercase tracking-wider overflow-hidden transition-all duration-300 px-8 py-4 rounded-xl border-2 border-artcade-purple/30 bg-zinc-900/40 text-zinc-200 shadow-[0_0_25px_-5px] shadow-artcade-aqua/10">
               <div className="absolute inset-0 -z-10 bg-gradient-to-r from-artcade-aqua to-artcade-purple opacity-0 transition-opacity duration-300 group-hover:opacity-30" />
-              <div className="absolute -top-1/2 -left-1/2 h-[200%] w-[200%] transition-all duration-300 group-hover:-top-full group-hover:-left-full"
+              <div
+                className="absolute -top-1/2 -left-1/2 h-[200%] w-[200%] transition-all duration-300 group-hover:-top-full group-hover:-left-full"
                 style={{
-                  background: 'linear-gradient(to bottom right, rgba(82, 219, 255, 0.4) 0%, rgba(118, 55, 254, 0.2) 50%, transparent 50%, transparent 100%)',
-                  transform: 'rotate(-45deg)',
+                  background:
+                    "linear-gradient(to bottom right, rgba(82, 219, 255, 0.4) 0%, rgba(118, 55, 254, 0.2) 50%, transparent 50%, transparent 100%)",
+                  transform: "rotate(-45deg)",
                 }}
               />
               <span className="relative font-orbitron">Enter 0xArtcade</span>

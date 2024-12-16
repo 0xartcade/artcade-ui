@@ -12,6 +12,7 @@ import { readContract } from "wagmi/actions";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { ExternalLinkIcon, EyeIcon } from "lucide-react";
 
 export default function TicketsPage() {
   const [ticketCount, setTicketCount] = useState(BigInt(0));
@@ -39,7 +40,7 @@ export default function TicketsPage() {
   return (
     <div className="flex flex-col space-y-8">
       {/* Introduction Section */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="flex flex-col items-center text-center space-y-6"
@@ -48,27 +49,28 @@ export default function TicketsPage() {
           <SubHeading className="font-orbitron text-xl text-white uppercase tracking-wider">
             Your Tickets
           </SubHeading>
-          <motion.div 
+          <motion.div
             layoutId="sectionUnderline"
             className="absolute -bottom-2 left-0 right-0 h-px bg-gradient-to-r from-artcade-aqua to-artcade-purple"
           />
         </div>
         <div className="max-w-2xl">
           <Paragraph className="artcade-text">
-            Redeem your tickets for exclusive NFT crates and climb the leaderboard.
+            Redeem your tickets for exclusive NFT crates and climb the
+            leaderboard.
           </Paragraph>
         </div>
       </motion.div>
 
       {/* Ticket Content */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
         className="grid grid-cols-1 md:grid-cols-5 gap-8 h-[600px]"
       >
         {/* Left Column - NFT Image */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.2 }}
@@ -90,7 +92,7 @@ export default function TicketsPage() {
         </motion.div>
 
         {/* Right Column - Ticket Info */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.3 }}
@@ -105,9 +107,19 @@ export default function TicketsPage() {
                 <h2 className="font-orbitron text-xl text-white uppercase tracking-wider">
                   0xArtcade Ticket
                 </h2>
-                <span className="font-orbitron text-sm text-zinc-400 uppercase tracking-wider">
-                  ERC-1155
-                </span>
+                <div className="flex gap-x-2 items-center">
+                  <span className="font-orbitron text-sm text-zinc-400 uppercase tracking-wider">
+                    ERC-1155
+                  </span>
+                  <Link
+                    href="https://explorer-sepolia.shape.network/token/0xc79cc5899e5a0ee96705555d5Cbde42E940e25c6/instance/1"
+                    target="_blank"
+                  >
+                    <Button variant="ghost" size="icon">
+                      <ExternalLinkIcon />
+                    </Button>
+                  </Link>
+                </div>
               </div>
 
               {/* Ticket Count - Centered */}

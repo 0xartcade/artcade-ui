@@ -63,7 +63,7 @@ export default function GameLeaderboardPage() {
             <Heading className="font-orbitron text-xl text-white uppercase tracking-widest">
               {game?.name}
             </Heading>
-            <motion.div 
+            <motion.div
               layoutId="sectionUnderline"
               className="absolute -bottom-2 left-0 right-0 h-px bg-gradient-to-r from-artcade-aqua to-artcade-purple"
             />
@@ -75,14 +75,19 @@ export default function GameLeaderboardPage() {
         <div className="flex flex-col space-y-12 max-w-4xl mx-auto">
           <div className="flex flex-col gap-y-4">
             {entries.map((entry, index) => (
-              <div key={entry.token_id} className="artcade-container-horizontal group relative h-20">
+              <div
+                key={entry.token_id}
+                className="artcade-container-horizontal group relative h-20"
+              >
                 <div className="artcade-hover-gradient" />
                 <div className="artcade-hover-sweep" />
                 <div className="absolute inset-3 bg-zinc-900 rounded-2xl shadow-[0_0_15px_rgba(0,0,0,0.3)] ring-1 ring-white/10">
                   <div className="flex items-center h-full px-6">
                     {/* Rank */}
                     <div className="flex items-center gap-4 w-24">
-                      <span className="font-orbitron text-2xl text-white">{index + 1}</span>
+                      <span className="font-orbitron text-2xl text-white">
+                        {index + 1}
+                      </span>
                       {index === 0 && (
                         <TrophyIcon className="w-6 h-6 text-yellow-500" />
                       )}

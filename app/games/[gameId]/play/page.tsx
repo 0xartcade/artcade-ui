@@ -31,18 +31,29 @@ function GamePlayPage() {
     },
   });
 
-  useQuery({
-    queryKey: ["otp"],
-    queryFn: async () => {
-      const response = await api.generateOTP();
-      if (!response.success) {
-        toast.error(response.error);
-        throw new Error(response.error);
-      }
-      setOtp(response.data!);
-      return response.data;
-    },
-  });
+  // useQuery({
+  //   queryKey: ["otp"],
+  //   queryFn: async () => {
+  //     const response = await api.generateOTP();
+  //     if (!response.success) {
+  //       toast.error(response.error);
+  //       throw new Error(response.error);
+  //     }
+  //     setOtp(response.data!);
+  //     return response.data;
+  //   },
+  // });
+
+  async function generateOTP() {
+    if (otp) return;
+    const response = await api.generateOTP();
+    if (!response.success) {
+      toast.error(response.error);
+      throw new Error(response.error);
+    }
+    setOtp(response.data!);
+    return response.data;
+  }
 
   return (
     <div className="page-layout">
@@ -60,7 +71,9 @@ function GamePlayPage() {
                       <button
                         onClick={() => setUserType("new")}
                         className={`relative font-orbitron text-xs uppercase tracking-wider transition-colors group ${
-                          userType === "new" ? "text-white" : "text-zinc-500 hover:text-white"
+                          userType === "new"
+                            ? "text-white"
+                            : "text-zinc-500 hover:text-white"
                         }`}
                       >
                         New Player
@@ -71,7 +84,9 @@ function GamePlayPage() {
                       <button
                         onClick={() => setUserType("returning")}
                         className={`relative font-orbitron text-xs uppercase tracking-wider transition-colors group ${
-                          userType === "returning" ? "text-white" : "text-zinc-500 hover:text-white"
+                          userType === "returning"
+                            ? "text-white"
+                            : "text-zinc-500 hover:text-white"
                         }`}
                       >
                         Returning Player
@@ -91,13 +106,24 @@ function GamePlayPage() {
                           <div className="artcade-hover-sweep" />
                           <div className="relative flex flex-col items-center gap-y-4 text-center">
                             <div className="w-16 h-16 rounded-xl bg-gradient-to-r from-artcade-aqua to-artcade-purple p-4">
-                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-full h-full text-black">
-                                <path fillRule="evenodd" d="M5.566 4.657A4.505 4.505 0 016.75 4.5h10.5c.41 0 .806.055 1.183.157A3 3 0 0015.75 3h-7.5a3 3 0 00-2.684 1.657zM2.25 12a3 3 0 013-3h13.5a3 3 0 013 3v6a3 3 0 01-3 3H5.25a3 3 0 01-3-3v-6zM5.25 7.5c-.41 0-.806.055-1.184.157A3 3 0 016.75 6h10.5a3 3 0 012.684 1.657A4.505 4.505 0 0018.75 7.5H5.25z" />
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                                className="w-full h-full text-black"
+                              >
+                                <path
+                                  fillRule="evenodd"
+                                  d="M5.566 4.657A4.505 4.505 0 016.75 4.5h10.5c.41 0 .806.055 1.183.157A3 3 0 0015.75 3h-7.5a3 3 0 00-2.684 1.657zM2.25 12a3 3 0 013-3h13.5a3 3 0 013 3v6a3 3 0 01-3 3H5.25a3 3 0 01-3-3v-6zM5.25 7.5c-.41 0-.806.055-1.184.157A3 3 0 016.75 6h10.5a3 3 0 012.684 1.657A4.505 4.505 0 0018.75 7.5H5.25z"
+                                />
                               </svg>
                             </div>
-                            <div className="font-orbitron text-lg text-white uppercase tracking-wider">1. Scan QR Code</div>
+                            <div className="font-orbitron text-lg text-white uppercase tracking-wider">
+                              1. Scan QR Code
+                            </div>
                             <Caption className="text-zinc-400 text-base">
-                              Scan the QR code with your mobile phone or copy the URL to your browser
+                              Scan the QR code with your mobile phone or copy
+                              the URL to your browser
                             </Caption>
                           </div>
                         </div>
@@ -107,13 +133,21 @@ function GamePlayPage() {
                           <div className="artcade-hover-sweep" />
                           <div className="relative flex flex-col items-center gap-y-4 text-center">
                             <div className="w-16 h-16 rounded-xl bg-gradient-to-r from-artcade-aqua to-artcade-purple p-4">
-                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-full h-full text-black">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                                className="w-full h-full text-black"
+                              >
                                 <path d="M11.47 1.72a.75.75 0 011.06 0l3 3a.75.75 0 01-1.06 1.06l-1.72-1.72V7.5h-1.5V4.06L9.53 5.78a.75.75 0 01-1.06-1.06l3-3zM11.25 7.5V15a.75.75 0 001.5 0V7.5h3.75a3 3 0 013 3v9a3 3 0 01-3 3h-9a3 3 0 01-3-3v-9a3 3 0 013-3h3.75z" />
                               </svg>
                             </div>
-                            <div className="font-orbitron text-lg text-white uppercase tracking-wider">2. Add to Home</div>
+                            <div className="font-orbitron text-lg text-white uppercase tracking-wider">
+                              2. Add to Home
+                            </div>
                             <Caption className="text-zinc-400 text-base">
-                              Follow the instructions to add the web app to your device&apos;s home screen.
+                              Follow the instructions to add the web app to your
+                              device&apos;s home screen.
                             </Caption>
                           </div>
                         </div>
@@ -123,13 +157,25 @@ function GamePlayPage() {
                           <div className="artcade-hover-sweep" />
                           <div className="relative flex flex-col items-center gap-y-4 text-center">
                             <div className="w-16 h-16 rounded-xl bg-gradient-to-r from-artcade-aqua to-artcade-purple p-4">
-                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-full h-full text-black">
-                                <path fillRule="evenodd" d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z" clipRule="evenodd" />
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                                className="w-full h-full text-black"
+                              >
+                                <path
+                                  fillRule="evenodd"
+                                  d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z"
+                                  clipRule="evenodd"
+                                />
                               </svg>
                             </div>
-                            <div className="font-orbitron text-lg text-white uppercase tracking-wider">3. Enter OTP</div>
+                            <div className="font-orbitron text-lg text-white uppercase tracking-wider">
+                              3. Enter OTP
+                            </div>
                             <Caption className="text-zinc-400 text-base">
-                              Use the one-time password shown below to securely access the game
+                              Generate a one-time password (if needed) to
+                              securely access the game
                             </Caption>
                           </div>
                         </div>
@@ -141,13 +187,24 @@ function GamePlayPage() {
                           <div className="artcade-hover-sweep" />
                           <div className="relative flex flex-col items-center gap-y-4 text-center">
                             <div className="w-16 h-16 rounded-xl bg-gradient-to-r from-artcade-aqua to-artcade-purple p-4">
-                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-full h-full text-black">
-                                <path fillRule="evenodd" d="M5.566 4.657A4.505 4.505 0 016.75 4.5h10.5c.41 0 .806.055 1.183.157A3 3 0 0015.75 3h-7.5a3 3 0 00-2.684 1.657zM2.25 12a3 3 0 013-3h13.5a3 3 0 013 3v6a3 3 0 01-3 3H5.25a3 3 0 01-3-3v-6zM5.25 7.5c-.41 0-.806.055-1.184.157A3 3 0 016.75 6h10.5a3 3 0 012.684 1.657A4.505 4.505 0 0018.75 7.5H5.25z" />
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                                className="w-full h-full text-black"
+                              >
+                                <path
+                                  fillRule="evenodd"
+                                  d="M5.566 4.657A4.505 4.505 0 016.75 4.5h10.5c.41 0 .806.055 1.183.157A3 3 0 0015.75 3h-7.5a3 3 0 00-2.684 1.657zM2.25 12a3 3 0 013-3h13.5a3 3 0 013 3v6a3 3 0 01-3 3H5.25a3 3 0 01-3-3v-6zM5.25 7.5c-.41 0-.806.055-1.184.157A3 3 0 016.75 6h10.5a3 3 0 012.684 1.657A4.505 4.505 0 0018.75 7.5H5.25z"
+                                />
                               </svg>
                             </div>
-                            <div className="font-orbitron text-lg text-white uppercase tracking-wider">1. Launch App</div>
+                            <div className="font-orbitron text-lg text-white uppercase tracking-wider">
+                              1. Launch App
+                            </div>
                             <Caption className="text-zinc-400 text-base">
-                              Open the 0xArtcade application from your device&apos;s home screen
+                              Open the 0xArtcade application from your
+                              device&apos;s home screen
                             </Caption>
                           </div>
                         </div>
@@ -157,13 +214,25 @@ function GamePlayPage() {
                           <div className="artcade-hover-sweep" />
                           <div className="relative flex flex-col items-center gap-y-4 text-center">
                             <div className="w-16 h-16 rounded-xl bg-gradient-to-r from-artcade-aqua to-artcade-purple p-4">
-                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-full h-full text-black">
-                                <path fillRule="evenodd" d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z" clipRule="evenodd" />
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                                className="w-full h-full text-black"
+                              >
+                                <path
+                                  fillRule="evenodd"
+                                  d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z"
+                                  clipRule="evenodd"
+                                />
                               </svg>
                             </div>
-                            <div className="font-orbitron text-lg text-white uppercase tracking-wider">2. Enter OTP</div>
+                            <div className="font-orbitron text-lg text-white uppercase tracking-wider">
+                              2. Enter OTP
+                            </div>
                             <Caption className="text-zinc-400 text-base">
-                              Input the one-time password shown below to verify your identity and access the game
+                              Generate a one-time password (if needed) to verify
+                              your identity and access the game
                             </Caption>
                           </div>
                         </div>
@@ -173,11 +242,22 @@ function GamePlayPage() {
                           <div className="artcade-hover-sweep" />
                           <div className="relative flex flex-col items-center gap-y-4 text-center">
                             <div className="w-16 h-16 rounded-xl bg-gradient-to-r from-artcade-aqua to-artcade-purple p-4">
-                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-full h-full text-black">
-                                <path fillRule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm14.024-.983a1.125 1.125 0 010 1.966l-5.603 3.113A1.125 1.125 0 019 15.113V8.887c0-.857.921-1.4 1.671-.983l5.603 3.113z" clipRule="evenodd" />
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                                className="w-full h-full text-black"
+                              >
+                                <path
+                                  fillRule="evenodd"
+                                  d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm14.024-.983a1.125 1.125 0 010 1.966l-5.603 3.113A1.125 1.125 0 019 15.113V8.887c0-.857.921-1.4 1.671-.983l5.603 3.113z"
+                                  clipRule="evenodd"
+                                />
                               </svg>
                             </div>
-                            <div className="font-orbitron text-lg text-white uppercase tracking-wider">3. Start Playing</div>
+                            <div className="font-orbitron text-lg text-white uppercase tracking-wider">
+                              3. Start Playing
+                            </div>
                             <Caption className="text-zinc-400 text-base">
                               Begin your gaming experience on your mobile device
                             </Caption>
@@ -224,34 +304,47 @@ function GamePlayPage() {
                             <button
                               onClick={() => {
                                 navigator.clipboard.writeText(game.url);
-                                const buttonText = document.getElementById('copyButtonText');
+                                const buttonText =
+                                  document.getElementById("copyButtonText");
                                 if (buttonText) {
-                                  buttonText.textContent = 'Copied!';
+                                  buttonText.textContent = "Copied!";
                                   setTimeout(() => {
-                                    buttonText.textContent = 'Copy URL';
+                                    buttonText.textContent = "Copy URL";
                                   }, 2000);
                                 }
                               }}
                               id="copyButton"
                               className="relative font-orbitron text-sm bg-gradient-to-r from-artcade-aqua to-artcade-purple bg-clip-text text-transparent uppercase tracking-wider hover:opacity-80 transition-opacity"
                             >
-                              <span id="copyButtonText">
-                                Copy URL
-                              </span>
+                              <span id="copyButtonText">Copy URL</span>
                             </button>
 
-                            {otp && (
+                            {otp ? (
                               <div className="flex flex-col items-center gap-2 mt-4">
                                 <div className="font-orbitron text-sm text-zinc-400 uppercase tracking-wider">
                                   One-Time Password
                                 </div>
+
                                 <div className="font-orbitron text-4xl font-bold tracking-[0.3em] text-white">
-                                  {otp.slice(0, 3)}<span className="text-artcade-aqua px-1">·</span>{otp.slice(-3)}
+                                  {otp.slice(0, 3)}
+                                  <span className="text-artcade-aqua px-1">
+                                    ·
+                                  </span>
+                                  {otp.slice(-3)}
                                 </div>
+
                                 <div className="font-orbitron text-xs text-zinc-500 uppercase tracking-wider">
                                   Valid for 5 minutes
                                 </div>
                               </div>
+                            ) : (
+                              <Button
+                                variant="outline"
+                                className="uppercase"
+                                onClick={generateOTP}
+                              >
+                                Generate OTP
+                              </Button>
                             )}
                           </div>
                         </div>
@@ -261,7 +354,11 @@ function GamePlayPage() {
                 </div>
               </div>
 
-              <Link href={game.url} target="_blank" className="md:hidden flex justify-center">
+              <Link
+                href={game.url}
+                target="_blank"
+                className="md:hidden flex justify-center"
+              >
                 <Button variant="retro">Play Now</Button>
               </Link>
             </div>

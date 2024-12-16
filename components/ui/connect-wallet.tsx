@@ -42,7 +42,7 @@ export function ConnectWalletPrompt() {
                   Authentication Required
                 </h3>
 
-                <p className="font-system text-base text-zinc-400 uppercase tracking-wider text-center max-w-[280px]">
+                <p className=" text-base text-zinc-400 uppercase tracking-wider text-center max-w-[280px]">
                   Please connect your wallet to access this section
                 </p>
               </div>

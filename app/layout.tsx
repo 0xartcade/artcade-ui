@@ -1,5 +1,10 @@
 import type { Metadata } from "next"; // Next.js metadata types
-import { Monoton, Lato, IBM_Plex_Mono, Orbitron } from "next/font/google"; // Google fonts
+import {
+  Monoton,
+  IBM_Plex_Mono,
+  Orbitron,
+  Nunito_Sans,
+} from "next/font/google"; // Google fonts
 import "./globals.css"; // Global styles
 import { ThemeProvider } from "next-themes"; // Theme management
 import { AuthProvider } from "@/lib/auth-context"; // Authentication context
@@ -17,7 +22,7 @@ const titleFont = Monoton({
   variable: "--title-font", // CSS variable for title font
 });
 
-const sansFont = Lato({
+const sansFont = Nunito_Sans({
   weight: ["300", "400", "700", "900"],
   subsets: ["latin"],
   variable: "--sans-font", // CSS variable for sans-serif font
@@ -56,7 +61,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${titleFont.variable} ${sansFont.variable} ${monoFont.variable} ${orbitronFont.variable} bg-black text-zinc-50`}
+        className={`${titleFont.variable} ${sansFont.variable} ${monoFont.variable} ${orbitronFont.variable} bg-black text-zinc-50 font-sans`}
       >
         <ThemeProvider
           attribute="class"
@@ -65,9 +70,7 @@ export default function RootLayout({
         >
           <Web3Provider>
             <AuthProvider>
-              <RootLayoutContent>
-                {children}
-              </RootLayoutContent>
+              <RootLayoutContent>{children}</RootLayoutContent>
             </AuthProvider>
           </Web3Provider>
         </ThemeProvider>

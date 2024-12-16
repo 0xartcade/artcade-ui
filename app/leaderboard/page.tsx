@@ -46,14 +46,15 @@ export default function LeaderboardPage() {
             <SubHeading className="font-orbitron text-xl text-white uppercase tracking-widest">
               Game Leaderboards
             </SubHeading>
-            <motion.div 
+            <motion.div
               layoutId="sectionUnderline"
               className="absolute -bottom-2 left-0 right-0 h-px bg-gradient-to-r from-artcade-aqua to-artcade-purple"
             />
           </div>
           <div className="max-w-2xl">
             <Paragraph className="artcade-text">
-              Check your ranking and compete with other players across all our games.
+              Check your ranking and compete with other players across all our
+              games.
             </Paragraph>
           </div>
         </div>
@@ -61,7 +62,7 @@ export default function LeaderboardPage() {
         {/* Page Content */}
         <div className="flex flex-col space-y-12 max-w-4xl mx-auto">
           {/* Games List Section */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
@@ -73,9 +74,11 @@ export default function LeaderboardPage() {
                 name={game.name}
                 description={game.description}
                 gameType="Art"
-                url={`/games/${game.id}/leaderboard`}
+                url={`/leaderboard/${game.id}`}
                 ctaName="View"
-                thumbnail={game.id === 1 ? "/games/thumbnail_game01.jpg" : undefined}
+                thumbnail={
+                  game.id === 1 ? "/games/thumbnail_game01.jpg" : undefined
+                }
               />
             ))}
 

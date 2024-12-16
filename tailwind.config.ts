@@ -11,16 +11,15 @@ export default {
 		extend: {
 			fontFamily: {
 				title: ["var(--title-font)"],
-				sans: ["var(--font-geist-sans)", "system-ui"],
-				mono: ["var(--font-geist-mono)", "monospace"],
+				sans: ["var(--sans-font)", "system-ui"],
+				mono: ["var(--mono-font)", "monospace"],
 				monoton: ["Monoton", "cursive"],
 				orbitron: ["Orbitron", "sans-serif"],
-				system: ["system-ui", "sans-serif"],
 			},
 			colors: {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
-				
+
 				card: {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
