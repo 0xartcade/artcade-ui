@@ -1,12 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  Heading,
-  Paragraph,
-  SubHeading,
-  SubHeading2,
-} from "@/components/ui/typography";
+import { Heading, SubHeading } from "@/components/ui/typography";
 import { api } from "@/lib/api";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { TrophyIcon } from "lucide-react";

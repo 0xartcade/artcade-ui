@@ -18,7 +18,6 @@ import {
 } from "@/components/ui/dialog";
 import { PacmanLoader } from "react-spinners";
 import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
 
 export default function ScoresPage() {
   const [selectedScores, setSelectedScores] = useState<Set<number>>(new Set());

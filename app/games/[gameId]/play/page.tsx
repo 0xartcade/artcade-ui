@@ -122,7 +122,7 @@ function GamePlayPage() {
                             </div>
                             <div className="font-orbitron text-lg text-white uppercase tracking-wider">2. Add to Home</div>
                             <Caption className="text-zinc-400 text-base">
-                              Follow the instructions to add the web app to your device's home screen.
+                              Follow the instructions to add the web app to your device&apos;s home screen.
                             </Caption>
                           </div>
                         </div>

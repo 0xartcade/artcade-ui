@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
 import { ShapeCircleIcon } from "@/components/icons/shape-circle";
 import { ShapeWordmarkIcon } from "@/components/icons/shape-wordmark";
 import { motion } from "framer-motion";

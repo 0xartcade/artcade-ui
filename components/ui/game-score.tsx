@@ -2,7 +2,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { Gamepad2Icon } from "lucide-react";
-import { motion } from "framer-motion";
 import { SubHeading2 } from "./typography";
 
 interface GameScoreProps {
