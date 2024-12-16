@@ -30,13 +30,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [initialized, setInitialized] = useState(false);
   const { address, chainId } = useAccount();
 
-  const login = useCallback(async () => {
+  const login = async () => {
     if (!address) {
       return;
     }
 
-    console.log(user);
-    console.log(address);
     if (user) {
       if (user.eth_address.toLowerCase() !== address?.toLowerCase()) {
         logout();
@@ -110,9 +108,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         });
       }
     }
-  }, [address, chainId, user]);
+  };
 
-  const logout = useCallback(async () => {
+  const logout = async () => {
     if (user) {
       const r = await api.logout();
       if (!r.success) {
@@ -121,7 +119,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
     setIsAuthenticated(false);
     setUser(null);
-  }, [user]);
+  };
 
   useEffect(() => {
     // initialize

@@ -8,31 +8,39 @@ import { api } from "@/lib/api";
 import { toast } from "sonner";
 import { useAuth } from "@/lib/auth-context";
 import Link from "next/link";
-import { SubHeading, Paragraph } from "@/components/ui/typography";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { SubHeading, Paragraph, Caption } from "@/components/ui/typography";
 import { PacmanLoader } from "react-spinners";
 import { motion } from "framer-motion";
 import { TicketCheckIcon } from "lucide-react";
 import {
   readContract,
+  switchChain,
   waitForTransactionReceipt,
   writeContract,
 } from "wagmi/actions";
 import { web3Config } from "@/lib/web3config";
 import { encodeFunctionData, parseAbi } from "viem";
-import { appChainId, artcadeAddress, multicallAddress } from "@/lib/config";
+import {
+  appChainId,
+  artcadeAddress,
+  isTestnet,
+  multicallAddress,
+} from "@/lib/config";
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { useAccount } from "wagmi";
 
 export default function ScoresPage() {
   const [selectedScores, setSelectedScores] = useState<Set<number>>(new Set());
   const [submissionState, setSubmissionState] = useState("Preparing data...");
   const [dialogOpen, setDialogOpen] = useState(false);
   const { user } = useAuth();
+  const { address, chainId } = useAccount();
   const queryClient = useQueryClient();
 
   const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
@@ -87,7 +95,9 @@ export default function ScoresPage() {
       return;
     }
 
-    console.log(signedScores.data);
+    if (chainId !== appChainId) {
+      await switchChain(web3Config, { chainId: appChainId });
+    }
 
     try {
       // get price per entry
@@ -156,8 +166,6 @@ export default function ScoresPage() {
         });
       }
 
-      console.log(txs);
-
       // build tx data
       const call3Values = txs.map(({ target, value, calldata }) => ({
         target,
@@ -170,9 +178,6 @@ export default function ScoresPage() {
         (prevValue, { value }) => prevValue + value,
         BigInt(0)
       );
-
-      console.log(call3Values);
-      console.log(totalValue);
 
       // submit scores on the blockchain
       setSubmissionState("Waiting for user to sign transaction...");
@@ -207,9 +212,10 @@ export default function ScoresPage() {
 
       queryClient.invalidateQueries({ queryKey: ["scores", user?.username] });
 
+      setSelectedScores(new Set());
+
       // success
       setSubmissionState("Success!");
-      setTimeout(() => setDialogOpen(false), 5000);
     } catch (e) {
       setDialogOpen(false);
       const knownPhrases = [
@@ -225,8 +231,8 @@ export default function ScoresPage() {
       ];
       // @ts-expect-error it just fails okay?
       if (!knownPhrases.some((phrase) => e.message.includes(phrase.phrase))) {
-        // @ts-expect-error it just fails okay?
-        toast.error(e.message);
+        console.error(e);
+        toast.error("Something unexpected happened, please try again.");
       } else {
         knownPhrases.forEach((phrase) => {
           // @ts-expect-error it just fails okay?
@@ -261,6 +267,25 @@ export default function ScoresPage() {
             leaderboard.
           </Paragraph>
         </div>
+        {isTestnet && (
+          <Caption>
+            Looking for testnet eth?{" "}
+            <Link
+              href="https://www.alchemy.com/faucets/ethereum-sepolia"
+              className="underline underline-offset-4"
+            >
+              Get some Sepolia ETH
+            </Link>{" "}
+            and then{" "}
+            <Link
+              href="https://testnets.relay.link/bridge/shape-sepolia?fromChainId=11155111&fromCurrency=0x0000000000000000000000000000000000000000&toCurrency=0x0000000000000000000000000000000000000000"
+              className="underline underline-offset-4"
+            >
+              bridge it to Shape Sepolia
+            </Link>
+            .
+          </Caption>
+        )}
       </motion.div>
 
       {/* Scores Content */}
@@ -272,8 +297,8 @@ export default function ScoresPage() {
         {scores.length > 0 ? (
           <>
             <div className="flex justify-center mb-8">
-              <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-                <DialogTrigger asChild>
+              <AlertDialog open={dialogOpen}>
+                <AlertDialogTrigger asChild>
                   <Button
                     variant="retro"
                     size="lg"
@@ -283,20 +308,20 @@ export default function ScoresPage() {
                   >
                     Submit Scores Onchain
                   </Button>
-                </DialogTrigger>
-                <DialogContent className="bg-black/90 backdrop-blur-sm border border-white/10">
-                  <DialogHeader>
-                    <DialogTitle className="font-orbitron text-lg text-white uppercase tracking-wider">
+                </AlertDialogTrigger>
+                <AlertDialogContent className="bg-black/90 backdrop-blur-sm border border-white/10">
+                  <AlertDialogHeader>
+                    <AlertDialogTitle className="font-orbitron text-lg text-white uppercase tracking-wider">
                       Submit Scores Onchain
-                    </DialogTitle>
-                  </DialogHeader>
+                    </AlertDialogTitle>
+                  </AlertDialogHeader>
                   <div className="flex flex-col items-center py-10">
                     {submissionState !== "Success!" ? (
                       <PacmanLoader size={64} color="#cccccc" />
                     ) : (
                       <>
                         <TicketCheckIcon
-                          className="w-32 h-32 animate-bounce"
+                          className="w-32 h-32"
                           style={{
                             stroke: "url(#artcade-gradient)",
                           }}
@@ -315,9 +340,23 @@ export default function ScoresPage() {
                     <Paragraph className="font-orbitron text-sm text-white mt-4">
                       {submissionState}
                     </Paragraph>
+                    {submissionState === "Success!" && (
+                      <div className="flex gap-x-2 mt-4">
+                        <Button
+                          variant="ghost"
+                          onClick={() => setDialogOpen(false)}
+                          className="absolute top-4 right-4"
+                        >
+                          Close
+                        </Button>
+                        <Link href="/leaderboard">
+                          <Button variant="retro">View Leaderboards</Button>
+                        </Link>
+                      </div>
+                    )}
                   </div>
-                </DialogContent>
-              </Dialog>
+                </AlertDialogContent>
+              </AlertDialog>
             </div>
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
               {scores.map((score, index) => (
@@ -357,7 +396,10 @@ export default function ScoresPage() {
               Looks like you haven&apos;t played any games!
             </Paragraph>
             <Link href="/games">
-              <Button variant="retro">Discover Games</Button>
+              <Button variant="retro">Veiw Leaderboards</Button>
+            </Link>
+            <Link href="/games">
+              <Button variant="outline">Discover Games</Button>
             </Link>
           </div>
         )}

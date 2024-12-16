@@ -9,6 +9,9 @@ import { useParams } from "next/navigation";
 import React, { useCallback, useMemo } from "react";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
+import { AddressDisplay } from "@/components/ui/address-display";
+import Link from "next/link";
+import { blockExplorerUrl } from "@/lib/config";
 
 //////////////////////////////////////////////////////
 /// GAME LEADERBOARD PAGE
@@ -95,9 +98,13 @@ export default function GameLeaderboardPage() {
 
                     {/* Address */}
                     <div className="flex-1">
-                      <span className="font-orbitron text-lg text-white">
-                        {entry.eth_address}
-                      </span>
+                      <Link
+                        href={`${blockExplorerUrl}/address/${entry.eth_address}`}
+                        target="_blank"
+                        className="font-orbitron text-lg text-white hover:underline underline-offset-4"
+                      >
+                        <AddressDisplay address={entry.eth_address} />
+                      </Link>
                     </div>
 
                     {/* Score */}
