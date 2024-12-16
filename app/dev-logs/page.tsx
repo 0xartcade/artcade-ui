@@ -1,3 +1,5 @@
+"use client";
+
 import DevLogs from "./dev-logs";
 import { SubHeading, Paragraph } from "@/components/ui/typography";
 import { motion } from "framer-motion";
@@ -7,7 +9,7 @@ export default function DevLogsPage() {
     <div className="page-layout">
       <div className="page-layout-inner">
         {/* Introduction Section */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="flex flex-col items-center text-center space-y-6"
@@ -16,7 +18,7 @@ export default function DevLogsPage() {
             <SubHeading className="font-orbitron text-xl text-white uppercase tracking-widest">
               Development Logs
             </SubHeading>
-            <motion.div 
+            <motion.div
               layoutId="sectionUnderline"
               className="absolute -bottom-2 left-0 right-0 h-px bg-gradient-to-r from-artcade-aqua to-artcade-purple"
             />
@@ -29,7 +31,7 @@ export default function DevLogsPage() {
         </motion.div>
 
         {/* Dev Logs Content */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
@@ -40,4 +42,4 @@ export default function DevLogsPage() {
       </div>
     </div>
   );
-} 
+}
