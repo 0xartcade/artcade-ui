@@ -51,10 +51,6 @@ const MARKETPLACE_LINKS = [
   { name: "Arweave", href: "https://arweave.org", logo: "/logos/arweave_logo.svg" },
 ];
 
-const gradientPairs = [
-  { from: '#52DBFF', to: '#7637FE' }, // aqua to purple
-];
-
 export default function VaultPage() {
   return (
     <div className="flex flex-col space-y-2">

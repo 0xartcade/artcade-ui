@@ -1,15 +1,7 @@
 "use client";
 
 import Button from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Caption, Heading, Paragraph, SubHeading } from "@/components/ui/typography";
+import { Caption } from "@/components/ui/typography";
 import { api } from "@/lib/api";
 import { withAuth } from "@/lib/auth-context";
 import { useQuery } from "@tanstack/react-query";
@@ -18,7 +10,6 @@ import { useParams } from "next/navigation";
 import { useState } from "react";
 import QRCode from "react-qr-code";
 import { toast } from "sonner";
-import { motion } from "framer-motion";
 
 //////////////////////////////////////////////////////
 /// GAME PLAY PAGE

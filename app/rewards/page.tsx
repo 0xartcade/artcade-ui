@@ -5,7 +5,6 @@ import { Ticket, Package, Vault, ScrollText } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { SubHeading, Paragraph } from "@/components/ui/typography";
-import { cn } from "@/lib/utils";
 
 function RewardsPage() {
   const gradientPairs = [

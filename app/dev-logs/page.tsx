@@ -1,4 +1,4 @@
-import { DevLogs } from "./dev-logs";
+import DevLogs from "./dev-logs";
 import { SubHeading, Paragraph } from "@/components/ui/typography";
 import { motion } from "framer-motion";
 
@@ -13,7 +13,7 @@ export default function DevLogsPage() {
           className="flex flex-col items-center text-center space-y-6"
         >
           <div className="relative">
-            <SubHeading className="font-orbitron text-xl text-white uppercase tracking-wider">
+            <SubHeading className="font-orbitron text-xl text-white uppercase tracking-widest">
               Development Logs
             </SubHeading>
             <motion.div 
