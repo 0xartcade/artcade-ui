@@ -156,7 +156,7 @@ function GamePlayPage() {
                             </div>
                             <div className="font-orbitron text-lg text-white uppercase tracking-wider">1. Launch App</div>
                             <Caption className="text-zinc-400 text-base">
-                              Open the 0xArtcade application from your device's home screen
+                              Open the 0xArtcade application from your device&apos;s home screen
                             </Caption>
                           </div>
                         </div>

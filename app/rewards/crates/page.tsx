@@ -1,13 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { cn } from "@/lib/utils";
-import { Flame } from "lucide-react";
-import { NFTImage } from "@/components/ui/nft-image";
-import { usePathname } from "next/navigation";
 import { SubHeading, Paragraph } from "@/components/ui/typography";
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
 interface CrateOption {

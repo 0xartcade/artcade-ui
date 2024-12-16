@@ -1,17 +1,9 @@
 "use client";
 
 import { GameCard } from "@/components/ui/game-card";
-import { Button } from "@/components/ui/button";
 import { TrophyIcon, ArrowRight, GiftIcon, Gamepad2Icon } from "lucide-react";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
-import {
-  Caption,
-  Heading,
-  Paragraph,
-  SubHeading,
-  SubHeading2,
-} from "@/components/ui/typography";
+import { SubHeading } from "@/components/ui/typography";
 import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";

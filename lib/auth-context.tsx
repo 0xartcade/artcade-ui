@@ -6,6 +6,7 @@ import {
   useState,
   ReactNode,
   useEffect,
+  useCallback,
 } from "react";
 import { User } from "./types";
 import { useAccount } from "wagmi";
@@ -29,7 +30,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [initialized, setInitialized] = useState(false);
   const { address, chainId } = useAccount();
 
-  async function login() {
+  const login = useCallback(async () => {
     if (user) return;
 
     if (!address) {
@@ -101,9 +102,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         });
       }
     }
-  }
+  }, [address, chainId, user]);
 
-  async function logout() {
+  const logout = useCallback(async () => {
     if (user) {
       const r = await api.logout();
       if (!r.success) {
@@ -112,7 +113,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
     setIsAuthenticated(false);
     setUser(null);
-  }
+  }, [user]);
 
   useEffect(() => {
     // initialize
@@ -135,7 +136,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       // logout
       logout();
     }
-  }, [address, initialized]);
+  }, [address, initialized, login, logout]);
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, user }}>

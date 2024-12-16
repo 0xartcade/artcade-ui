@@ -1,13 +1,12 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { NFTImage } from "@/components/ui/nft-image";
 import { SubHeading, Paragraph } from "@/components/ui/typography";
 import { useAuth } from "@/lib/auth-context";
 import { ticketContractAddress, ticketTokenId } from "@/lib/config";
 import { web3Config } from "@/lib/web3config";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { parseAbi } from "viem";
 import { readContract } from "wagmi/actions";
 import { motion } from "framer-motion";
@@ -18,7 +17,7 @@ export default function TicketsPage() {
   const [ticketCount, setTicketCount] = useState(BigInt(0));
   const { user } = useAuth();
 
-  async function fetchTickets() {
+  const fetchTickets = useCallback(async () => {
     if (!user) return;
 
     const balance = await readContract(web3Config, {
@@ -31,11 +30,11 @@ export default function TicketsPage() {
     });
 
     setTicketCount(balance);
-  }
+  }, [user]);
 
   useEffect(() => {
     fetchTickets();
-  }, [user]);
+  }, [fetchTickets]);
 
   return (
     <div className="flex flex-col space-y-8">
