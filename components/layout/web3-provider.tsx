@@ -2,7 +2,7 @@
 
 import { web3Config } from "@/lib/web3config";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ConnectKitProvider } from "connectkit";
+import { ConnectKitProvider, type Theme } from "connectkit";
 import { FC, ReactNode } from "react";
 import { WagmiProvider } from "wagmi";
 
@@ -163,7 +163,7 @@ const connectKitTheme = {
 } as const;
 
 const connectKitProps = {
-  theme: "custom",
+  theme: "custom" as Theme,
   mode: "dark",
   customTheme: connectKitTheme,
   options: {
@@ -172,7 +172,7 @@ const connectKitProps = {
     hideQuestionMarkCTA: true,
     enforceSupportedChains: true,
   },
-};
+} as const;
 
 const queryClient = new QueryClient();
 
