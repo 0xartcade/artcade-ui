@@ -32,10 +32,18 @@
     --neon-blue: 192 100% 50%;
     --neon-purple: 275 100% 50%;
     --neon-pink: 311 100% 50%;
+    
+    /* Artcade faded colors */
+    --artcade-aqua-faded: rgba(82, 219, 255, .9);
+    --artcade-purple-faded: rgba(118, 55, 254, .9);
+    --artcade-tangerine-faded: rgba(255, 61, 93, .9);
+    --artcade-yellow-faded: rgba(253, 236, 207, .9);
+    --artcade-pink-faded: rgba(255, 105, 180, .9);
   }
+  
   .dark {
     --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
+    --foreground: 0 0% 90%;
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 3.9%;
@@ -43,11 +51,11 @@
     --primary: 0 0% 98%;
     --primary-foreground: 240 5.9% 10%;
     --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary-foreground: 0 0% 80%;
     --muted: 240 3.7% 15.9%;
     --muted-foreground: 240 5% 64.9%;
     --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
+    --accent-foreground: 0 0% 70%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
     --border: 240 3.7% 15.9%;
@@ -59,13 +67,153 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
-}
 
-@layer base {
   * {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-black text-foreground relative min-h-screen;
+  }
+
+  /* Page Layout - Global styles */
+
+
+  .page-layout-inner {
+    @apply relative
+           max-w-7xl mx-auto;
+  }
+}
+
+@layer components {
+  /* Base container styles */
+  .artcade-container {
+    @apply relative overflow-hidden transition-all duration-300
+           bg-zinc-900/50 backdrop-blur-sm
+           shadow-[0_0_25px_-5px] shadow-zinc-950
+           border border-white/5 rounded-2xl
+           ring-1 ring-white/5;
+  }
+
+  /* Container variations */
+  .artcade-container-horizontal {
+    @apply relative overflow-hidden transition-all duration-300
+           bg-zinc-900/50 backdrop-blur-sm
+           shadow-[0_0_25px_-5px] shadow-zinc-950
+           border border-white/5 rounded-2xl
+           ring-1 ring-white/5
+           flex items-stretch gap-4 p-4 h-44;
+  }
+
+  .artcade-container-vertical {
+    @apply relative overflow-hidden transition-all duration-300
+           bg-zinc-900/50 backdrop-blur-sm
+           shadow-[0_0_25px_-5px] shadow-zinc-950
+           border border-white/5 rounded-2xl
+           ring-1 ring-white/5
+           flex flex-col items-center justify-center gap-4 p-8;
+  }
+
+  .artcade-container-square {
+    @apply relative overflow-hidden transition-all duration-300
+           bg-zinc-900/50 backdrop-blur-sm
+           shadow-[0_0_25px_-5px] shadow-zinc-950
+           border border-white/5 rounded-2xl
+           ring-1 ring-white/5
+           aspect-square;
+  }
+
+  /* Hover effects */
+  .artcade-hover-gradient {
+    @apply absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10;
+    background: linear-gradient(
+      90deg,
+      rgba(82, 219, 255, 0.1),
+      rgba(118, 55, 254, 0.05) 50%,
+      rgba(255, 61, 220, 0.1)
+    );
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  .artcade-hover-sweep {
+    @apply absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500 -z-10;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(82, 219, 255, 0.1) 25%,
+      rgba(118, 55, 254, 0.1) 50%,
+      rgba(255, 61, 220, 0.1) 75%,
+      transparent
+    );
+    background-size: 200% 100%;
+    animation: sweep 2s linear infinite;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  @keyframes sweep {
+    0% { background-position: -100% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  /* Selected state */
+  .artcade-selected {
+    @apply border-white/20;
+  }
+
+  .artcade-selected::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-artcade-aqua to-artcade-purple opacity-30 -z-10;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  .artcade-selected::after {
+    content: '';
+    @apply absolute -top-1/2 -left-1/2 h-[200%] w-[200%] -z-10;
+    background: linear-gradient(to bottom right, rgba(82, 219, 255, 0.4) 0%, rgba(118, 55, 254, 0.2) 50%, transparent 50%, transparent 100%);
+    transform: rotate(-45deg) translate(-50%, -50%);
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  /* Typography styles */
+  .artcade-heading {
+    @apply font-orbitron text-xl text-white uppercase tracking-wider;
+  }
+
+  .artcade-text {
+    @apply font-orbitron text-sm text-zinc-400 uppercase tracking-wider;
+  }
+
+  .artcade-text-small {
+    @apply font-orbitron text-sm text-zinc-400 uppercase tracking-wider;
+  }
+
+  /* Section underline */
+  .artcade-underline {
+    @apply absolute -bottom-2 left-0 right-0 h-px bg-gradient-to-r from-artcade-aqua to-artcade-purple;
+  }
+
+  /* Button styles */
+  .retro-button {
+    @apply relative overflow-hidden transition-all duration-300;
+  }
+
+  .retro-button::before {
+    content: '';
+    @apply absolute -top-1/2 -left-1/2 w-[200%] h-[200%] transition-all duration-300;
+    background: linear-gradient(
+      to bottom right,
+      rgba(255, 255, 255, 0.3) 0%,
+      rgba(255, 255, 255, 0.1) 50%,
+      transparent 50%,
+      transparent 100%
+    );
+    transform: rotate(-45deg);
+  }
+
+  .retro-button:hover::before {
+    @apply -top-full -left-full;
   }
 }
