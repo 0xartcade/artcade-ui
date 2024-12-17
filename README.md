@@ -13,5 +13,3 @@ The frontend is written in NextJS, utilizing the following popular libraries:
 - tailwindcss
 - framer motion
 - shadcn/ui
-
-## A little bit on how this was built
