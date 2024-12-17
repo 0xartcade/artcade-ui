@@ -99,7 +99,7 @@ export default function GameLeaderboardPage() {
                     {/* Address */}
                     <div className="flex-1">
                       <Link
-                        href={`${blockExplorerUrl}/address/${entry.eth_address}`}
+                        href={`${blockExplorerUrl}/token/${game.nft_address}/instance/${entry.token_id}`}
                         target="_blank"
                         className="font-orbitron text-lg text-white hover:underline underline-offset-4"
                       >
