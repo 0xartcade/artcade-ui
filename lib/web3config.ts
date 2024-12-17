@@ -28,6 +28,6 @@ const defaultConfig = getDefaultConfig({
   ssr: true,
 });
 
-export const ensChain = isTestnet ? sepolia : mainnet;
+export const ensChain = mainnet;
 
 export const web3Config = createConfig(defaultConfig);
