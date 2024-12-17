@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ShapeCircleIcon } from "@/components/icons/shape-circle";
 import { ShapeWordmarkIcon } from "@/components/icons/shape-wordmark";
 import { motion } from "framer-motion";
+import Button from "@/components/ui/button";
 
 //////////////////////////////////////////////////////
 /// HOME PAGE COMPONENT
@@ -90,6 +91,16 @@ export default function Home() {
               />
               <span className="relative font-orbitron">Enter 0xArtcade</span>
             </div>
+          </Link>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className=""
+        >
+          <Link href="https://github.com/0xartcade/artcade" target="_blank">
+            <Button variant="ghost">Learn More</Button>
           </Link>
         </motion.div>
       </motion.div>
