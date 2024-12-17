@@ -8,13 +8,14 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { useCallback, useMemo } from "react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
+import { Skeleton } from "@/components/ui/skeleton";
 
 //////////////////////////////////////////////////////
 /// LEADERBOARD PAGE
 //////////////////////////////////////////////////////
 
 export default function LeaderboardPage() {
-  const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
+  const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery({
     queryKey: ["games"],
     queryFn: async ({ pageParam }) => {
       const response = await api.getGames({ offset: pageParam });
@@ -81,7 +82,7 @@ export default function LeaderboardPage() {
                 }
               />
             ))}
-
+            {isFetching && <Skeleton className="w-full h-44" />}
             {hasNextPage && (
               <div className="flex justify-center mt-6">
                 <Button variant="retro" onClick={onLoadMoreClick}>

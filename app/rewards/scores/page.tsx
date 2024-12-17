@@ -34,6 +34,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { useAccount } from "wagmi";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function ScoresPage() {
   const [selectedScores, setSelectedScores] = useState<Set<number>>(new Set());
@@ -43,7 +44,7 @@ export default function ScoresPage() {
   const { address, chainId } = useAccount();
   const queryClient = useQueryClient();
 
-  const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
+  const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery({
     queryKey: ["scores", user?.username],
     queryFn: async ({ pageParam }) => {
       const response = await api.getScores({ offset: pageParam });
@@ -376,6 +377,7 @@ export default function ScoresPage() {
                   />
                 </motion.div>
               ))}
+              {isFetching && <Skeleton className="w-full rounded-2xl h-32" />}
               {hasNextPage && (
                 <Button variant="outline" onClick={onLoadMoreClick}>
                   Load More

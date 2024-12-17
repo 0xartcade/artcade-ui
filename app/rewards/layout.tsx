@@ -9,7 +9,7 @@ export default function RewardsLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, initialized } = useAuth();
 
   const tabs = [
     { name: "Reward Center", href: "/rewards" },
@@ -21,10 +21,17 @@ export default function RewardsLayout({
 
   return (
     <>
-      <SubNav tabs={tabs} className="shadow-[0_0_25px_-5px] shadow-zinc-950 mb-4" />
+      <SubNav
+        tabs={tabs}
+        className="shadow-[0_0_25px_-5px] shadow-zinc-950 mb-4"
+      />
       <div className="page-layout">
         <div className="page-layout-inner">
-          {isAuthenticated ? children : <ConnectWalletPrompt />}
+          {isAuthenticated ? (
+            children
+          ) : initialized ? (
+            <ConnectWalletPrompt />
+          ) : null}
         </div>
       </div>
     </>

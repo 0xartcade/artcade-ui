@@ -67,7 +67,7 @@ export default function TicketsPage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="grid grid-cols-1 md:grid-cols-5 gap-8 h-[600px]"
+        className="grid grid-cols-1 lg:grid-cols-5 gap-8"
       >
         {/* Left Column - NFT Image */}
         <motion.div
@@ -75,7 +75,7 @@ export default function TicketsPage() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.2 }}
           className={cn(
-            "artcade-container-horizontal group md:col-span-2 h-full",
+            "artcade-container-horizontal group lg:col-span-2 h-96 lg:h-full",
             "relative overflow-hidden"
           )}
         >
@@ -86,7 +86,7 @@ export default function TicketsPage() {
             alt="0xArtcade Ticket"
             width={400}
             height={400}
-            className="w-full h-full object-cover rounded-2xl shadow-[0_0_15px_rgba(0,0,0,0.3)] ring-1 ring-white/10"
+            className="w-full h-full object-contain rounded-2xl shadow-[0_0_15px_rgba(0,0,0,0.3)] ring-1 ring-white/10"
             priority
           />
         </motion.div>
@@ -96,7 +96,7 @@ export default function TicketsPage() {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.3 }}
-          className="artcade-container-horizontal group relative overflow-hidden md:col-span-3 h-full"
+          className="artcade-container-horizontal group relative overflow-hidden lg:col-span-3 h-96 lg:h-full"
         >
           <div className="artcade-hover-gradient" />
           <div className="artcade-hover-sweep" />

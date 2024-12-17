@@ -61,7 +61,7 @@ function GamePlayPage() {
         {/* Page Content */}
         <div className="flex flex-col space-y-12 max-w-7xl mx-auto">
           {game && (
-            <div className="flex flex-col md:flex-row justify-center items-start gap-12">
+            <div className="flex flex-col items-center md:flex-row justify-center md:items-start gap-12">
               {/* Left Side - Instructions */}
               <div className="w-full md:w-[400px] hidden md:block">
                 <div className="flex flex-col space-y-4">
@@ -269,6 +269,14 @@ function GamePlayPage() {
                 </div>
               </div>
 
+              <Link
+                href={game.url}
+                target="_blank"
+                className="md:hidden flex justify-center"
+              >
+                <Button variant="retro">Play Now</Button>
+              </Link>
+
               {/* Right Side - iPhone Mock */}
               <div className="flex-1 flex justify-center max-w-[400px]">
                 <div className="artcade-container-vertical group relative h-[800px] aspect-[1/2] rounded-[85px]">
@@ -283,9 +291,9 @@ function GamePlayPage() {
                             {game.name}
                           </div>
 
-                          <div className="font-orbitron text-sm text-zinc-500 uppercase tracking-wider">
+                          {/* <div className="font-orbitron text-sm text-zinc-500 uppercase tracking-wider">
                             Powered by ArtGuessr
-                          </div>
+                          </div> */}
 
                           <div className="font-orbitron text-xl bg-gradient-to-r from-artcade-aqua to-artcade-purple bg-clip-text text-transparent uppercase tracking-wider">
                             Scan Code to Play
@@ -353,14 +361,6 @@ function GamePlayPage() {
                   </div>
                 </div>
               </div>
-
-              <Link
-                href={game.url}
-                target="_blank"
-                className="md:hidden flex justify-center"
-              >
-                <Button variant="retro">Play Now</Button>
-              </Link>
             </div>
           )}
         </div>

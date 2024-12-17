@@ -24,23 +24,24 @@ export function GameScore({
   return (
     <div
       className={cn(
-        "artcade-container-horizontal group h-32 relative overflow-hidden",
+        "artcade-container-horizontal group h-96 sm:h-32 relative overflow-hidden",
         isSelected && "border-white/20"
       )}
     >
       <div className="artcade-hover-gradient" />
       <div className="artcade-hover-sweep" />
       <div className="absolute inset-3 bg-zinc-900 rounded-2xl shadow-[0_0_15px_rgba(0,0,0,0.3)] ring-1 ring-white/10">
-        <div className="flex h-full">
+        <div className="flex flex-col items-center gap-y-4 text-center py-4 sm:py-0 sm:flex-row sm:h-full">
           {/* Selection overlay */}
           {isSelected && (
             <>
               <div className="absolute inset-0 bg-gradient-to-r from-artcade-aqua to-artcade-purple opacity-30" />
-              <div 
+              <div
                 className="absolute -top-1/2 -left-1/2 h-[200%] w-[200%]"
                 style={{
-                  background: 'linear-gradient(to bottom right, rgba(82, 219, 255, 0.4) 0%, rgba(118, 55, 254, 0.2) 50%, transparent 50%, transparent 100%)',
-                  transform: 'rotate(-45deg) translate(-50%, -50%)',
+                  background:
+                    "linear-gradient(to bottom right, rgba(82, 219, 255, 0.4) 0%, rgba(118, 55, 254, 0.2) 50%, transparent 50%, transparent 100%)",
+                  transform: "rotate(-45deg) translate(-50%, -50%)",
                 }}
               />
             </>
@@ -82,7 +83,7 @@ export function GameScore({
           </div>
 
           {/* Checkbox */}
-          <div className="relative flex-none w-16 flex items-center justify-center bg-zinc-900/60 backdrop-blur-sm rounded-xl ml-auto">
+          <div className="relative flex-none w-16 flex items-center justify-center bg-zinc-900/60 backdrop-blur-sm rounded-xl sm:ml-auto">
             <div
               className={cn(
                 "w-8 h-8 rounded-lg border-2 flex items-center justify-center transition-colors",

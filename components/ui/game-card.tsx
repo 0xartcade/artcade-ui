@@ -29,7 +29,7 @@ export function GameCard({
   return (
     <div
       className={cn(
-        "artcade-container-horizontal group h-44 relative overflow-hidden",
+        "artcade-container-horizontal group relative overflow-hidden",
         isSelected && "artcade-selected"
       )}
     >
@@ -38,7 +38,7 @@ export function GameCard({
       <div className="absolute inset-4 bg-zinc-900 rounded-2xl shadow-[0_0_15px_rgba(0,0,0,0.3)] ring-1 ring-white/10">
         <div className="flex h-full">
           {/* Game Icon/Thumbnail */}
-          <div className="relative flex-none w-52 h-full flex items-center justify-center bg-zinc-900/60 backdrop-blur-sm rounded-xl overflow-hidden p-3">
+          <div className="relative hidden md:flex min-w-52 h-full items-center justify-center bg-zinc-900/60 backdrop-blur-sm rounded-xl overflow-hidden p-3">
             {thumbnail ? (
               <Image
                 src={thumbnail}
@@ -62,20 +62,22 @@ export function GameCard({
                 </SubHeading2>
               </div>
               {collaborator && (
-                <span className=" text-xs uppercase tracking-wider px-2 py-1 rounded-full bg-artcade-aqua text-white flex-none">
+                <span className="hidden md:inline text-xs uppercase tracking-wider px-2 py-1 rounded-full bg-artcade-aqua text-white flex-none">
                   {collaborator}
                 </span>
               )}
-              <span className=" text-xs uppercase tracking-wider px-2 py-1 rounded-full bg-artcade-purple text-white flex-none">
+              <span className="hidden md:inline text-xs uppercase tracking-wider px-2 py-1 rounded-full bg-artcade-purple text-white flex-none">
                 {gameType}
               </span>
             </div>
-            <Paragraph
-              noMargin
-              className=" text-zinc-400 text-base leading-tight mt-2"
-            >
-              {description}
-            </Paragraph>
+            <div className="hidden md:block">
+              <Paragraph
+                noMargin
+                className="text-zinc-400 text-base leading-tight mt-2 line-clamp-3"
+              >
+                {description}
+              </Paragraph>
+            </div>
           </div>
 
           {/* Play Button */}

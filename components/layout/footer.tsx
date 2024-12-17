@@ -36,10 +36,13 @@ export function Footer({ className }: FooterProps) {
     <motion.footer
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className={cn("glass-panel border-t border-zinc-800/50 mt-auto", className)}
+      className={cn(
+        "glass-panel border-t border-zinc-800/50 mt-auto text-center",
+        className
+      )}
     >
       <div className="container mx-auto py-2">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="flex flex-col-reverse sm:flex-row items-center justify-between gap-4">
           <span className="artcade-text">
             © 2024 0xArtcade. All rights reserved.
           </span>
@@ -47,7 +50,7 @@ export function Footer({ className }: FooterProps) {
           <div className="flex flex-row items-center gap-6">
             <div className="flex items-center gap-6">
               {footerLinks.map((item) => (
-                <Link 
+                <Link
                   key={item.href}
                   href={item.href}
                   className={cn(
@@ -68,8 +71,8 @@ export function Footer({ className }: FooterProps) {
 
             <div className="flex items-center gap-2">
               {socialIcons.map(({ icon: Icon, href, label }) => (
-                <Link 
-                  key={label} 
+                <Link
+                  key={label}
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"

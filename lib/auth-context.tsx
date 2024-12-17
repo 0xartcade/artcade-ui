@@ -6,7 +6,6 @@ import {
   useState,
   ReactNode,
   useEffect,
-  useCallback,
 } from "react";
 import { User } from "./types";
 import { useAccount } from "wagmi";
@@ -16,9 +15,11 @@ import { signMessage } from "wagmi/actions";
 import { web3Config } from "./web3config";
 import { toast } from "sonner";
 import { ConnectWalletPrompt } from "@/components/ui/connect-wallet";
+import { PacmanLoader } from "react-spinners";
 
 interface AuthContextType {
   isAuthenticated: boolean;
+  initialized: boolean;
   user: User | null;
 }
 
@@ -145,7 +146,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [address, initialized]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, user }}>
+    <AuthContext.Provider value={{ isAuthenticated, initialized, user }}>
       {children}
     </AuthContext.Provider>
   );
@@ -161,10 +162,10 @@ export function useAuth() {
 
 export function withAuth<T extends object>(Component: React.ComponentType<T>) {
   return function AuthenticatedRoute(props: T) {
-    const { isAuthenticated } = useAuth();
+    const { isAuthenticated, initialized } = useAuth();
 
     if (!isAuthenticated) {
-      return <ConnectWalletPrompt />;
+      return initialized ? <ConnectWalletPrompt /> : null;
     }
 
     return <Component {...props} />;

@@ -6,6 +6,22 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { ConnectWalletButton } from "../ui/connect-button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
+import Button from "../ui/button";
+import {
+  Gamepad2Icon,
+  LayoutDashboardIcon,
+  MenuIcon,
+  TicketCheckIcon,
+  TicketIcon,
+  TrophyIcon,
+} from "lucide-react";
 
 export function Header() {
   const pathname = usePathname();
@@ -26,7 +42,7 @@ export function Header() {
     <motion.header
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      className="sticky top-0 z-40 bg-background/80 glass-panel border-b border-zinc-800/50"
+      className="sticky top-0 z-40 bg-background/80 glass-panel border-b border-zinc-800/50 px-4 lg:px-0"
     >
       <div className="container mx-auto py-4">
         <nav className="grid grid-cols-2 lg:grid-cols-3 items-center">
@@ -83,6 +99,49 @@ export function Header() {
             <div className="shrink-0">
               <ConnectWalletButton />
             </div>
+          </div>
+
+          <div className="lg:hidden ml-auto">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="icon">
+                  <MenuIcon className="stroke-foreground" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem>
+                  <Link href="/dashboard" className="flex gap-x-2 items-center">
+                    <LayoutDashboardIcon />
+                    Dashboard
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link
+                    href="/leaderboard"
+                    className="flex gap-x-2 items-center"
+                  >
+                    <TrophyIcon />
+                    Leaderboard
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/rewards" className="flex gap-x-2 items-center">
+                    <TicketIcon />
+                    Rewards
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/games" className="flex gap-x-2 items-center">
+                    <Gamepad2Icon />
+                    Play Now
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <ConnectWalletButton />
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </nav>
       </div>

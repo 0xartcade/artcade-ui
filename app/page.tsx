@@ -51,10 +51,10 @@ export default function Home() {
           className="flex flex-col items-center text-center space-y-8"
         >
           <div className="relative">
-            <div className="font-monoton text-7xl tracking-wider mb-3 text-center bg-clip-text text-transparent bg-gradient-to-r from-artcade-aqua to-artcade-purple uppercase">
+            <div className="font-monoton text-3xl md:text-7xl tracking-wider mb-3 text-center bg-clip-text text-transparent bg-gradient-to-r from-artcade-aqua to-artcade-purple uppercase">
               Welcome to
             </div>
-            <div className="font-monoton text-8xl tracking-wider text-center bg-clip-text text-transparent bg-gradient-to-r from-artcade-purple to-artcade-pink uppercase">
+            <div className="font-monoton text-5xl md:text-8xl tracking-wider text-center bg-clip-text text-transparent bg-gradient-to-r from-artcade-purple to-artcade-pink uppercase">
               0xArtcade
             </div>
             <div className="absolute inset-0 blur-3xl bg-gradient-to-r from-artcade-aqua via-artcade-purple to-artcade-pink opacity-20 -z-10" />

@@ -26,7 +26,7 @@ export function SubNav({ tabs, className }: SubNavProps) {
   const pathname = usePathname();
 
   return (
-    <div className="flex justify-center w-full">
+    <div className="flex justify-start sm:justify-center w-full overflow-x-auto text-center">
       <div
         className={cn(
           "inline-flex justify-center gap-4 px-12 py-4 rounded-2xl",
