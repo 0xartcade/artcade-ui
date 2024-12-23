@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
-import { withAuth } from "@/lib/auth-context";
+import { useAuth } from "@/lib/auth-context";
 
 //////////////////////////////////////////////////////
 /// DASHBOARD PAGE
@@ -29,6 +29,7 @@ const textGradientPairs = [
 ];
 
 function DashboardPage() {
+  const { isAuthenticated } = useAuth();
   const { data: featuredGame } = useQuery({
     queryKey: ["game", 1],
     queryFn: async () => {
@@ -97,8 +98,9 @@ function DashboardPage() {
                 name={featuredGame.name}
                 description={featuredGame.description}
                 gameType="Art"
-                url={`/games/${featuredGame.id}/play`}
+                url={isAuthenticated ? `/games/${featuredGame.id}/play` : undefined}
                 thumbnail="/games/thumbnail_game01.jpg"
+                requiresAuth={!isAuthenticated}
               />
             )}
           </motion.div>
@@ -126,23 +128,23 @@ function DashboardPage() {
                   href: "/leaderboard",
                   icon: TrophyIcon,
                   title: "Leaderboard",
-                  caption: "Check your ranking",
+                  caption: "Check your ranking"
                 },
                 {
                   href: "/rewards",
                   icon: GiftIcon,
                   title: "Rewards",
-                  caption: "View rewards",
+                  caption: "View rewards"
                 },
                 {
                   href: "/games",
                   icon: Gamepad2Icon,
                   title: "Play Now",
-                  caption: "Start gaming",
+                  caption: "Start gaming"
                 },
               ].map((action, index) => (
                 <Link
-                  key={action.href}
+                  key={action.title}
                   href={action.href}
                   className="group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 rounded-2xl"
                 >
@@ -190,7 +192,7 @@ function DashboardPage() {
                         >
                           {action.title}
                         </h3>
-                        <p className=" text-sm text-zinc-400 uppercase tracking-wider text-center">
+                        <p className="text-sm text-zinc-400 uppercase tracking-wider text-center">
                           {action.caption}
                         </p>
                       </div>
@@ -206,4 +208,4 @@ function DashboardPage() {
   );
 }
 
-export default withAuth(DashboardPage);
+export default DashboardPage;
