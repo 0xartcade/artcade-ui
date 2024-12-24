@@ -110,7 +110,7 @@
            shadow-[0_0_25px_-5px] shadow-zinc-950
            border border-white/5 rounded-2xl
            ring-1 ring-white/5
-           flex flex-col items-center justify-center gap-4 p-8;
+           flex flex-col items-center gap-4 p-4;
   }
 
   .artcade-container-square {

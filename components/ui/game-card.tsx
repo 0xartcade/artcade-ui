@@ -5,6 +5,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { ConnectWalletButton } from "./connect-button";
+import { useAuth } from "@/lib/auth-context";
 
 interface GameCardProps {
   name: string;
@@ -29,6 +30,30 @@ export function GameCard({
   isSelected,
   requiresAuth,
 }: GameCardProps) {
+  const { isAuthenticated } = useAuth();
+
+  const renderButton = () => {
+    if (requiresAuth && !isAuthenticated) {
+      return <ConnectWalletButton />;
+    }
+
+    if (!url) {
+      return (
+        <Button variant="retro" size="lg" className="font-orbitron w-36 opacity-50" disabled>
+          COMING SOON
+        </Button>
+      );
+    }
+
+    return (
+      <Link href={url}>
+        <Button variant="retro" size="lg" className="font-orbitron w-36">
+          {ctaName}
+        </Button>
+      </Link>
+    );
+  };
+
   return (
     <div
       className={cn(
@@ -85,28 +110,7 @@ export function GameCard({
 
           {/* Play Button */}
           <div className="relative h-full flex items-center justify-center px-8">
-            {requiresAuth ? (
-              <ConnectWalletButton />
-            ) : url ? (
-              <Link href={url}>
-                <Button
-                  variant="retro"
-                  size="lg"
-                  className="font-orbitron w-36"
-                >
-                  {ctaName}
-                </Button>
-              </Link>
-            ) : (
-              <Button
-                variant="retro"
-                size="lg"
-                className="font-orbitron w-36 opacity-50"
-                disabled
-              >
-                COMING SOON
-              </Button>
-            )}
+            {renderButton()}
           </div>
         </div>
       </div>
