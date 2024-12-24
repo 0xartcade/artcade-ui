@@ -89,7 +89,6 @@
   .artcade-container {
     @apply relative overflow-hidden transition-all duration-300
            bg-zinc-900/50 backdrop-blur-sm
-           shadow-[0_0_25px_-5px] shadow-zinc-950
            border border-white/5 rounded-2xl
            ring-1 ring-white/5;
   }
@@ -98,7 +97,6 @@
   .artcade-container-horizontal {
     @apply relative overflow-hidden transition-all duration-300
            bg-zinc-900/50 backdrop-blur-sm
-           shadow-[0_0_25px_-5px] shadow-zinc-950
            border border-white/5 rounded-2xl
            ring-1 ring-white/5
            flex items-stretch gap-4 p-4 h-44;
@@ -107,7 +105,6 @@
   .artcade-container-vertical {
     @apply relative overflow-hidden transition-all duration-300
            bg-zinc-900/50 backdrop-blur-sm
-           shadow-[0_0_25px_-5px] shadow-zinc-950
            border border-white/5 rounded-2xl
            ring-1 ring-white/5
            flex flex-col items-center gap-4 p-4;
@@ -116,7 +113,6 @@
   .artcade-container-square {
     @apply relative overflow-hidden transition-all duration-300
            bg-zinc-900/50 backdrop-blur-sm
-           shadow-[0_0_25px_-5px] shadow-zinc-950
            border border-white/5 rounded-2xl
            ring-1 ring-white/5
            aspect-square;

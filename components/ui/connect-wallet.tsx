@@ -3,7 +3,7 @@ import { Wallet } from "lucide-react";
 
 export function ConnectWalletPrompt() {
   return (
-    <div className="flex flex-col items-center pt-15">
+    <div className="flex flex-col items-center pt-24">
       <div className="relative w-full max-w-lg">
         <div className="artcade-container-vertical group p-3">
           <div className="artcade-hover-gradient" />
