@@ -7,20 +7,8 @@ import {
   shapeSepolia,
 } from 'wagmi/chains';
 import { isTestnet } from './config';
-import { createStorage } from 'wagmi';
 
 const alchemyId = process.env.NEXT_PUBLIC_ALCHEMY_ID;
-
-// Create storage with proper this binding for localStorage
-const storage = createStorage({
-  storage: typeof window !== 'undefined' 
-    ? {
-        getItem: (key) => window.localStorage.getItem(key),
-        setItem: (key, value) => window.localStorage.setItem(key, value),
-        removeItem: (key) => window.localStorage.removeItem(key),
-      }
-    : undefined
-});
 
 const defaultConfig = getDefaultConfig({
   appName: '0xArtcade',
@@ -38,7 +26,6 @@ const defaultConfig = getDefaultConfig({
   },
   chains: isTestnet ? [shapeSepolia, sepolia] : [shape, mainnet],
   ssr: true,
-  storage,
 });
 
 export const ensChain = mainnet;
