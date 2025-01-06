@@ -23,7 +23,7 @@ export default function RewardsLayout({
     <>
       <SubNav
         tabs={tabs}
-        className="shadow-[0_0_25px_-5px] shadow-zinc-950 mb-4"
+        className="mb-4"
       />
       <div className="page-layout">
         <div className="page-layout-inner">

@@ -4,6 +4,8 @@ import Button from "./button";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { ConnectWalletButton } from "./connect-button";
+import { useAuth } from "@/lib/auth-context";
 
 interface GameCardProps {
   name: string;
@@ -14,6 +16,7 @@ interface GameCardProps {
   ctaName?: string;
   thumbnail?: string;
   isSelected?: boolean;
+  requiresAuth?: boolean;
 }
 
 export function GameCard({
@@ -25,7 +28,32 @@ export function GameCard({
   ctaName = "Play Now",
   thumbnail,
   isSelected,
+  requiresAuth,
 }: GameCardProps) {
+  const { isAuthenticated } = useAuth();
+
+  const renderButton = () => {
+    if (requiresAuth && !isAuthenticated) {
+      return <ConnectWalletButton />;
+    }
+
+    if (!url) {
+      return (
+        <Button variant="retro" size="lg" className="font-orbitron w-36 opacity-50" disabled>
+          COMING SOON
+        </Button>
+      );
+    }
+
+    return (
+      <Link href={url}>
+        <Button variant="retro" size="lg" className="font-orbitron w-36">
+          {ctaName}
+        </Button>
+      </Link>
+    );
+  };
+
   return (
     <div
       className={cn(
@@ -57,7 +85,7 @@ export function GameCard({
           <div className="relative flex-1 flex flex-col justify-center min-w-0 py-2 px-8">
             <div className="flex items-center gap-4">
               <div>
-                <SubHeading2 className="font-orbitron text-white tracking-wide uppercase leading-none">
+                <SubHeading2 className="font-orbitron text-xl text-white tracking-wide uppercase leading-none">
                   {name}
                 </SubHeading2>
               </div>
@@ -82,26 +110,7 @@ export function GameCard({
 
           {/* Play Button */}
           <div className="relative h-full flex items-center justify-center px-8">
-            {url ? (
-              <Link href={url}>
-                <Button
-                  variant="retro"
-                  size="lg"
-                  className="font-orbitron w-36"
-                >
-                  {ctaName}
-                </Button>
-              </Link>
-            ) : (
-              <Button
-                variant="retro"
-                size="lg"
-                className="font-orbitron w-36 opacity-50"
-                disabled
-              >
-                COMING SOON
-              </Button>
-            )}
+            {renderButton()}
           </div>
         </div>
       </div>

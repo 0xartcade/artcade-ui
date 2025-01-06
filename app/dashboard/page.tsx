@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
-import { withAuth } from "@/lib/auth-context";
+import { useAuth } from "@/lib/auth-context";
 
 //////////////////////////////////////////////////////
 /// DASHBOARD PAGE
@@ -29,6 +29,7 @@ const textGradientPairs = [
 ];
 
 function DashboardPage() {
+  const { isAuthenticated } = useAuth();
   const { data: featuredGame } = useQuery({
     queryKey: ["game", 1],
     queryFn: async () => {
@@ -46,19 +47,70 @@ function DashboardPage() {
       <div className="page-layout-inner">
         {/* Page Header */}
         <div className="flex flex-col items-center text-center space-y-4 mb-12">
-          <div className="relative">
-            <SubHeading className="font-orbitron text-xl text-white uppercase tracking-widest">
-              Dashboard
-            </SubHeading>
-            <motion.div
-              layoutId="sectionUnderline"
-              className="absolute -bottom-2 left-0 right-0 h-px bg-gradient-to-r from-artcade-aqua to-artcade-purple"
-            />
-          </div>
         </div>
 
         {/* Page Content */}
         <div className="flex flex-col space-y-12 max-w-4xl mx-auto">
+          {/* Welcome Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="w-full"
+          >
+            <div className="artcade-container-vertical group relative">
+              <div className="artcade-hover-gradient" />
+              <div className="artcade-hover-sweep" />
+              <div className="bg-zinc-900 rounded-2xl shadow-[0_0_15px_rgba(0,0,0,0.3)] ring-1 ring-white/10">
+                <div className="flex flex-col items-center text-center gap-8 p-8">
+                  {/* Main Welcome Text */}
+                  <div className="max-w-2xl">
+                    <SubHeading className="font-orbitron text-2xl bg-gradient-to-r from-artcade-aqua via-artcade-purple to-artcade-pink bg-clip-text text-transparent uppercase tracking-wider mb-4">
+                      Welcome to 0xArtcade
+                    </SubHeading>
+                    <p className="text-zinc-300 text-lg leading-relaxed">
+                      Play art-focused games, climb leadboards, earn rewards and exchange for NFTs and other rewards.
+                    </p>
+                  </div>
+
+                  {/* How It Works Steps */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
+                    {[
+                      {
+                        title: "Choose Game",
+                        description: "Browse art-focused games, each testing different aspects of your Web3 knowledge.",
+                        gradient: "from-artcade-aqua to-artcade-purple"
+                      },
+                      {
+                        title: "Play & Score",
+                        description: "Play the game, submit your score, and climb the on-chain leaderboards.",
+                        gradient: "from-artcade-purple to-artcade-pink"
+                      },
+                      {
+                        title: "Claim Rewards",
+                        description: "Claim tickets, exchange for crates, and unlock exclusive NFTs and rewards.",
+                        gradient: "from-artcade-pink to-artcade-aqua"
+                      }
+                    ].map((step, index) => (
+                      <div key={step.title} className="flex flex-col items-center text-center p-6 rounded-xl bg-zinc-900/50 border border-zinc-800/50">
+                        <div className="w-10 h-10 rounded-full bg-gradient-to-r from-artcade-aqua to-artcade-purple flex items-center justify-center mb-4">
+                          <span className="font-orbitron text-lg text-white">
+                            {index + 1}
+                          </span>
+                        </div>
+                        <h3 className={`font-orbitron text-lg uppercase tracking-wider bg-gradient-to-r ${step.gradient} bg-clip-text text-transparent mb-2`}>
+                          {step.title}
+                        </h3>
+                        <p className="text-zinc-400 text-sm leading-relaxed">
+                          {step.description}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
           {/* Featured Game Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -97,8 +149,9 @@ function DashboardPage() {
                 name={featuredGame.name}
                 description={featuredGame.description}
                 gameType="Art"
-                url={`/games/${featuredGame.id}/play`}
+                url={isAuthenticated ? `/games/${featuredGame.id}/play` : undefined}
                 thumbnail="/games/thumbnail_game01.jpg"
+                requiresAuth={!isAuthenticated}
               />
             )}
           </motion.div>
@@ -126,23 +179,23 @@ function DashboardPage() {
                   href: "/leaderboard",
                   icon: TrophyIcon,
                   title: "Leaderboard",
-                  caption: "Check your ranking",
+                  caption: "Check your ranking"
                 },
                 {
                   href: "/rewards",
                   icon: GiftIcon,
                   title: "Rewards",
-                  caption: "View rewards",
+                  caption: "View rewards"
                 },
                 {
                   href: "/games",
                   icon: Gamepad2Icon,
                   title: "Play Now",
-                  caption: "Start gaming",
+                  caption: "Start gaming"
                 },
               ].map((action, index) => (
                 <Link
-                  key={action.href}
+                  key={action.title}
                   href={action.href}
                   className="group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 rounded-2xl"
                 >
@@ -190,7 +243,7 @@ function DashboardPage() {
                         >
                           {action.title}
                         </h3>
-                        <p className=" text-sm text-zinc-400 uppercase tracking-wider text-center">
+                        <p className="text-sm text-zinc-400 uppercase tracking-wider text-center">
                           {action.caption}
                         </p>
                       </div>
@@ -206,4 +259,4 @@ function DashboardPage() {
   );
 }
 
-export default withAuth(DashboardPage);
+export default DashboardPage;
