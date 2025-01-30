@@ -59,3 +59,41 @@ export type Paginated<T> = {
   previous: string;
   results: T[];
 }
+
+export interface Question {
+  id: number;
+  gameplay_id: number;
+  token_id: number;
+  image_url: string;
+  blurhash: string;
+  color: string;
+  title_options: string[],
+  artist_options: string[],
+  supply_options: number[],
+  season_options: number[],
+}
+
+export interface RevealedQuestion extends Question {
+  title: string;
+  artist: string;
+  supply: number;
+  season: number;
+  title_answer: string;
+  artist_answer: string;
+  supply_answer: number;
+  season_answer: number;
+  score: number;
+}
+
+export interface Answer {
+  title: string | null;
+  artist: string | null;
+  season: number | null;
+  supply: number | null;
+}
+
+export interface GameplayResult {
+  id: number;
+  total_score: number;
+  questions: RevealedQuestion[];
+}

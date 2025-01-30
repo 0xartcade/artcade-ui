@@ -130,11 +130,11 @@ export default function TicketsPage() {
                 <div className="font-orbitron text-xl text-white uppercase tracking-wider font-bold mb-8">
                   # of Tickets
                 </div>
-                <Link href="./crates">
+                {/* <Link href="./crates">
                   <Button variant="retro" size="lg" className="font-orbitron">
                     Redeem Tickets
                   </Button>
-                </Link>
+                </Link> */}
               </div>
             </div>
           </div>

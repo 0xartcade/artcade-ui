@@ -15,16 +15,13 @@ export default function RewardsLayout({
     { name: "Reward Center", href: "/rewards" },
     { name: "Scores", href: "/rewards/scores" },
     { name: "Tickets", href: "/rewards/tickets" },
-    { name: "Crates", href: "/rewards/crates" },
-    { name: "Vault", href: "/rewards/vault" },
+    // { name: "Crates", href: "/rewards/crates" },
+    // { name: "Vault", href: "/rewards/vault" },
   ];
 
   return (
     <>
-      <SubNav
-        tabs={tabs}
-        className="mb-4"
-      />
+      <SubNav tabs={tabs} className="mb-4" />
       <div className="page-layout">
         <div className="page-layout-inner">
           {isAuthenticated ? (

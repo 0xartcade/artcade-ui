@@ -55,14 +55,15 @@ function GamesPage() {
             <SubHeading className="font-orbitron text-xl text-white uppercase tracking-widest">
               Select a game to play!
             </SubHeading>
-            <motion.div 
+            <motion.div
               layoutId="sectionUnderline"
               className="absolute -bottom-2 left-0 right-0 h-px bg-gradient-to-r from-artcade-aqua to-artcade-purple"
             />
           </div>
           <div className="max-w-2xl">
             <Paragraph className="artcade-text">
-              Choose from our collection of blockchain-powered games and start earning rewards.
+              Choose from our collection of blockchain-powered games and start
+              earning rewards.
             </Paragraph>
           </div>
         </div>
@@ -70,7 +71,7 @@ function GamesPage() {
         {/* Page Content */}
         <div className="flex flex-col space-y-12 max-w-4xl mx-auto">
           {/* Games List Section */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
@@ -91,11 +92,13 @@ function GamesPage() {
                   name={game.name}
                   description={game.description}
                   gameType="Art"
-                  url={`/games/${game.id}/play`}
-                  thumbnail={game.id === 1 ? "/games/thumbnail_game01.jpg" : undefined}
+                  url={game.url}
+                  thumbnail={
+                    game.id === 1 ? "/games/thumbnail_game01.jpg" : undefined
+                  }
                 />
               ))}
-              <GameCard
+              {/* <GameCard
                 name="Click to Create"
                 description="Test your knowledge of Click Create's curated collection. Identify artists, curators, mint dates, and themes from their unique digital art pieces."
                 gameType="Art"
@@ -104,7 +107,7 @@ function GamesPage() {
                 name="SuperSales"
                 description="SuperRare is one of the oldest and most prestigious curators of digital art. Test your knowledge of the biggest sales on the platform."
                 gameType="Art"
-              />
+              /> */}
               {hasNextPage && (
                 <div className="flex justify-center mt-6">
                   <Button variant="retro" onClick={onLoadMoreClick}>

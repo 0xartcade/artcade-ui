@@ -397,7 +397,7 @@ export default function ScoresPage() {
             <Paragraph className="font-orbitron text-sm text-white">
               Looks like you haven&apos;t played any games!
             </Paragraph>
-            <Link href="/games">
+            <Link href="/leaderboard">
               <Button variant="retro">Veiw Leaderboards</Button>
             </Link>
             <Link href="/games">

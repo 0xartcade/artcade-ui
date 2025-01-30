@@ -46,8 +46,7 @@ function DashboardPage() {
     <div className="page-layout">
       <div className="page-layout-inner">
         {/* Page Header */}
-        <div className="flex flex-col items-center text-center space-y-4 mb-12">
-        </div>
+        <div className="flex flex-col items-center text-center space-y-4 mb-12"></div>
 
         {/* Page Content */}
         <div className="flex flex-col space-y-12 max-w-4xl mx-auto">
@@ -68,7 +67,8 @@ function DashboardPage() {
                       Welcome to 0xArtcade
                     </SubHeading>
                     <p className="text-zinc-300 text-lg leading-relaxed">
-                      Play art-focused games, climb leadboards, earn rewards and exchange for NFTs and other rewards.
+                      Play art-focused games, climb leadboards, earn rewards and
+                      exchange for NFTs and other rewards.
                     </p>
                   </div>
 
@@ -77,27 +77,35 @@ function DashboardPage() {
                     {[
                       {
                         title: "Choose Game",
-                        description: "Browse art-focused games, each testing different aspects of your Web3 knowledge.",
-                        gradient: "from-artcade-aqua to-artcade-purple"
+                        description:
+                          "Browse art-focused games, each testing different aspects of your Web3 knowledge.",
+                        gradient: "from-artcade-aqua to-artcade-purple",
                       },
                       {
                         title: "Play & Score",
-                        description: "Play the game, submit your score, and climb the on-chain leaderboards.",
-                        gradient: "from-artcade-purple to-artcade-pink"
+                        description:
+                          "Play the game, submit your score, and climb the on-chain leaderboards.",
+                        gradient: "from-artcade-purple to-artcade-pink",
                       },
                       {
                         title: "Claim Rewards",
-                        description: "Claim tickets, exchange for crates, and unlock exclusive NFTs and rewards.",
-                        gradient: "from-artcade-pink to-artcade-aqua"
-                      }
+                        description:
+                          "Claim tickets, exchange for crates, and unlock exclusive NFTs and rewards.",
+                        gradient: "from-artcade-pink to-artcade-aqua",
+                      },
                     ].map((step, index) => (
-                      <div key={step.title} className="flex flex-col items-center text-center p-6 rounded-xl bg-zinc-900/50 border border-zinc-800/50">
+                      <div
+                        key={step.title}
+                        className="flex flex-col items-center text-center p-6 rounded-xl bg-zinc-900/50 border border-zinc-800/50"
+                      >
                         <div className="w-10 h-10 rounded-full bg-gradient-to-r from-artcade-aqua to-artcade-purple flex items-center justify-center mb-4">
                           <span className="font-orbitron text-lg text-white">
                             {index + 1}
                           </span>
                         </div>
-                        <h3 className={`font-orbitron text-lg uppercase tracking-wider bg-gradient-to-r ${step.gradient} bg-clip-text text-transparent mb-2`}>
+                        <h3
+                          className={`font-orbitron text-lg uppercase tracking-wider bg-gradient-to-r ${step.gradient} bg-clip-text text-transparent mb-2`}
+                        >
                           {step.title}
                         </h3>
                         <p className="text-zinc-400 text-sm leading-relaxed">
@@ -149,7 +157,7 @@ function DashboardPage() {
                 name={featuredGame.name}
                 description={featuredGame.description}
                 gameType="Art"
-                url={isAuthenticated ? `/games/${featuredGame.id}/play` : undefined}
+                url={isAuthenticated ? featuredGame.url : undefined}
                 thumbnail="/games/thumbnail_game01.jpg"
                 requiresAuth={!isAuthenticated}
               />
@@ -179,19 +187,19 @@ function DashboardPage() {
                   href: "/leaderboard",
                   icon: TrophyIcon,
                   title: "Leaderboard",
-                  caption: "Check your ranking"
+                  caption: "Check your ranking",
                 },
                 {
                   href: "/rewards",
                   icon: GiftIcon,
                   title: "Rewards",
-                  caption: "View rewards"
+                  caption: "View rewards",
                 },
                 {
                   href: "/games",
                   icon: Gamepad2Icon,
                   title: "Play Now",
-                  caption: "Start gaming"
+                  caption: "Start gaming",
                 },
               ].map((action, index) => (
                 <Link
