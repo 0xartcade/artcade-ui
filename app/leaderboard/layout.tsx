@@ -16,7 +16,7 @@ export default function LeaderboardLayout({
     <>
       <SubNav
         tabs={tabs}
-        className="shadow-[0_0_25px_-5px] shadow-zinc-950 mb-4"
+        className="mb-4"
       />
       <div className="page-container p-6">{children}</div>
     </>

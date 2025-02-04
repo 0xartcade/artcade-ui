@@ -1,5 +1,5 @@
 import { isTestnet } from "./config";
-import { ApiResponse, Game, LeaderboardEntry, LoginData, Paginated, Score, SignedScore, User } from "./types";
+import { Answer, ApiResponse, Game, GameplayResult, LeaderboardEntry, LoginData, Paginated, Question, RevealedQuestion, Score, SignedScore, User } from "./types";
 import { getCookie, setCookie, deleteCookie } from 'cookies-next/client';
 
 const baseUrl = isTestnet ? 'https://api-dev.0xartcade.xyz' : 'https://api.0xartcade.xyz';
@@ -275,6 +275,87 @@ async function getLeaderboard(gameId: number, { limit = 100, offset = 0 }: { lim
   }
 }
 
+async function startKYMGameplay(): Promise<ApiResponse<{ id: number }>> {
+  const r = await apiFetch("/kym/gameplay", { method: "POST" });
+
+  if (!r.ok) {
+    return {
+      success: false,
+      data: null,
+      error: "Something went wrong"
+    }
+  } else {
+    return {
+      success: true,
+      data: await r.json(),
+      error: ""
+    }
+  }
+}
+
+async function getKYMQuestion(gameplayId: number): Promise<ApiResponse<Question>> {
+  const r = await apiFetch(`/kym/gameplay/${gameplayId}/question`, { method: "POST" });
+
+  if (!r.ok) {
+    return {
+      success: false,
+      data: null,
+      error: "Something went wrong"
+    }
+  } else {
+    return {
+      success: true,
+      data: await r.json(),
+      error: ""
+    }
+  }
+}
+
+async function submitKYMQuestion(questionId: number, answer: Answer): Promise<ApiResponse<RevealedQuestion>> {
+  const r = await apiFetch(`/kym/question/${questionId}/submit`, {
+    method: "POST", body: JSON.stringify({
+      title: answer.title || "wrong",
+      artist: answer.artist || "wrong",
+      season: answer.season || 0,
+      supply: answer.supply || 0
+    })
+  });
+
+  if (!r.ok) {
+    return {
+      success: false,
+      data: null,
+      error: "Something went wrong"
+    }
+  } else {
+    return {
+      success: true,
+      data: await r.json(),
+      error: ""
+    }
+  }
+}
+
+async function submitKYMGameplay(gameplayId: number): Promise<ApiResponse<GameplayResult>> {
+  const r = await apiFetch(`/kym/gameplay/${gameplayId}/submit`, {
+    method: "POST"
+  });
+
+  if (!r.ok) {
+    return {
+      success: false,
+      data: null,
+      error: "Something went wrong"
+    }
+  } else {
+    return {
+      success: true,
+      data: await r.json(),
+      error: ""
+    }
+  }
+}
+
 export const api = {
   getUserInfo,
   getNonce,
@@ -286,5 +367,9 @@ export const api = {
   getScores,
   signScores,
   deletedScores,
-  getLeaderboard
+  getLeaderboard,
+  startKYMGameplay,
+  getKYMQuestion,
+  submitKYMQuestion,
+  submitKYMGameplay
 }

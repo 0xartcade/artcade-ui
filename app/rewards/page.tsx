@@ -36,20 +36,20 @@ function RewardsPage() {
       title: "Tickets",
       description: "Accumulate tickets and climb our global leaderboard",
     },
-    {
-      href: "/rewards/crates",
-      icon: Package,
-      title: "Crates",
-      description:
-        "Redeem your tickets for crates filled with NFTs from your favourite artist",
-    },
-    {
-      href: "/rewards/vault",
-      icon: Vault,
-      title: "Vault",
-      description:
-        "View your collected items including your tickets, crates, and revealed art",
-    },
+    // {
+    //   href: "/rewards/crates",
+    //   icon: Package,
+    //   title: "Crates",
+    //   description:
+    //     "Redeem your tickets for crates filled with NFTs from your favourite artist",
+    // },
+    // {
+    //   href: "/rewards/vault",
+    //   icon: Vault,
+    //   title: "Vault",
+    //   description:
+    //     "View your collected items including your tickets, crates, and revealed art",
+    // },
   ];
 
   return (
